@@ -1,5 +1,9 @@
 @tool
-extends EditorPlugin
+extends Node
+
+class_name BaseBehaviorTreeNode
+
+@export var node_name: String = "Base Node"
 
 
 func _enter_tree():
