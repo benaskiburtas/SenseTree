@@ -10,4 +10,3 @@ func _get_configuration_warnings() -> PackedStringArray:
 		configuration_warnings.push_back(
 			"Expected leaf node to not have child nodes, found %d child nodes" % child_count)
 	return configuration_warnings
-	
