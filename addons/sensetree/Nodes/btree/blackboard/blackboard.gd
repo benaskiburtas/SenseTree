@@ -2,7 +2,6 @@
 class_name SenseTreeBlackboard extends Node
 
 var data: Dictionary = {}
-var mutex: Mutex = new Mutex()
 
 func set_value(key: String, value) -> void:
 	data[key] = value
