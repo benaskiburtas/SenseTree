@@ -1,5 +1,5 @@
 @tool
-@icon("../../../icons/selector.svg")
+@icon("../../icons/selector.svg")
 class_name SenseTreeSelectorComposite
 extends SenseTreeCompositeNode
 
