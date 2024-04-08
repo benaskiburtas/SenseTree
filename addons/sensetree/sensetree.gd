@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 const PLUGIN_NAME: String = "SenseTree"
-const PLUGIN_ICON: Resource = preload("res://addons/sensetree/btree/icons/selector.svg")
+const PLUGIN_ICON: Resource = preload("res://addons/sensetree/btree/icons/Tree.svg")
 const TREE_VISUALIZER: Resource = preload("res://addons/sensetree/tree_visualizer/tree_visualizer.gd")
 
 var _tree_visualizer_instance: SenseTreeVisualizer

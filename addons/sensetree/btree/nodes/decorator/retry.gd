@@ -1,5 +1,5 @@
 @tool
-@icon("../../icons/placeholder.svg")
+@icon("res://addons/sensetree/btree/icons/Retry.svg")
 class_name SenseTreeRetryDecorator
 extends SenseTreeDecorator
 

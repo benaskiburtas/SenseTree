@@ -1,6 +1,7 @@
 @tool
-@icon("../../icons/placeholder.svg")
-class_name SenseTreeBlackboard extends Node
+@icon("res://addons/sensetree/btree/icons/Blackboard.svg")
+class_name SenseTreeBlackboard
+extends Node
 
 var data: Dictionary = {}
 

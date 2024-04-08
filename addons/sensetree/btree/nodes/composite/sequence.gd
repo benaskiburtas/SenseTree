@@ -1,5 +1,5 @@
 @tool
-@icon("../../icons/sequence.svg")
+@icon("res://addons/sensetree/btree/icons/Sequence.svg")
 class_name SenseTreeSequenceComposite
 extends SenseTreeCompositeNode
 

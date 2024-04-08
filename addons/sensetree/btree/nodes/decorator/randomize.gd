@@ -1,5 +1,5 @@
 @tool
-@icon("../../icons/placeholder.svg")
+@icon("res://addons/sensetree/btree/icons/Randomize.svg")
 class_name SenseTreeRandomizeDecorator
 extends SenseTreeDecorator
 

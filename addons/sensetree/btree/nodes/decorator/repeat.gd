@@ -1,5 +1,5 @@
 @tool
-@icon("../../icons/placeholder.svg")
+@icon("res://addons/sensetree/btree/icons/Repeat.svg")
 class_name SenseTreeRepeatDecorator
 extends SenseTreeDecorator
 
