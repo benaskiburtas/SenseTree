@@ -10,7 +10,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	for child_node in get_children():
 		if not (child_node is SenseTreeNode):
 			configuration_warnings.push_back(
-				"All child nodes should be of SenseTreeNode type,
+				"Child nodes should be of SenseTreeNode type,
 				found node of type %s."
 				% typeof(child_node))
 	return configuration_warnings

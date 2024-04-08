@@ -1,6 +1,6 @@
 @tool
 @icon("../../icons/placeholder.svg")
-class_name SenseTreeRoot
+class_name SenseTree
 extends SenseTreeNode
 
 enum TickProcessMode {
@@ -9,21 +9,23 @@ enum TickProcessMode {
 }
 
 @export var is_enabled: bool = true:
-	set(is_enabled):
-		self.is_enabled = is_enabled
+	set(new_is_enabled):
+		is_enabled = new_is_enabled
 		setup_process_modes()
 		
 @export var actor: Node:
-	set(actor):
-		self.actor = actor
-		if not self.actor:
+	set(new_actor):
+		actor = new_actor
+		if not actor:
 			set_default_actor()
 		
 @export var blackboard: SenseTreeBlackboard:
-	set(blackboard):
-		set_new_blackboard(blackboard)
-	get:
-		return get_blackboard()
+	set(new_blackboard):
+		if blackboard:
+			blackboard.free()
+		blackboard = new_blackboard
+		if not blackboard:
+			blackboard = create_default_blackboard()
 			
 @export var tick_process_mode: TickProcessMode = TickProcessMode.PHYSICS
 @export_range(0, 100) var ticks_per_frame: int = 1
@@ -35,13 +37,17 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings: PackedStringArray = super._get_configuration_warnings()
 	var child_count = get_child_count()
 	if child_count != 1:
-		configuration_warnings.push_back("Behavior tree should have a single child node")
+		configuration_warnings.push_back("Behavior tree should have a single child node.")
+	else:
+		var child_node = get_child(0)
+		if child_node is SenseTree:
+			configuration_warnings.push_back("Behavior trees should not be nested.")
 	
 	if tick_process_mode == null:
-		configuration_warnings.push_back("Tick process mode should be set")
+		configuration_warnings.push_back("Tick process mode should be set.")
 		
 	if actor == null:
-		configuration_warnings.push_back("Behavior tree should have an assigned actor")
+		configuration_warnings.push_back("Behavior tree should have an assigned actor.")
 		
 	return configuration_warnings
 
@@ -49,10 +55,9 @@ func _ready() -> void:
 	if not actor:
 		set_default_actor()
 	if not blackboard:
-		set_new_blackboard(create_default_blackboard())
+		blackboard = create_default_blackboard()
 	
 	setup_process_modes()
-	
 	tick_count = ticks_per_frame - randi_range(0, ticks_per_frame)
 	
 func _process(delta):
@@ -61,7 +66,7 @@ func _process(delta):
 	
 	if not is_enabled:
 		return
-		
+	
 	tick(actor, blackboard)
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
@@ -75,18 +80,6 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 
 func set_default_actor() -> void:
 	actor = get_parent()
-
-func set_new_blackboard(new_blackboard: SenseTreeBlackboard) -> void:
-	if blackboard:
-		blackboard.free()
-	blackboard = new_blackboard
-	if not blackboard:
-		blackboard = create_default_blackboard()
-
-func get_blackboard() -> SenseTreeBlackboard:
-	if not blackboard:
-		blackboard = create_default_blackboard()
-	return blackboard
 
 func create_default_blackboard() -> SenseTreeBlackboard:
 	return SenseTreeBlackboard.new()
