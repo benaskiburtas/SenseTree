@@ -12,7 +12,10 @@ func _get_configuration_warnings() -> PackedStringArray:
 			configuration_warnings.push_back(
 				"Child nodes should be of SenseTreeNode type,
 				found node of type %s."
-				% typeof(child_node))
+				% child_node.get_class())
+		if child_node is SenseTree:
+			configuration_warnings.push_back(
+				"Behavior trees should not be nested.")
 	return configuration_warnings
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:

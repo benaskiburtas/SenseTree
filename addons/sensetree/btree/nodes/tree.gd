@@ -38,10 +38,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var child_count = get_child_count()
 	if child_count != 1:
 		configuration_warnings.push_back("Behavior tree should have a single child node.")
-	else:
-		var child_node = get_child(0)
-		if child_node is SenseTree:
-			configuration_warnings.push_back("Behavior trees should not be nested.")
 	
 	if tick_process_mode == null:
 		configuration_warnings.push_back("Tick process mode should be set.")
