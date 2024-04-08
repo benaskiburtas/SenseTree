@@ -1,5 +1,5 @@
 @tool
-@icon("../../../icons/placeholder.svg")
+@icon("../../../icons/random_sequence.svg")
 class_name SenseTreeRandomSequenceComposite
 extends SenseTreeSequenceComposite
 

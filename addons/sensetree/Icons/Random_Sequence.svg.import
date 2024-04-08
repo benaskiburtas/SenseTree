@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwwobrtolgl7d"
-path="res://.godot/imported/Random_Sequence.svg-a186d6e568dd61a2e2ceb0e930f9e6cb.ctex"
+path="res://.godot/imported/random_sequence.svg-7029245d04fb8886421d7fb7153f25d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/sensetree/icons/Random_Sequence.svg"
-dest_files=["res://.godot/imported/Random_Sequence.svg-a186d6e568dd61a2e2ceb0e930f9e6cb.ctex"]
+source_file="res://addons/sensetree/icons/random_sequence.svg"
+dest_files=["res://.godot/imported/random_sequence.svg-7029245d04fb8886421d7fb7153f25d6.ctex"]
 
 [params]
 
