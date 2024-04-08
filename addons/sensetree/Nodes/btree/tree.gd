@@ -60,7 +60,13 @@ func _ready() -> void:
 	setup_process_modes()
 	tick_count = ticks_per_frame - randi_range(0, ticks_per_frame)
 	
-func _process(delta):
+func _process(delta: float):
+	resolve_process()
+	
+func _physics_process(delta: float):
+	resolve_process()
+	
+func resolve_process():
 	if is_in_editor():
 		return
 	
