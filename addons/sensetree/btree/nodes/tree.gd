@@ -53,7 +53,6 @@ func _ready() -> void:
 		blackboard = _create_default_blackboard()
 
 	_setup_process_modes()
-	add_to_group(SenseTreeConstants.TREE_GROUP_NAME)
 	_tick_count = ticks_per_frame - randi_range(0, ticks_per_frame)
 
 
