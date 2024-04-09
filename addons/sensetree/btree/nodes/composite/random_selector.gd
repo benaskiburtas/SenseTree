@@ -3,9 +3,11 @@
 class_name SenseTreeRandomSelectorComposite
 extends SenseTreeSelectorComposite
 
-func _ready():
+
+func _ready() -> void:
 	randomize()
-	
-func reset():
-	last_running_index = 0
+
+
+func reset() -> void:
+	_last_running_index = 0
 	get_children().shuffle()

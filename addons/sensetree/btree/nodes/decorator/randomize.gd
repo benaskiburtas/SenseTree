@@ -5,11 +5,12 @@ extends SenseTreeDecorator
 
 @export_range(0, 100) var success_probability: float = 50
 
+
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var child = get_child(0) as SenseTreeNode
 	child.tick(actor, blackboard)
 	return pick_random_status()
-	
+
 
 func pick_random_status() -> Status:
 	randomize()
