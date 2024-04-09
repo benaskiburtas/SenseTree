@@ -5,25 +5,6 @@ extends Node
 
 enum Status { SUCCESS, FAILURE, RUNNING }
 
-const MESSAGE_BUS_NODE_PATH: String = "/root/SenseTreeMessageBus"
-
-func _set(property, value) -> bool:
-	if property in self:
-		set(property, value)
-		get_node(MESSAGE_BUS_NODE_PATH).emit_signal("tree_property_changed", self, property)
-		return true
-	else:
-		return false
-
-func add_child(node: Node, force_readable_name: bool = false, internal: InternalMode = 0) -> void:
-	add_child(node, force_readable_name, internal)
-	get_node(MESSAGE_BUS_NODE_PATH).emit_signal("tree_node_added", self, node)
-
-func remove_child(node: Node) -> void:
-	get_node(MESSAGE_BUS_NODE_PATH).emit_signal("tree_node_removed", self, node) 
-	remove_child(node)
-
-
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings: PackedStringArray = []
 	for child_node in get_children():
