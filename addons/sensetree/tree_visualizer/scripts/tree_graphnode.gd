@@ -1,1 +1,3 @@
-extends Node
+@tool
+class_name
+extends GraphNode

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bubtlnxc8l0pt"]
+[gd_scene load_steps=3 format=3 uid="uid://bubtlnxc8l0pt"]
 
 [ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/scripts/tree_container.gd" id="1_os43o"]
+[ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/scripts/tree_graphedit.gd" id="2_u16ri"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -19,10 +20,10 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 script = ExtResource("1_os43o")
 
-[node name="TreeGraphEditor" type="GraphEdit" parent="TreeContainer"]
+[node name="SenseTreeEditor" type="GraphEdit" parent="TreeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-scroll_offset = Vector2(-100, 0)
+script = ExtResource("2_u16ri")
 
 [node name="TreeList" type="ItemList" parent="TreeContainer"]
 custom_minimum_size = Vector2(250, 0)

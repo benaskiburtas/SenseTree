@@ -10,8 +10,8 @@ var _previous_tree_hash: PackedByteArray
 var _current_physics_tick_count: int = 0
 var _current_idle_tick_count: int = 0
 
-@onready var _graph_edit = $TreeGraphEditor
-@onready var _tree_list_vertical_box = $TreeList/TreeListMarginContainer/TreeListVerticalBox
+@onready var _graph_edit: SenseTreeEditorGraphEdit = $SenseTreeEditor
+@onready var _tree_list_vertical_box: VBoxContainer = $TreeList/TreeListMarginContainer/TreeListVerticalBox
 
 
 func _enter_tree() -> void:
@@ -106,4 +106,5 @@ func _find_all_sense_trees(node: Node) -> Array:
 
 
 func _on_tree_selected(tree: SenseTree) -> void:
-	print("CLICKED ON: " + tree.name)
+	_graph_edit._build_structure_from_tree(tree)
+	
