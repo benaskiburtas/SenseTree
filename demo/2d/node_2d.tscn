@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjlyudrws5oyy"]
+
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/tree.gd" id="1_l4ywh"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/sequence.gd" id="2_rigjo"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/selector.gd" id="3_uq7q6"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/action.gd" id="4_76cb3"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Test" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("1_l4ywh")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTreeSequenceComposite" type="Node" parent="Test"]
+script = ExtResource("2_rigjo")
+
+[node name="SenseTreeSelectorComposite" type="Node" parent="Test/SenseTreeSequenceComposite"]
+script = ExtResource("3_uq7q6")
+
+[node name="SenseTreeAction" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSelectorComposite"]
+script = ExtResource("4_76cb3")
+
+[node name="SenseTreeAction2" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSelectorComposite"]
+script = ExtResource("4_76cb3")
+
+[node name="SenseTreeSequenceComposite" type="Node" parent="Test/SenseTreeSequenceComposite"]
+script = ExtResource("2_rigjo")
+
+[node name="SenseTreeAction3" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSequenceComposite"]
+script = ExtResource("4_76cb3")
+
+[node name="SenseTreeAction4" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSequenceComposite"]
+script = ExtResource("4_76cb3")
