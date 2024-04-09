@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://bubtlnxc8l0pt"]
+
+[ext_resource type="Texture2D" uid="uid://blsamr1s01xc0" path="res://addons/sensetree/btree/icons/Tree.svg" id="1_vtaut"]
+
+[node name="MarginContainer" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TreeContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TreeGraphEditor" type="GraphEdit" parent="TreeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TreeList" type="ItemList" parent="TreeContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TreeListMarginContainer" type="MarginContainer" parent="TreeContainer/TreeList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TreeListVerticalBox" type="VBoxContainer" parent="TreeContainer/TreeList/TreeListMarginContainer"]
+layout_mode = 2
+
+[node name="TestTreeButton1" type="Button" parent="TreeContainer/TreeList/TreeListMarginContainer/TreeListVerticalBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "My Test Tree"
+icon = ExtResource("1_vtaut")
+expand_icon = true
+
+[node name="TestTreeButton2" type="Button" parent="TreeContainer/TreeList/TreeListMarginContainer/TreeListVerticalBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "My Test Tree"
+icon = ExtResource("1_vtaut")
+expand_icon = true
+
+[node name="TestTreeButton3" type="Button" parent="TreeContainer/TreeList/TreeListMarginContainer/TreeListVerticalBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "My Test Tree"
+icon = ExtResource("1_vtaut")
+expand_icon = true

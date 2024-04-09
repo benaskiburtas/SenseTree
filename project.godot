@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Thesis Project"
-run/main_scene="res://demo/2d/node_2d.tscn"
+run/main_scene="res://addons/sensetree/tree_visualizer/tree_editor.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.svg"
 
