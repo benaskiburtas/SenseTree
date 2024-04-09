@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bubtlnxc8l0pt"]
 
-[ext_resource type="Texture2D" uid="uid://blsamr1s01xc0" path="res://addons/sensetree/btree/icons/Tree.svg" id="1_vtaut"]
+[ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/scripts/tree_container.gd" id="1_os43o"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -17,6 +17,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="TreeContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+script = ExtResource("1_os43o")
 
 [node name="TreeGraphEditor" type="GraphEdit" parent="TreeContainer"]
 layout_mode = 2
@@ -41,24 +42,3 @@ theme_override_constants/margin_bottom = 5
 
 [node name="TreeListVerticalBox" type="VBoxContainer" parent="TreeContainer/TreeList/TreeListMarginContainer"]
 layout_mode = 2
-
-[node name="TestTreeButton1" type="Button" parent="TreeContainer/TreeList/TreeListMarginContainer/TreeListVerticalBox"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "My Test Tree"
-icon = ExtResource("1_vtaut")
-expand_icon = true
-
-[node name="TestTreeButton2" type="Button" parent="TreeContainer/TreeList/TreeListMarginContainer/TreeListVerticalBox"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "My Test Tree"
-icon = ExtResource("1_vtaut")
-expand_icon = true
-
-[node name="TestTreeButton3" type="Button" parent="TreeContainer/TreeList/TreeListMarginContainer/TreeListVerticalBox"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "My Test Tree"
-icon = ExtResource("1_vtaut")
-expand_icon = true

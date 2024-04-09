@@ -3,19 +3,21 @@ extends EditorPlugin
 
 const PLUGIN_NAME: String = "SenseTree"
 const PLUGIN_ICON: Resource = preload("res://addons/sensetree/btree/icons/Tree.svg")
-const TreeVisualizer = preload("res://addons/sensetree/tree_visualizer/tree_editor.tscn")
+const TreeVisualizer = preload("res://addons/sensetree/tree_visualizer/scenes/tree_editor.tscn")
 
 var _tree_visualizer_instance
 
 
 func _enter_tree() -> void:
-	add_autoload_singleton("SenseTreeConstants", "res://addons/sensetree/constants.gd")	
+	add_autoload_singleton("SenseTreeConstants", "res://addons/sensetree/common/constants.gd")	
+	add_autoload_singleton("SenseTreeMessageBus", "res://addons/sensetree/common/tree_message_bus.gd")
 	load_tree_visualizer()
 	_make_visible(false)
 
 
 func _exit_tree() -> void:
 	remove_autoload_singleton("SenseTreeConstants")
+	remove_autoload_singleton("SenseTreeMessageBus")
 	cleanup_tree_visualizer()
 
 
