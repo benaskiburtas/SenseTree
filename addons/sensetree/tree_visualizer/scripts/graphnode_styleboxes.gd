@@ -9,11 +9,27 @@ enum StyleBoxType {
 	SLOT_STYLE_BOX
 }
 
+## Group Colors
 const FALL_BACK_COLOR = Color("#000000")
-const TREE_GROUP_BASE_COLOR = Color("#1c3b18")
-const COMPOSITE_GROUP_BASE_COLOR = Color("#28801c")
-const DECORATOR_GROUP_BASE_COLOR = Color("#91298a")
-const LEAF_GROUP_BASE_COLOR = Color("#29c714")
+const TREE_GROUP_BASE_COLOR = Color("#19782a")
+const COMPOSITE_GROUP_BASE_COLOR = Color("#193e78")
+const DECORATOR_GROUP_BASE_COLOR = Color("#571978")
+const LEAF_GROUP_BASE_COLOR = Color("#784819")
+
+## Level of transparancey 0.0 -> 1.0
+const PANEL_STYLE_BOX_ALPHA: float = 0.5
+const PANEL_SELECTED_STYLE_BOX_ALPHA: float = 0.9
+const TITLEBAR_STYLE_BOX_ALPHA: float = 0.6
+const TITLEBAR_SELECTED_STYLE_BOX_ALPHA: float = 1.0
+const SLOT_STYLE_BOX_ALPHA: float = 0.5
+
+## Brightness adjustment factors
+const TITLEBAR_DARKEN_FACTOR: float = 0.3
+const TITLEBAR_SELECTED_DARKEN_FACTOR: float = 0.15
+const SLOT_LIGHTEN_FACTOR: float = 0.3
+
+const CONTENT_MARGIN: float = 5
+const CORNER_RADIUS: float = 5
 
 var group_styleboxes = {
 	SenseTreeConstants.NodeGroup.TREE: {},
@@ -36,15 +52,19 @@ func get_stylebox(group: SenseTreeConstants.NodeGroup, box_type: StyleBoxType) -
 
 func _build_styleboxes() -> void:
 	for group in SenseTreeConstants.NodeGroup.values():
+		var group_color: Color = get_group_color(group)
 		group_styleboxes[group] = {
-			StyleBoxType.PANEL_STYLE_BOX: _build_panel_stylebox(get_group_color(group), 0.5),
+			StyleBoxType.PANEL_STYLE_BOX: _build_panel_stylebox(group_color, PANEL_STYLE_BOX_ALPHA),
 			StyleBoxType.PANEL_SELECTED_STYLE_BOX:
-			_build_panel_stylebox(get_group_color(group), 0.85),
+			_build_panel_stylebox(group_color, PANEL_SELECTED_STYLE_BOX_ALPHA),
 			StyleBoxType.TITLEBAR_STYLE_BOX:
-			_build_titlebar_stylebox(get_group_color(group), 0.3, 0.65),
+			_build_titlebar_stylebox(group_color, TITLEBAR_DARKEN_FACTOR, TITLEBAR_STYLE_BOX_ALPHA),
 			StyleBoxType.TITLEBAR_SELECTED_STYLE_BOX:
-			_build_titlebar_stylebox(get_group_color(group), 0.15, 1.0),
-			StyleBoxType.SLOT_STYLE_BOX: _build_slot_stylebox(get_group_color(group), 0.15, 0.4)
+			_build_titlebar_stylebox(
+				group_color, TITLEBAR_SELECTED_DARKEN_FACTOR, TITLEBAR_SELECTED_STYLE_BOX_ALPHA
+			),
+			StyleBoxType.SLOT_STYLE_BOX:
+			_build_slot_stylebox(group_color, SLOT_LIGHTEN_FACTOR, SLOT_STYLE_BOX_ALPHA)
 		}
 
 
@@ -67,16 +87,22 @@ func _build_panel_stylebox(group_color: Color, alpha: float) -> StyleBoxFlat:
 	var adjusted_color = Color(group_color, alpha)
 	var stylebox = StyleBoxFlat.new()
 	stylebox.set_bg_color(adjusted_color)
+	stylebox.set_content_margin_all(CONTENT_MARGIN)
+	stylebox.corner_radius_bottom_left = CORNER_RADIUS
+	stylebox.corner_radius_bottom_right = CORNER_RADIUS
 	return stylebox
 
 
 func _build_titlebar_stylebox(
 	group_color: Color, darken_factor: float, alpha: float
 ) -> StyleBoxFlat:
-	var adjusted_opacity = Color(group_color, alpha)
-	var adjusted_color = adjusted_opacity * (1.0 - darken_factor)
+	var adjusted_opacity: Color = Color(group_color, alpha)
+	var adjusted_color: Color = adjusted_opacity * (1.0 - darken_factor)
 	var stylebox = StyleBoxFlat.new()
 	stylebox.set_bg_color(adjusted_color)
+	stylebox.set_content_margin_all(CONTENT_MARGIN)
+	stylebox.corner_radius_top_left = CORNER_RADIUS
+	stylebox.corner_radius_top_right = CORNER_RADIUS
 	return stylebox
 
 

@@ -27,9 +27,6 @@ func assign_new_tree(tree: SenseTree) -> void:
 	if tree and tree.has_children:
 		_build_new_graph(tree)
 
-	arrange_nodes()
-
-
 func _remove_graph_nodes() -> void:
 	for graph in get_children():
 		graph.queue_free()
