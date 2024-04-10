@@ -5,6 +5,7 @@ extends GraphEdit
 const GraphNodeStyleBoxes = preload(
 	"res://addons/sensetree/tree_visualizer/scripts/graphnode_styleboxes.gd"
 )
+const GraphNodeArranger = preload("res://addons/sensetree/tree_visualizer/scripts/tree_node_arranger.gd")
 
 var style_boxes: TreeVisualizerGraphNodeStyleBoxes
 
@@ -39,18 +40,19 @@ func _build_new_graph(tree: SenseTreeNode) -> void:
 			"Behavior tree is empty and graph view cannot be drawn. Is it configured properly?"
 		)
 		return
-
-	var node_stack = []
-	node_stack.push_back(tree)
-
-	while not node_stack.is_empty():
-		var node = node_stack.pop_back()
-
-		var graph_node = TreeVisualizerGraphNode.new(node, style_boxes)
+	
+	var arranged_tree_root = GraphNodeArranger.new(tree)
+	var boundaries: Array = arranged_tree_root.buchheim(arranged_tree_root)
+	
+	var tree_stack = [arranged_tree_root]
+	while not tree_stack.is_empty():
+		var arranged_node = tree_stack.pop_back()
+		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes, boundaries)
 		add_child(graph_node)
 
-		var node_children: Array = node.get_children().duplicate()
+		var node_children: Array = arranged_node.children.duplicate()
 		node_children.reverse()
 
 		for child in node_children:
-			node_stack.push_back(child)
+			tree_stack.push_back(child)
+			
