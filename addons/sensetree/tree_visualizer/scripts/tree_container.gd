@@ -1,5 +1,5 @@
 @tool
-class_name SenseTreeVisualizerContainer
+class_name TreeVisualizerContainer
 extends Container
 
 const DEFAULT_PROCESS_MODE = SenseTreeConstants.TickProcessMode.PHYSICS
@@ -13,7 +13,7 @@ var _previous_scene_hash: PackedByteArray
 var _current_idle_tick_count: int = 0
 var _current_physics_tick_count: int = 0
 
-@onready var _graph_edit: SenseTreeVisualizerGraphEdit = $TreeGraphEditor
+@onready var _graph_edit: TreeVisualizerGraphEdit = $TreeGraphEditor
 @onready
 var _tree_list_vertical_box: VBoxContainer = $TreeList/TreeListMarginContainer/TreeListVerticalBox
 
@@ -121,7 +121,7 @@ func _populate_buttons(scene_trees: Array) -> void:
 		scene = get_tree().current_scene
 
 	for tree in scene_trees:
-		var button = SenseTreeEditorSelectButton.new(tree)
+		var button = TreeVisualizerSelectButton.new(tree)
 		button.connect("tree_selected", _on_tree_selected)
 		_tree_list_vertical_box.add_child(button)
 
@@ -149,4 +149,4 @@ func _find_all_sense_nodes(node: Node) -> Array:
 
 
 func _on_tree_selected(tree: SenseTree) -> void:
-	_graph_edit._build_structure_from_tree(tree)
+	_graph_edit.assign_new_tree(tree)

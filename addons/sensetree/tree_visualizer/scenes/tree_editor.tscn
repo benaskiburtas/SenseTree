@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bubtlnxc8l0pt"]
+[gd_scene load_steps=6 format=3 uid="uid://bubtlnxc8l0pt"]
 
 [ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/scripts/tree_container.gd" id="1_os43o"]
-[ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/scripts/tree_graphedit.gd" id="2_u16ri"]
+[ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/scripts/tree_graph_edit.gd" id="2_u16ri"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/tree.gd" id="3_4ff3e"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/composite.gd" id="4_wmagj"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/leaf.gd" id="5_vc3w7"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -20,10 +23,20 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 script = ExtResource("1_os43o")
 
-[node name="SenseTreeEditor" type="GraphEdit" parent="TreeContainer"]
+[node name="TreeGraphEditor" type="GraphEdit" parent="TreeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("2_u16ri")
+
+[node name="GraphNode" type="GraphNode" parent="TreeContainer/TreeGraphEditor"]
+layout_mode = 0
+offset_left = 225.297
+offset_top = 151.661
+offset_right = 470.297
+offset_bottom = 206.661
+mouse_filter = 1
+position_offset = Vector2(225.297, 151.661)
+title = "Test"
 
 [node name="TreeList" type="ItemList" parent="TreeContainer"]
 custom_minimum_size = Vector2(250, 0)
@@ -44,3 +57,17 @@ theme_override_constants/margin_bottom = 5
 
 [node name="TreeListVerticalBox" type="VBoxContainer" parent="TreeContainer/TreeList/TreeListMarginContainer"]
 layout_mode = 2
+
+[node name="SenseTree" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("3_4ff3e")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTreeCompositeNode" type="Node" parent="SenseTree"]
+script = ExtResource("4_wmagj")
+
+[node name="SenseTreeLeafNode" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+script = ExtResource("5_vc3w7")
+
+[node name="SenseTreeLeafNode2" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+script = ExtResource("5_vc3w7")

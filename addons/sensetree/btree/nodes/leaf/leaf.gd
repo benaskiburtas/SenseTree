@@ -12,3 +12,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 			"Expected leaf node to not have child nodes, found %d child nodes" % child_count
 		)
 	return configuration_warnings
+
+func get_node_group() -> SenseTreeConstants.NodeGroup:
+	return SenseTreeConstants.NodeGroup.LEAF

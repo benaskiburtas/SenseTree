@@ -1,5 +1,5 @@
 @tool
-class_name SenseTreeEditorSelectButton
+class_name TreeVisualizerSelectButton
 extends Button
 
 signal tree_selected(tree: SenseTree)
