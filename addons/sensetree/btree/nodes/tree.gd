@@ -3,8 +3,6 @@
 class_name SenseTree
 extends SenseTreeNode
 
-enum TickProcessMode { IDLE, PHYSICS }
-
 @export var is_enabled: bool = true:
 	set(new_is_enabled):
 		is_enabled = new_is_enabled
@@ -24,7 +22,9 @@ enum TickProcessMode { IDLE, PHYSICS }
 		if not blackboard:
 			blackboard = _create_default_blackboard()
 
-@export var tick_process_mode: TickProcessMode = TickProcessMode.PHYSICS
+@export var tick_process_mode: SenseTreeConstants.TickProcessMode = (
+	SenseTreeConstants.TickProcessMode.PHYSICS
+)
 @export_range(0, 100) var ticks_per_frame: int = 1
 
 var _child: SenseTreeNode
@@ -98,8 +98,8 @@ func _resolve_process() -> void:
 
 func _setup_process_modes() -> void:
 	if is_enabled:
-		set_process(tick_process_mode == TickProcessMode.IDLE)
-		set_physics_process(tick_process_mode == TickProcessMode.PHYSICS)
+		set_process(tick_process_mode == SenseTreeConstants.TickProcessMode.IDLE)
+		set_physics_process(tick_process_mode == SenseTreeConstants.TickProcessMode.PHYSICS)
 	else:
 		set_process(false)
 		set_physics_process(false)
