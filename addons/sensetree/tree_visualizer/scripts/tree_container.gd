@@ -3,12 +3,13 @@ class_name SenseTreeVisualizerContainer
 extends Container
 
 const DEFAULT_PROCESS_MODE = SenseTreeConstants.TickProcessMode.PHYSICS
-const IDLE_POLL_RATE: int = 60
-const PHYSICS_POLL_RATE: int = 60
+const DEFAULT_HASH = HashingContext.HASH_MD5
+const IDLE_POLL_RATE: int = 30
+const PHYSICS_POLL_RATE: int = 30
 
 var _process_mode: SenseTreeConstants.TickProcessMode = DEFAULT_PROCESS_MODE
 var _hashing_context: HashingContext
-var _previous_tree_hash: PackedByteArray
+var _previous_scene_hash: PackedByteArray
 var _current_idle_tick_count: int = 0
 var _current_physics_tick_count: int = 0
 
@@ -18,11 +19,11 @@ var _tree_list_vertical_box: VBoxContainer = $TreeList/TreeListMarginContainer/T
 
 
 func _enter_tree() -> void:
-	_resolve_process_mode()
 	_hashing_context = HashingContext.new()
 
 
 func _ready() -> void:
+	_setup_process_mode()	
 	_populate_buttons([])
 
 
@@ -53,31 +54,56 @@ func _process_frame(mode: SenseTreeConstants.TickProcessMode) -> void:
 	if not _is_update_needed(sense_nodes):
 		return
 	else:
-		var trees = sense_nodes.filter(func(node): node is SenseTree)
+		var trees = sense_nodes.filter(func(node): return node is SenseTree)
 		_clear_ui()
 		_populate_buttons(trees)
 
 
-func _resolve_process_mode() -> void:
+func _setup_process_mode() -> void:
 	set_process(_process_mode == SenseTreeConstants.TickProcessMode.IDLE)
 	set_physics_process(_process_mode == SenseTreeConstants.TickProcessMode.PHYSICS)
 
 
-func _is_update_needed(scene_trees: Array) -> bool:
-	var current_tree_hash = _generate_tree_hash(scene_trees)
+func _is_update_needed(nodes: Array) -> bool:
+	var current_scene_hash = _generate_scene_sense_nodes_hash(nodes)
 
-	if current_tree_hash != _previous_tree_hash:
-		_previous_tree_hash = current_tree_hash
+	if current_scene_hash != _previous_scene_hash:
+		_previous_scene_hash = current_scene_hash
 		return true
 	return false
 
 
-func _generate_tree_hash(tree_members: Array) -> PackedByteArray:
-	if tree_members.is_empty():
+func _generate_scene_sense_nodes_hash(sense_nodes: Array) -> PackedByteArray:
+	if not _nodes_valid_for_hashing(sense_nodes):
 		return PackedByteArray()
-	_hashing_context.start(HashingContext.HASH_MD5)
-	_hashing_context.update(tree_members)
-	return _hashing_context.finish()
+
+	_hashing_context.start(DEFAULT_HASH)
+	for node in sense_nodes:
+		var node_identifier = "[%s %s]" % [node.name, inst_to_dict(node)]
+		_hashing_context.update(node_identifier.to_utf8_buffer())
+	var finish = _hashing_context.finish()
+	return finish
+
+
+func _nodes_valid_for_hashing(sense_nodes: Array) -> bool:
+	if sense_nodes.is_empty():
+		return false
+
+	var invalid_nodes = sense_nodes.filter(func(node): not (node is SenseTreeNode))
+
+	var error_lines = []
+	for node in invalid_nodes:
+		error_lines.append("[Name: %s, Type: %s]\n" % [node.name, node.get_class()])
+
+	if not error_lines.is_empty():
+		var final_error_message = (
+			"Expected SenseTreeNodes for generating tree visualizer hash, found invalid nodes:\n"
+			+ "".join(error_lines)
+		)
+		push_error(final_error_message)
+		return false
+
+	return true
 
 
 func _clear_ui() -> void:
