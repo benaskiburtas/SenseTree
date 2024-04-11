@@ -16,6 +16,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 				"Behavior trees should not be nested.")
 	return configuration_warnings
 
+func get_exported_properties() -> Array[SenseTreeExportedProperty]:
+	return []
+
 func get_node_group():
 	pass
 

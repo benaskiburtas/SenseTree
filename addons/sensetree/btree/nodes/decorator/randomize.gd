@@ -18,3 +18,7 @@ func pick_random_status() -> Status:
 		return Status.SUCCESS
 	else:
 		return Status.FAILURE
+
+
+func get_exported_properties() -> Array[SenseTreeExportedProperty]:
+	return [SenseTreeExportedProperty.new("success_probability", "Success Probability", success_probability)]
