@@ -26,22 +26,31 @@ func _init(process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.Pro
 
 
 func _ready():
+	_set_process_modes()
+	_add_additional_action_buttons()
+
+
+func _process(delta: float) -> void:
+	_process_draw(SenseTreeConstants.ProcessMode.IDLE)
+
+
+func _physics_process(delta: float) -> void:
+	_process_draw(SenseTreeConstants.ProcessMode.PHYSICS)
+
+
+func _set_process_modes() -> void:
+	# Needed to stop constant re-rendering of the graph. Performance issues on complex graphs
 	OS.low_processor_usage_mode = true
+
 	set_process(_process_mode == SenseTreeConstants.ProcessMode.IDLE)
 	set_physics_process(_process_mode == SenseTreeConstants.ProcessMode.PHYSICS)
 
 
-func _process(delta) -> void:
-	_process_draw(SenseTreeConstants.ProcessMode.IDLE)
+func _add_additional_action_buttons() -> void:
+	pass
 
 
-func _physics_process(delta) -> void:
-	_process_draw(SenseTreeConstants.ProcessMode.PHYSICS)
-
-
-func _get_connection_line(
-	from_position: Vector2, to_position: Vector2, interpolation_points: int = 5
-) -> PackedVector2Array:
+func _get_connection_line(from_position: Vector2, to_position: Vector2) -> PackedVector2Array:
 	var line_points: PackedVector2Array
 	line_points.push_back(from_position)
 	line_points.push_back(Vector2(from_position.x, to_position.y))
@@ -81,11 +90,13 @@ func assign_tree(tree: SenseTree) -> void:
 
 	_is_graph_being_updated = false
 
+
 func reset() -> void:
 	_is_graph_being_updated = true
 	clear_connections()
 	_remove_graph_nodes()
 	_is_graph_being_updated = false
+
 
 func _remove_graph_nodes() -> void:
 	for graph in get_children():

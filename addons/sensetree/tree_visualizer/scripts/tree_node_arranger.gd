@@ -17,12 +17,11 @@ var offset_modifier: float = 0.0
 var change: float = 0.0
 var shift: float = 0.0
 var sibling_order_number: int = 1
-var _leftmost_sibling: ArrangedVisualizerNode
 var leftmost_sibling: ArrangedVisualizerNode:
 	get:
-		if not _leftmost_sibling and parent and self != parent.children[0]:
-			_leftmost_sibling = parent.children[0]
-		return _leftmost_sibling
+		if not leftmost_sibling and parent and self != parent.children[0]:
+			leftmost_sibling = parent.children[0]
+		return leftmost_sibling
 
 
 func _init(
