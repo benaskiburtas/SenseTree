@@ -17,9 +17,9 @@ const PROPERTY_ITEM_MARGIN: int = 5
 const HORIZONTAL_SPACING_OFFSET: float = 350
 const VERTICAL_SPACING_OFFSET: float = 100
 
+var _scene_node: SenseTreeNode
 var _alignment_mode: AlignmentType
 var _node_icon_texture: Texture2D
-
 var _content_container: VBoxContainer
 var _port: Control
 var _titlebar: HBoxContainer
@@ -36,8 +36,7 @@ func _init(
 	style_boxes: TreeVisualizerGraphNodeStyleBoxes,
 	alignment_mode: AlignmentType = AlignmentType.HORIZONTAL
 ) -> void:
-	var sense_node = arranged_node.tree
-
+	_scene_node = arranged_node.tree
 	_alignment_mode = alignment_mode
 	_set_base_properties()
 	_initialize_port()
@@ -45,11 +44,11 @@ func _init(
 	_initialize_titlebar()
 	_initialize_titlebar_icon()
 
-	_configure_ports(sense_node)
-	_load_node_icon(sense_node)
-	_load_node_title(sense_node)
-	_load_node_properties(sense_node)
-	_assign_styleboxes_by_group(sense_node, style_boxes)
+	_configure_ports()
+	_load_node_icon()
+	_load_node_title()
+	_load_node_properties()
+	_assign_styleboxes_by_group(style_boxes)
 
 	_set_node_position(arranged_node)
 
@@ -88,8 +87,8 @@ func _initialize_titlebar_icon() -> void:
 	_titlebar.move_child(_titlebar_icon, 0)
 
 
-func _configure_ports(sense_node: SenseTreeNode) -> void:
-	var node_group: SenseTreeConstants.NodeGroup = sense_node.get_node_group()
+func _configure_ports() -> void:
+	var node_group: SenseTreeConstants.NodeGroup = _scene_node.get_node_group()
 	match node_group:
 		SenseTreeConstants.NodeGroup.TREE:
 			set_slot(
@@ -136,10 +135,10 @@ func _configure_ports(sense_node: SenseTreeNode) -> void:
 			return
 
 
-func _load_node_icon(sense_node: SenseTreeNode) -> void:
-	var sense_node_class: String = sense_node.get_sensenode_class()
+func _load_node_icon() -> void:
+	var sense_node_class: String = _scene_node.get_sensenode_class()
 	if not sense_node_class or sense_node_class.is_empty():
-		push_warning("Could not resolve class name from SenseTree node %s." % sense_node.name)
+		push_warning("Could not resolve class name from SenseTree node %s." % _scene_node.name)
 		return
 
 	var icon_path: String = _try_acquire_icon_path(sense_node_class)
@@ -153,14 +152,14 @@ func _load_node_icon(sense_node: SenseTreeNode) -> void:
 	_titlebar_icon.texture = _node_icon_texture
 
 
-func _load_node_title(sense_node: SenseTreeNode) -> void:
+func _load_node_title() -> void:
 	var title_label = Label.new()
-	title_label.text = sense_node.name
+	title_label.text = _scene_node.name
 	_titlebar.add_child(title_label)
 
 
-func _load_node_properties(sense_node: SenseTreeNode) -> void:
-	var properties: Array[SenseTreeExportedProperty] = sense_node.get_exported_properties()
+func _load_node_properties() -> void:
+	var properties: Array[SenseTreeExportedProperty] = _scene_node.get_exported_properties()
 
 	if not properties.is_empty():
 		_has_properties = true
@@ -192,9 +191,9 @@ func _try_acquire_icon_path(sense_node_class: String) -> String:
 
 
 func _assign_styleboxes_by_group(
-	node: SenseTreeNode, style_boxes: TreeVisualizerGraphNodeStyleBoxes
+	style_boxes: TreeVisualizerGraphNodeStyleBoxes
 ) -> void:
-	var group = node.get_node_group()
+	var group = _scene_node.get_node_group()
 
 	var panel_stylebox = style_boxes.get_stylebox(group, style_boxes.StyleBoxType.PANEL_STYLE_BOX)
 	var panel_selected_stylebox = style_boxes.get_stylebox(

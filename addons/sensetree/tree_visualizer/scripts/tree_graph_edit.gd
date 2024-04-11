@@ -39,12 +39,15 @@ func _physics_process(delta) -> void:
 	_process_draw(SenseTreeConstants.ProcessMode.PHYSICS)
 
 
-func _get_connection_line(from_position: Vector2, to_position: Vector2, interpolation_points: int = 5) -> PackedVector2Array:
+func _get_connection_line(
+	from_position: Vector2, to_position: Vector2, interpolation_points: int = 5
+) -> PackedVector2Array:
 	var line_points: PackedVector2Array
 	line_points.push_back(from_position)
 	line_points.push_back(Vector2(from_position.x, to_position.y))
 	line_points.push_back(to_position)
 	return line_points
+
 
 func _process_draw(mode: SenseTreeConstants.ProcessMode) -> void:
 	match mode:
@@ -62,6 +65,7 @@ func _process_draw(mode: SenseTreeConstants.ProcessMode) -> void:
 				return
 
 	queue_redraw()
+
 
 func assign_new_tree(tree: SenseTree) -> void:
 	if _is_graph_being_updated:

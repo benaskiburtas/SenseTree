@@ -24,6 +24,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	_setup_process_mode()
 	_populate_buttons([])
+	_graph_edit.connect("node_selected", _on_node_selected)
 
 
 func _process(delta) -> void:
@@ -150,3 +151,23 @@ func _find_all_sense_nodes(node: Node) -> Array:
 
 func _on_tree_selected(tree: SenseTree) -> void:
 	_graph_edit.assign_new_tree(tree)
+
+
+func _on_node_selected(selected_node: Node) -> void:
+	# Exit early if running not in-editor
+	if not Engine.is_editor_hint():
+		return
+	
+	if not selected_node is TreeVisualizerGraphNode:
+		return
+		
+	var sense_graph_node = selected_node as TreeVisualizerGraphNode
+	var scene_node = sense_graph_node._scene_node
+	
+	# Select matching node in scene list
+	var scene_selector: EditorSelection = EditorInterface.get_selection()
+	scene_selector.clear()
+	scene_selector.add_node(scene_node)
+	
+	
+	
