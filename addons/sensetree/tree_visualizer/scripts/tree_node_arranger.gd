@@ -47,29 +47,19 @@ func is_leaf() -> bool:
 
 
 func boundaries() -> Array:
-	var minx: float = self.x
-	var maxx: float = self.x
-	var miny: float = self.y
-	var maxy: float = self.y
+	var bounds = [self.x, self.x, self.y, self.y]
 	for child in children:
-		var child_bounds = child.boundaries_([minx, maxx, miny, maxy])
-		minx = min(minx, child_bounds[0])
-		miny = min(miny, child_bounds[2])
-		maxx = max(maxx, child_bounds[1])
-		maxy = max(maxy, child_bounds[3])
-	return [minx, maxx, miny, maxy]
-
-
-func boundaries_(bounds: Array) -> Array:
-	if is_leaf():
-		bounds[0] = min(bounds[0], self.x)
-		bounds[2] = min(bounds[2], self.y)
-		bounds[1] = max(bounds[1], self.x)
-		bounds[3] = max(bounds[3], self.y)
-	else:
-		for child in children:
-			bounds = child.boundaries_(bounds)
+		bounds = update_bounds(bounds, child.boundaries())
 	return bounds
+
+
+func update_bounds(bounds: Array, child_bounds: Array) -> Array:
+	return [
+		min(bounds[0], child_bounds[0]),
+		max(bounds[1], child_bounds[1]),
+		min(bounds[2], child_bounds[2]),
+		max(bounds[3], child_bounds[3])
+	]
 
 
 func next_left() -> ArrangedVisualizerNode:
@@ -87,14 +77,14 @@ func next_right() -> ArrangedVisualizerNode:
 
 
 func left_brother() -> ArrangedVisualizerNode:
-	var n: ArrangedVisualizerNode = null
+	var previous_sibling: ArrangedVisualizerNode = null
 	if parent:
-		for node in parent.children:
-			if node == self:
-				return n
+		for current_sibling in parent.children:
+			if current_sibling == self:
+				return previous_sibling
 			else:
-				n = node
-	return n
+				previous_sibling = current_sibling
+	return previous_sibling
 
 
 func is_leftmost_sibling() -> bool:
@@ -112,99 +102,116 @@ func buchheim(tree: ArrangedVisualizerNode) -> Array:
 	return tree.boundaries()
 
 
-func first_walk(v: ArrangedVisualizerNode):
-	if v.is_leaf():
-		if v.is_leftmost_sibling():
-			v.x = 0.0
+func first_walk(node: ArrangedVisualizerNode):
+	if node.is_leaf():
+		if node.is_leftmost_sibling():
+			node.x = 0.0
 		else:
-			v.x = v.left_brother().x + DEFAULT_DISTANCE
+			node.x = node.left_brother().x + DEFAULT_DISTANCE
 	else:
-		var default_ancestor = v.children[0]
-		for w in v.children:
-			first_walk(w)
-			default_ancestor = apportion(w, default_ancestor)
+		var default_ancestor: ArrangedVisualizerNode = node.children[0]
+		for child in node.children:
+			first_walk(child)
+			default_ancestor = apportion(child, default_ancestor)
 
-		execute_shifts(v)
+		execute_shifts(node)
 
-		var midpoint = (v.children[0].x + v.children[-1].x) / 2.0
+		var midpoint: float = (node.children[0].x + node.children[-1].x) / 2.0
 
-		var w = v.left_brother()
-		if w:
-			v.x = w.x + DEFAULT_DISTANCE
-			v.offset_modifier = v.x - midpoint
+		var left_brother: ArrangedVisualizerNode = node.left_brother()
+		if left_brother:
+			node.x = left_brother.x + DEFAULT_DISTANCE
+			node.offset_modifier = node.x - midpoint
 		else:
-			v.x = midpoint
+			node.x = midpoint
 
 
 func apportion(
-	v: ArrangedVisualizerNode, default_ancestor: ArrangedVisualizerNode) -> ArrangedVisualizerNode:
-	var w = v.left_brother()
-	if w:
-		var vir = v
-		var vor = v
-		var vil = w
-		var vol = v.leftmost_sibling
-		var sir = v.offset_modifier
-		var sil = vil.offset_modifier
-		var sol = vol.offset_modifier
-		var sor = v.leftmost_sibling.offset_modifier
-		while vil.next_right() and vir.next_left():
-			vil = vil.next_right()
-			vir = vir.next_left()
-			vol = vol.next_left()
-			vor = vor.next_right()
-			vor.ancestor = v
-			var shift = (vil.x + sil) - (vir.x + sir) + DEFAULT_DISTANCE
+	node: ArrangedVisualizerNode, default_ancestor: ArrangedVisualizerNode
+) -> ArrangedVisualizerNode:
+	var left_sibling: ArrangedVisualizerNode = node.left_brother()
+	if left_sibling:
+		var inner_right: ArrangedVisualizerNode = node
+		var inner_left: ArrangedVisualizerNode = node
+		var inner_left_sibling: ArrangedVisualizerNode = left_sibling
+		var outer_left: ArrangedVisualizerNode = node.leftmost_sibling
+		var inner_right_offset: float = node.offset_modifier
+		var inner_left_offset: float = inner_left_sibling.offset_modifier
+		var outer_left_offset: float = outer_left.offset_modifier
+		var outer_right_offset: float = node.leftmost_sibling.offset_modifier
+
+		while inner_left_sibling.next_right() and inner_right.next_left():
+			inner_left_sibling = inner_left_sibling.next_right()
+			inner_right = inner_right.next_left()
+			outer_left = outer_left.next_left()
+			inner_left = inner_left.next_right()
+			inner_left.ancestor = node
+
+			var shift: float = (
+				(inner_left_sibling.x + inner_left_offset)
+				- (inner_right.x + inner_right_offset)
+				+ DEFAULT_DISTANCE
+			)
 			if shift > 0:
-				var a = get_ancestor(vil, v, default_ancestor)
-				move_subtree(a, v, shift)
-				sir += shift
-				sor += shift
-			sil += vil.offset_modifier
-			sir += vir.offset_modifier
-			sol += vol.offset_modifier
-			sor += vor.offset_modifier
-		if vil.next_right() and not vor.next_right():
-			vor.thread = vil.next_right()
-			vor.offset_modifier += sil - sor
+				var ancestor: ArrangedVisualizerNode = get_ancestor(
+					inner_left_sibling, node, default_ancestor
+				)
+				move_subtree(ancestor, node, shift)
+				inner_right_offset += shift
+				outer_right_offset += shift
+
+			inner_left_offset += inner_left_sibling.offset_modifier
+			inner_right_offset += inner_right.offset_modifier
+			outer_left_offset += outer_left.offset_modifier
+			outer_right_offset += inner_left.offset_modifier
+
+		if inner_left_sibling.next_right() and not inner_left.next_right():
+			inner_left.thread = inner_left_sibling.next_right()
+			inner_left.offset_modifier += inner_left_offset - outer_right_offset
 		else:
-			if vir.next_left() and not vol.next_left():
-				vol.thread = vir.next_left()
-				vol.offset_modifier += sir - sol
-		default_ancestor = v
+			if inner_right.next_left() and not outer_left.next_left():
+				outer_left.thread = inner_right.next_left()
+				outer_left.offset_modifier += inner_right_offset - outer_left_offset
+
+		default_ancestor = node
+
 	return default_ancestor
 
 
-func move_subtree(wl: ArrangedVisualizerNode, wr: ArrangedVisualizerNode, shift: float):
-	var subtrees = wr.sibling_order_number - wl.sibling_order_number
-	var shift_by_subtrees = shift / subtrees
-	wr.change -= shift_by_subtrees
-	wl.change += shift_by_subtrees
-	wr.shift += shift
-	wr.x += shift
-	wr.offset_modifier += shift
+func move_subtree(
+	left_node: ArrangedVisualizerNode, right_node: ArrangedVisualizerNode, shift_amount: float
+):
+	var subtree_count: int = right_node.sibling_order_number - left_node.sibling_order_number
+	var shift_per_subtree: float = shift_amount / subtree_count
+	right_node.change -= shift_per_subtree
+	left_node.change += shift_per_subtree
+	right_node.shift += shift_amount
+	right_node.x += shift_amount
+	right_node.offset_modifier += shift_amount
 
 
-func execute_shifts(v: ArrangedVisualizerNode):
-	var shift = 0.0
-	var change = 0.0
-	for w in v.children:
-		w.x += shift
-		w.offset_modifier += shift
-		change += w.change
-		shift += w.shift + change
+func execute_shifts(node: ArrangedVisualizerNode):
+	var shift: float = 0.0
+	var change: float = 0.0
+	for child in node.children:
+		child.x += shift
+		child.offset_modifier += shift
+		change += child.change
+		shift += child.shift + change
 
 
 func get_ancestor(
-	vil: ArrangedVisualizerNode, v: ArrangedVisualizerNode, default_ancestor: ArrangedVisualizerNode
+	inner_left_node: ArrangedVisualizerNode,
+	node: ArrangedVisualizerNode,
+	default_ancestor: ArrangedVisualizerNode
 ) -> ArrangedVisualizerNode:
-	if vil.ancestor in v.parent.children:
-		return vil.ancestor
+	if inner_left_node.ancestor in node.parent.children:
+		return inner_left_node.ancestor
 	else:
 		return default_ancestor
 
 
-func second_walk(v: ArrangedVisualizerNode, m: float = 0.0):
-	for w in v.children:
-		second_walk(w, m + v.offset_modifier)
-	v.x += m
+func second_walk(node: ArrangedVisualizerNode, modifier: float = 0.0):
+	for child in node.children:
+		second_walk(child, modifier + node.offset_modifier)
+	node.x += modifier
