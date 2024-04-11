@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjlyudrws5oyy"]
+[gd_scene load_steps=9 format=3 uid="uid://bjlyudrws5oyy"]
 
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/tree.gd" id="1_l4ywh"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/sequence.gd" id="2_rigjo"]
@@ -56,4 +56,3 @@ script = ExtResource("7_pyo3g")
 
 [node name="SenseTreeCondition" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeSuccessDecorator"]
 script = ExtResource("8_6h41g")
-
