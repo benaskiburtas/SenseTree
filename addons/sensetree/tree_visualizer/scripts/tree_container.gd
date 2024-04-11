@@ -2,12 +2,11 @@
 class_name TreeVisualizerContainer
 extends Container
 
-const DEFAULT_PROCESS_MODE = SenseTreeConstants.TickProcessMode.PHYSICS
 const DEFAULT_HASH = HashingContext.HASH_MD5
 const IDLE_POLL_RATE: int = 30
 const PHYSICS_POLL_RATE: int = 30
 
-var _process_mode: SenseTreeConstants.TickProcessMode = DEFAULT_PROCESS_MODE
+var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
 var _hashing_context: HashingContext
 var _previous_scene_hash: PackedByteArray
 var _current_idle_tick_count: int = 0
@@ -23,27 +22,27 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	_setup_process_mode()	
+	_setup_process_mode()
 	_populate_buttons([])
 
 
 func _process(delta) -> void:
-	_process_frame(SenseTreeConstants.TickProcessMode.IDLE)
+	_process_frame(SenseTreeConstants.ProcessMode.IDLE)
 
 
 func _physics_process(delta) -> void:
-	_process_frame(SenseTreeConstants.TickProcessMode.PHYSICS)
+	_process_frame(SenseTreeConstants.ProcessMode.PHYSICS)
 
 
-func _process_frame(mode: SenseTreeConstants.TickProcessMode) -> void:
+func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 	match mode:
-		SenseTreeConstants.TickProcessMode.IDLE:
+		SenseTreeConstants.ProcessMode.IDLE:
 			_current_idle_tick_count += 1
 			if _current_idle_tick_count >= IDLE_POLL_RATE:
 				_current_idle_tick_count = 0
 			else:
 				return
-		SenseTreeConstants.TickProcessMode.PHYSICS:
+		SenseTreeConstants.ProcessMode.PHYSICS:
 			_current_physics_tick_count += 1
 			if _current_physics_tick_count >= PHYSICS_POLL_RATE:
 				_current_physics_tick_count = 0
@@ -60,8 +59,8 @@ func _process_frame(mode: SenseTreeConstants.TickProcessMode) -> void:
 
 
 func _setup_process_mode() -> void:
-	set_process(_process_mode == SenseTreeConstants.TickProcessMode.IDLE)
-	set_physics_process(_process_mode == SenseTreeConstants.TickProcessMode.PHYSICS)
+	set_process(_process_mode == SenseTreeConstants.ProcessMode.IDLE)
+	set_physics_process(_process_mode == SenseTreeConstants.ProcessMode.PHYSICS)
 
 
 func _is_update_needed(nodes: Array) -> bool:

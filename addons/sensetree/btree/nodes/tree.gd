@@ -22,8 +22,8 @@ extends SenseTreeNode
 		if not blackboard:
 			blackboard = _create_default_blackboard()
 
-@export var tick_process_mode: SenseTreeConstants.TickProcessMode = (
-	SenseTreeConstants.TickProcessMode.PHYSICS
+@export var tick_process_mode: SenseTreeConstants.ProcessMode = (
+	SenseTreeConstants.ProcessMode.PHYSICS
 )
 @export_range(0, 100) var ticks_per_frame: int = 1
 
@@ -100,8 +100,8 @@ func _resolve_process() -> void:
 
 func _setup_process_modes() -> void:
 	if is_enabled:
-		set_process(tick_process_mode == SenseTreeConstants.TickProcessMode.IDLE)
-		set_physics_process(tick_process_mode == SenseTreeConstants.TickProcessMode.PHYSICS)
+		set_process(tick_process_mode == SenseTreeConstants.ProcessMode.IDLE)
+		set_physics_process(tick_process_mode == SenseTreeConstants.ProcessMode.PHYSICS)
 	else:
 		set_process(false)
 		set_physics_process(false)

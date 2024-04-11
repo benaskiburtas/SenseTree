@@ -1,4 +1,4 @@
 extends Node
 
-enum TickProcessMode { IDLE, PHYSICS }
+enum ProcessMode { IDLE, PHYSICS }
 enum NodeGroup { TREE, COMPOSITE, DECORATOR, LEAF }
