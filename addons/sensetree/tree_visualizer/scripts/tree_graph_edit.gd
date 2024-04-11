@@ -2,8 +2,8 @@
 class_name TreeVisualizerGraphEdit
 extends GraphEdit
 
-const IDLE_MODE_REDRAW_RATE: int = 300
-const PHYSICS_MODE_REDRAW_RATE: int = 300
+const IDLE_MODE_REDRAW_RATE: int = 150
+const PHYSICS_MODE_REDRAW_RATE: int = 150
 
 const GraphNodeStyleBoxes = preload(
 	"res://addons/sensetree/tree_visualizer/scripts/graphnode_styleboxes.gd"
@@ -17,7 +17,6 @@ var style_boxes: TreeVisualizerGraphNodeStyleBoxes
 var _process_mode: SenseTreeConstants.ProcessMode
 var _ticks_since_redraw: int = 0
 var _is_graph_being_updated: bool = false
-var _tree: SenseTree = null
 
 
 func _init(process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS):
@@ -68,15 +67,12 @@ func _process_draw(mode: SenseTreeConstants.ProcessMode) -> void:
 	queue_redraw()
 
 
-func update_tree(tree: SenseTree) -> void:
+func assign_tree(tree: SenseTree) -> void:
 	if _is_graph_being_updated:
 		push_warning("Behavior tree is currently being updated, tree cannot be re-assigned")
 		return
 	_is_graph_being_updated = true
-	
-	if tree != _tree:
-		_tree = tree
-	
+
 	clear_connections()
 	_remove_graph_nodes()
 
@@ -86,15 +82,10 @@ func update_tree(tree: SenseTree) -> void:
 	_is_graph_being_updated = false
 
 func reset() -> void:
-	if _tree:
-		update_tree(_tree)
-	else:
-		_is_graph_being_updated = true
-		clear_connections()
-		_remove_graph_nodes()
-		_is_graph_being_updated = false
-
-	
+	_is_graph_being_updated = true
+	clear_connections()
+	_remove_graph_nodes()
+	_is_graph_being_updated = false
 
 func _remove_graph_nodes() -> void:
 	for graph in get_children():

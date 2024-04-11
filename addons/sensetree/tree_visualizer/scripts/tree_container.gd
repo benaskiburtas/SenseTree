@@ -3,12 +3,13 @@ class_name TreeVisualizerContainer
 extends Container
 
 const DEFAULT_HASH = HashingContext.HASH_MD5
-const IDLE_POLL_RATE: int = 30
-const PHYSICS_POLL_RATE: int = 30
+const IDLE_POLL_RATE: int = 15
+const PHYSICS_POLL_RATE: int = 15
 
 var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
 var _hashing_context: HashingContext
 var _previous_scene_hash: PackedByteArray
+var _selected_tree: SenseTree
 var _current_idle_tick_count: int = 0
 var _current_physics_tick_count: int = 0
 
@@ -51,8 +52,12 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 				return
 
 	var sense_nodes = _get_scene_sense_nodes()
+	
 	if not _is_update_needed(sense_nodes):
 		return
+		
+	if _selected_tree not in sense_nodes:
+		_selected_tree = null
 		
 	var trees = sense_nodes.filter(func(node): return node is SenseTree)
 	_reset_elements()
@@ -109,7 +114,11 @@ func _nodes_valid_for_hashing(sense_nodes: Array) -> bool:
 func _reset_elements() -> void:
 	for child in _tree_list_vertical_box.get_children():
 		child.queue_free()
-	_graph_edit.reset()
+	
+	if _selected_tree:
+		_graph_edit.assign_tree(_selected_tree)
+	else:
+		_graph_edit.reset()
 
 
 func _populate_buttons(scene_trees: Array) -> void:
@@ -148,7 +157,8 @@ func _find_all_sense_nodes(node: Node) -> Array:
 
 
 func _on_tree_selected(tree: SenseTree) -> void:
-	_graph_edit.update_tree(tree)
+	_selected_tree = tree
+	_graph_edit.assign_tree(tree)
 
 
 func _on_node_selected(selected_node: Node) -> void:
