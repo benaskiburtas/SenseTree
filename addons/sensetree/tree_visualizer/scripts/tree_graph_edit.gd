@@ -17,6 +17,7 @@ var style_boxes: TreeVisualizerGraphNodeStyleBoxes
 var _process_mode: SenseTreeConstants.ProcessMode
 var _ticks_since_redraw: int = 0
 var _is_graph_being_updated: bool = false
+var _tree: SenseTree = null
 
 
 func _init(process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS):
@@ -67,27 +68,40 @@ func _process_draw(mode: SenseTreeConstants.ProcessMode) -> void:
 	queue_redraw()
 
 
-func assign_new_tree(tree: SenseTree) -> void:
+func update_tree(tree: SenseTree) -> void:
 	if _is_graph_being_updated:
 		push_warning("Behavior tree is currently being updated, tree cannot be re-assigned")
 		return
-
 	_is_graph_being_updated = true
+	
+	if tree != _tree:
+		_tree = tree
+	
 	clear_connections()
 	_remove_graph_nodes()
 
 	if tree and tree.has_children:
-		_build_new_graph(tree)
+		_draw_new_tree(tree)
 
 	_is_graph_being_updated = false
 
+func reset() -> void:
+	if _tree:
+		update_tree(_tree)
+	else:
+		_is_graph_being_updated = true
+		clear_connections()
+		_remove_graph_nodes()
+		_is_graph_being_updated = false
+
+	
 
 func _remove_graph_nodes() -> void:
 	for graph in get_children():
 		graph.queue_free()
 
 
-func _build_new_graph(tree: SenseTreeNode) -> void:
+func _draw_new_tree(tree: SenseTreeNode) -> void:
 	if not tree.has_children:
 		push_warning(
 			"Behavior tree is empty and graph view cannot be drawn. Is it configured properly?"

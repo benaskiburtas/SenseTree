@@ -72,12 +72,14 @@ script = ExtResource("4_wmagj")
 
 [node name="SenseTreeRetryDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
 script = ExtResource("6_iwws8")
+retry_limit = 7
 
 [node name="SenseTreeLeafNode" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRetryDecorator"]
 script = ExtResource("5_vc3w7")
 
 [node name="SenseTreeRetryDecorator2" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
 script = ExtResource("6_iwws8")
+retry_limit = 15
 
 [node name="SenseTreeLeafNode2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRetryDecorator2"]
 script = ExtResource("5_vc3w7")
@@ -85,10 +87,10 @@ script = ExtResource("5_vc3w7")
 [node name="SenseTreeRandomSequenceComposite" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
 script = ExtResource("8_7ybb6")
 
-[node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
+[node name="SenseTreeAction2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
 script = ExtResource("5_yxpt0")
 
-[node name="SenseTreeAction2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
+[node name="SenseTreeAction4" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
 script = ExtResource("5_yxpt0")
 
 [node name="SenseTreeAction3" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
@@ -119,6 +121,7 @@ script = ExtResource("4_wmagj")
 
 [node name="SenseTreeRetryDecorator" type="Node" parent="SenseTree2/SenseTreeCompositeNode"]
 script = ExtResource("6_iwws8")
+retry_limit = 1
 
 [node name="SenseTreeLeafNode" type="Node" parent="SenseTree2/SenseTreeCompositeNode/SenseTreeRetryDecorator"]
 script = ExtResource("5_vc3w7")

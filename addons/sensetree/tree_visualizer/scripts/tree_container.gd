@@ -53,10 +53,10 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 	var sense_nodes = _get_scene_sense_nodes()
 	if not _is_update_needed(sense_nodes):
 		return
-	else:
-		var trees = sense_nodes.filter(func(node): return node is SenseTree)
-		_clear_ui()
-		_populate_buttons(trees)
+		
+	var trees = sense_nodes.filter(func(node): return node is SenseTree)
+	_reset_elements()
+	_populate_buttons(trees)
 
 
 func _setup_process_mode() -> void:
@@ -106,12 +106,10 @@ func _nodes_valid_for_hashing(sense_nodes: Array) -> bool:
 	return true
 
 
-func _clear_ui() -> void:
-	_graph_edit.clear_connections()
-	for child in _graph_edit.get_children():
-		child.queue_free()
+func _reset_elements() -> void:
 	for child in _tree_list_vertical_box.get_children():
 		child.queue_free()
+	_graph_edit.reset()
 
 
 func _populate_buttons(scene_trees: Array) -> void:
@@ -150,7 +148,7 @@ func _find_all_sense_nodes(node: Node) -> Array:
 
 
 func _on_tree_selected(tree: SenseTree) -> void:
-	_graph_edit.assign_new_tree(tree)
+	_graph_edit.update_tree(tree)
 
 
 func _on_node_selected(selected_node: Node) -> void:
@@ -168,6 +166,3 @@ func _on_node_selected(selected_node: Node) -> void:
 	var scene_selector: EditorSelection = EditorInterface.get_selection()
 	scene_selector.clear()
 	scene_selector.add_node(scene_node)
-	
-	
-	
