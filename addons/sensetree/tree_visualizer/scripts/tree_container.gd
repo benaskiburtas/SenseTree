@@ -106,6 +106,7 @@ func _nodes_valid_for_hashing(sense_nodes: Array) -> bool:
 
 
 func _clear_ui() -> void:
+	_graph_edit.clear_connections()
 	for child in _graph_edit.get_children():
 		child.queue_free()
 	for child in _tree_list_vertical_box.get_children():
