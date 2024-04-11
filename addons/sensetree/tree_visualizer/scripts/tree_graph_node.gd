@@ -15,12 +15,11 @@ var _alignment_mode: AlignmentType
 func _init(
 	arranged_node: ArrangedVisualizerNode,
 	style_boxes: TreeVisualizerGraphNodeStyleBoxes,
-	tree_boundaries: Array,
 	alignment_mode: AlignmentType = AlignmentType.VERTICAL
 ) -> void:
 	_alignment_mode = alignment_mode
 	_set_minimum_size()
-	_set_node_position(arranged_node, tree_boundaries)
+	_set_node_position(arranged_node)
 
 	var sense_node = arranged_node.tree
 	_inherit_node_properties(sense_node)
@@ -31,25 +30,22 @@ func _set_minimum_size() -> void:
 	custom_minimum_size = Vector2(MINIMUM_WIDTH, MINIMUM_HEIGHT)
 
 
-func _set_node_position(arranged_node: ArrangedVisualizerNode, tree_boundaries: Array) -> void:
-	var tree_center_x = (tree_boundaries[0] + tree_boundaries[1]) / 2.0
-
-	var x_offset_units: int 
-	var y_offset_units: int
+func _set_node_position(arranged_node: ArrangedVisualizerNode) -> void:
+	var node_x_offset_units: int 
+	var node_y_offset_units: int
 	
 	if (_alignment_mode == AlignmentType.HORIZONTAL):
-		x_offset_units = arranged_node.x
-		y_offset_units = arranged_node.y
+		node_x_offset_units = arranged_node.x
+		node_y_offset_units = arranged_node.y
 	elif(_alignment_mode == AlignmentType.VERTICAL):
-		x_offset_units = arranged_node.y
-		y_offset_units = arranged_node.x
+		node_x_offset_units = arranged_node.y
+		node_y_offset_units = arranged_node.x
 	else:
 		push_error("Unsupported tree graph alignment type: %s" % _alignment_mode)
 
-	position_offset = Vector2(
-		(x_offset_units - tree_center_x) * HORIZONTAL_SPACING_OFFSET,
-		y_offset_units * VERTICAL_SPACING_OFFSET
-	)
+	var x_position = (node_x_offset_units + 1) * HORIZONTAL_SPACING_OFFSET
+	var y_position = (node_y_offset_units) * VERTICAL_SPACING_OFFSET
+	position_offset = Vector2(x_position, y_position)
 
 func _inherit_node_properties(node: SenseTreeNode) -> void:
 	self.title = node.name

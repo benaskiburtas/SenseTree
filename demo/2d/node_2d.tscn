@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjlyudrws5oyy"]
+[gd_scene load_steps=14 format=3 uid="uid://bjlyudrws5oyy"]
 
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/tree.gd" id="1_l4ywh"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/sequence.gd" id="2_rigjo"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/selector.gd" id="3_uq7q6"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/action.gd" id="4_76cb3"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/random_selector.gd" id="5_1032w"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/randomize.gd" id="6_vb6uh"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/success.gd" id="7_pyo3g"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/condition.gd" id="8_6h41g"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -32,3 +36,24 @@ script = ExtResource("4_76cb3")
 
 [node name="SenseTreeAction4" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSequenceComposite"]
 script = ExtResource("4_76cb3")
+
+[node name="SenseTree" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("1_l4ywh")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTreeRandomSelectorComposite" type="Node" parent="SenseTree"]
+script = ExtResource("5_1032w")
+
+[node name="SenseTreeRandomizeDecorator" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
+script = ExtResource("6_vb6uh")
+
+[node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeRandomizeDecorator"]
+script = ExtResource("4_76cb3")
+
+[node name="SenseTreeSuccessDecorator" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
+script = ExtResource("7_pyo3g")
+
+[node name="SenseTreeCondition" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeSuccessDecorator"]
+script = ExtResource("8_6h41g")
+

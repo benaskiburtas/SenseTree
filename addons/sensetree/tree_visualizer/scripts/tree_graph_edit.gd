@@ -42,12 +42,12 @@ func _build_new_graph(tree: SenseTreeNode) -> void:
 		return
 	
 	var arranged_tree_root = GraphNodeArranger.new(tree)
-	var boundaries: Array = arranged_tree_root.buchheim(arranged_tree_root)
+	arranged_tree_root.buchheim(arranged_tree_root)
 	
 	var tree_stack = [arranged_tree_root]
 	while not tree_stack.is_empty():
 		var arranged_node = tree_stack.pop_back()
-		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes, boundaries)
+		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes)
 		add_child(graph_node)
 
 		var node_children: Array = arranged_node.children.duplicate()

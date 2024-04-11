@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bubtlnxc8l0pt"]
+[gd_scene load_steps=14 format=3 uid="uid://bubtlnxc8l0pt"]
 
 [ext_resource type="Theme" uid="uid://dxoe4c5iqtvjn" path="res://addons/sensetree/tree_visualizer/themes/visualizer_theme.tres" id="1_4ono1"]
 [ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/scripts/tree_container.gd" id="1_os43o"]
@@ -6,22 +6,13 @@
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/tree.gd" id="3_4ff3e"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/composite.gd" id="4_wmagj"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/leaf.gd" id="5_vc3w7"]
-
-[sub_resource type="Theme" id="Theme_keg1f"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l6eb1"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0j7sg"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v3qll"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xedo1"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kd1ex"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/action.gd" id="5_yxpt0"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/retry.gd" id="6_iwws8"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/condition.gd" id="6_yosny"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/random_sequence.gd" id="8_7ybb6"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/selector.gd" id="10_0xqoi"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/fail.gd" id="11_ddpa6"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/success.gd" id="12_7j0i5"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -44,25 +35,13 @@ script = ExtResource("1_os43o")
 [node name="TreeGraphEditor" type="GraphEdit" parent="TreeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+scroll_offset = Vector2(-37, -26.5833)
+zoom = 0.55
+zoom_min = 0.2
+zoom_max = 2.0
 minimap_enabled = false
+show_arrange_button = false
 script = ExtResource("2_u16ri")
-
-[node name="GraphNode" type="GraphNode" parent="TreeContainer/TreeGraphEditor"]
-layout_mode = 0
-offset_left = 195.0
-offset_top = 270.0
-offset_right = 550.0
-offset_bottom = 317.0
-mouse_filter = 1
-theme = SubResource("Theme_keg1f")
-theme_override_constants/separation = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_l6eb1")
-theme_override_styles/panel_selected = SubResource("StyleBoxTexture_0j7sg")
-theme_override_styles/titlebar = SubResource("StyleBoxTexture_v3qll")
-theme_override_styles/titlebar_selected = SubResource("StyleBoxTexture_xedo1")
-theme_override_styles/slot = SubResource("StyleBoxTexture_kd1ex")
-position_offset = Vector2(195, 270)
-title = "Test"
 
 [node name="TreeList" type="ItemList" parent="TreeContainer"]
 custom_minimum_size = Vector2(250, 0)
@@ -92,8 +71,55 @@ blackboard = NodePath("")
 [node name="SenseTreeCompositeNode" type="Node" parent="SenseTree"]
 script = ExtResource("4_wmagj")
 
-[node name="SenseTreeLeafNode" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+[node name="SenseTreeRetryDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+script = ExtResource("6_iwws8")
+
+[node name="SenseTreeLeafNode" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRetryDecorator"]
 script = ExtResource("5_vc3w7")
 
-[node name="SenseTreeLeafNode2" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+[node name="SenseTreeRetryDecorator2" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+script = ExtResource("6_iwws8")
+
+[node name="SenseTreeLeafNode2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRetryDecorator2"]
+script = ExtResource("5_vc3w7")
+
+[node name="SenseTreeRandomSequenceComposite" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+script = ExtResource("8_7ybb6")
+
+[node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
+script = ExtResource("5_yxpt0")
+
+[node name="SenseTreeAction2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
+script = ExtResource("5_yxpt0")
+
+[node name="SenseTreeAction3" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
+script = ExtResource("5_yxpt0")
+
+[node name="SenseTreeSelectorComposite" type="Node" parent="SenseTree"]
+script = ExtResource("10_0xqoi")
+
+[node name="SenseTreeFailDecorator" type="Node" parent="SenseTree/SenseTreeSelectorComposite"]
+script = ExtResource("11_ddpa6")
+
+[node name="SenseTreeLeafNode" type="Node" parent="SenseTree/SenseTreeSelectorComposite/SenseTreeFailDecorator"]
+script = ExtResource("5_vc3w7")
+
+[node name="SenseTreeSuccessDecorator" type="Node" parent="SenseTree/SenseTreeSelectorComposite"]
+script = ExtResource("12_7j0i5")
+
+[node name="SenseTreeCondition" type="Node" parent="SenseTree/SenseTreeSelectorComposite/SenseTreeSuccessDecorator"]
+script = ExtResource("6_yosny")
+
+[node name="SenseTree2" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("3_4ff3e")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTreeCompositeNode" type="Node" parent="SenseTree2"]
+script = ExtResource("4_wmagj")
+
+[node name="SenseTreeRetryDecorator" type="Node" parent="SenseTree2/SenseTreeCompositeNode"]
+script = ExtResource("6_iwws8")
+
+[node name="SenseTreeLeafNode" type="Node" parent="SenseTree2/SenseTreeCompositeNode/SenseTreeRetryDecorator"]
 script = ExtResource("5_vc3w7")
