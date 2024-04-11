@@ -8,7 +8,9 @@ const PHYSICS_MODE_REDRAW_RATE: int = 300
 const GraphNodeStyleBoxes = preload(
 	"res://addons/sensetree/tree_visualizer/scripts/graphnode_styleboxes.gd"
 )
-const GraphNodeArranger = preload("res://addons/sensetree/tree_visualizer/scripts/tree_node_arranger.gd")
+const GraphNodeArranger = preload(
+	"res://addons/sensetree/tree_visualizer/scripts/tree_node_arranger.gd"
+)
 
 var style_boxes: TreeVisualizerGraphNodeStyleBoxes
 
@@ -22,9 +24,12 @@ func _init(process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.Pro
 	minimap_enabled = false
 	style_boxes = GraphNodeStyleBoxes.new()
 
+
 func _ready():
+	OS.low_processor_usage_mode = true
 	set_process(_process_mode == SenseTreeConstants.ProcessMode.IDLE)
 	set_physics_process(_process_mode == SenseTreeConstants.ProcessMode.PHYSICS)
+
 
 func _process(delta) -> void:
 	_process_draw(SenseTreeConstants.ProcessMode.IDLE)
@@ -33,6 +38,13 @@ func _process(delta) -> void:
 func _physics_process(delta) -> void:
 	_process_draw(SenseTreeConstants.ProcessMode.PHYSICS)
 
+
+func _get_connection_line(from_position: Vector2, to_position: Vector2, interpolation_points: int = 5) -> PackedVector2Array:
+	var line_points: PackedVector2Array
+	line_points.push_back(from_position)
+	line_points.push_back(Vector2(from_position.x, to_position.y))
+	line_points.push_back(to_position)
+	return line_points
 
 func _process_draw(mode: SenseTreeConstants.ProcessMode) -> void:
 	match mode:
@@ -48,23 +60,23 @@ func _process_draw(mode: SenseTreeConstants.ProcessMode) -> void:
 				_ticks_since_redraw = 0
 			else:
 				return
-				
-	queue_redraw()
 
+	queue_redraw()
 
 func assign_new_tree(tree: SenseTree) -> void:
 	if _is_graph_being_updated:
 		push_warning("Behavior tree is currently being updated, tree cannot be re-assigned")
 		return
-	
+
 	_is_graph_being_updated = true
 	clear_connections()
 	_remove_graph_nodes()
 
 	if tree and tree.has_children:
 		_build_new_graph(tree)
-	
+
 	_is_graph_being_updated = false
+
 
 func _remove_graph_nodes() -> void:
 	for graph in get_children():
@@ -77,18 +89,41 @@ func _build_new_graph(tree: SenseTreeNode) -> void:
 			"Behavior tree is empty and graph view cannot be drawn. Is it configured properly?"
 		)
 		return
-	
+
+	var arranged_tree: ArrangedVisualizerNode = _arrange_tree(tree)
+	_place_arranged_tree(arranged_tree)
+
+
+func _arrange_tree(tree: SenseTree) -> ArrangedVisualizerNode:
 	var arranged_tree_root = GraphNodeArranger.new(tree)
 	arranged_tree_root.buchheim(arranged_tree_root)
-	
-	var tree_stack = [arranged_tree_root]
+	return arranged_tree_root
+
+
+func _place_arranged_tree(arranged_tree: ArrangedVisualizerNode):
+	var tree_stack = [GraphNodeDetails.new(arranged_tree, null)]
+
 	while not tree_stack.is_empty():
-		var arranged_node = tree_stack.pop_back()
+		var node_details: GraphNodeDetails = tree_stack.pop_back()
+		var arranged_node = node_details.node
+		var parent_node = node_details.parent
+
 		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes)
 		add_child(graph_node)
 
+		if parent_node:
+			connect_node(parent_node.name, 0, graph_node.name, 0)
+
 		var node_children: Array = arranged_node.children.duplicate()
 		node_children.reverse()
-
 		for child in node_children:
-			tree_stack.push_back(child)
+			tree_stack.push_back(GraphNodeDetails.new(child, graph_node))
+
+
+class GraphNodeDetails:
+	var node: ArrangedVisualizerNode
+	var parent: TreeVisualizerGraphNode
+
+	func _init(_node: ArrangedVisualizerNode, _parent: TreeVisualizerGraphNode):
+		node = _node
+		parent = _parent

@@ -13,5 +13,10 @@ func _get_configuration_warnings() -> PackedStringArray:
 		)
 	return configuration_warnings
 
+
+func get_sensenode_class() -> String:
+	return "SenseTreeLeafNode"
+
+
 func get_node_group() -> SenseTreeConstants.NodeGroup:
 	return SenseTreeConstants.NodeGroup.LEAF

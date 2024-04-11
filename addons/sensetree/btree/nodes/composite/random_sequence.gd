@@ -11,3 +11,7 @@ func _ready() -> void:
 func reset() -> void:
 	_last_success_index = 0
 	get_children().shuffle()
+
+
+func get_sensenode_class() -> String:
+	return "SenseTreeRandomSequenceComposite"

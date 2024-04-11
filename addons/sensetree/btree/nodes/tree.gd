@@ -73,6 +73,9 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		_child = get_child(0)
 	return _child.tick(actor, blackboard)
 
+func get_sensenode_class() -> String:
+	return "SenseTree"
+
 func get_node_group() -> SenseTreeConstants.NodeGroup:
 	return SenseTreeConstants.NodeGroup.TREE
 

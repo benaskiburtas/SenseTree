@@ -31,5 +31,10 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	else:
 		return Status.FAILURE
 
+
+func get_sensenode_class() -> String:
+	return "SenseTreeRetryDecorator"
+
+
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 	return [SenseTreeExportedProperty.new("retry_limit", "Retry Limit", retry_limit)]

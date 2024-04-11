@@ -27,3 +27,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 
 func reset() -> void:
 	_last_running_index = 0
+
+
+func get_sensenode_class() -> String:
+	return "SenseTreeSelectorComposite"

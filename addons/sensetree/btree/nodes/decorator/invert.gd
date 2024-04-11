@@ -16,3 +16,7 @@ func return_inverted_status(child_status: Status) -> Status:
 	if child_status == Status.FAILURE:
 		return Status.SUCCESS
 	return Status.RUNNING
+
+
+func get_sensenode_class() -> String:
+	return "SenseTreeInvertDecorator"

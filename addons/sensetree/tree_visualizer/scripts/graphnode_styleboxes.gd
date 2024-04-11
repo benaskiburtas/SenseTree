@@ -9,13 +9,6 @@ enum StyleBoxType {
 	SLOT_STYLE_BOX
 }
 
-## Group Colors
-const FALL_BACK_COLOR = Color("#000000")
-const TREE_GROUP_BASE_COLOR = Color("#19782a")
-const COMPOSITE_GROUP_BASE_COLOR = Color("#193e78")
-const DECORATOR_GROUP_BASE_COLOR = Color("#571978")
-const LEAF_GROUP_BASE_COLOR = Color("#784819")
-
 ## Level of transparancey 0.0 -> 1.0
 const PANEL_STYLE_BOX_ALPHA: float = 0.5
 const PANEL_SELECTED_STYLE_BOX_ALPHA: float = 0.9
@@ -71,16 +64,16 @@ func _build_styleboxes() -> void:
 func get_group_color(group: SenseTreeConstants.NodeGroup) -> Color:
 	match group:
 		SenseTreeConstants.NodeGroup.TREE:
-			return TREE_GROUP_BASE_COLOR
+			return SenseTreeConstants.TREE_GROUP_BASE_COLOR
 		SenseTreeConstants.NodeGroup.COMPOSITE:
-			return COMPOSITE_GROUP_BASE_COLOR
+			return SenseTreeConstants.COMPOSITE_GROUP_BASE_COLOR
 		SenseTreeConstants.NodeGroup.DECORATOR:
-			return DECORATOR_GROUP_BASE_COLOR
+			return SenseTreeConstants.DECORATOR_GROUP_BASE_COLOR
 		SenseTreeConstants.NodeGroup.LEAF:
-			return LEAF_GROUP_BASE_COLOR
+			return SenseTreeConstants.LEAF_GROUP_BASE_COLOR
 		_:
-			push_warning("Could not resolve graph node color for group %s" % group)
-			return FALL_BACK_COLOR
+			push_warning("Could not resolve node color for group %s" % group)
+			return SenseTreeConstants.FALL_BACK_COLOR
 
 
 func _build_panel_stylebox(group_color: Color, alpha: float) -> StyleBoxFlat:
