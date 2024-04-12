@@ -25,8 +25,8 @@ func get_sensenode_class() -> String:
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
-	return [
-		SenseTreeExportedProperty.new(
-			"success_probability", "Success Probability", success_probability
-		)
-	]
+	var success_probability_property = SenseTreeExportedProperty.new()
+	success_probability_property.property_name = "success_probability"
+	success_probability_property.property_title = "Success Probability"
+	success_probability_property.value = success_probability
+	return [success_probability_property]

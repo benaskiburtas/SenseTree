@@ -21,7 +21,7 @@ func get_sensenode_class() -> String:
 
 
 func get_node_group():
-	pass
+	return SenseTreeConstants.NodeGroup.UNKNOWN
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:

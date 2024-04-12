@@ -71,6 +71,8 @@ func get_group_color(group: SenseTreeConstants.NodeGroup) -> Color:
 			return SenseTreeConstants.DECORATOR_GROUP_BASE_COLOR
 		SenseTreeConstants.NodeGroup.LEAF:
 			return SenseTreeConstants.LEAF_GROUP_BASE_COLOR
+		SenseTreeConstants.NodeGroup.UNKNOWN:
+			return SenseTreeConstants.FALL_BACK_COLOR
 		_:
 			push_warning("Could not resolve node color for group %s" % group)
 			return SenseTreeConstants.FALL_BACK_COLOR
