@@ -37,6 +37,14 @@ func try_acquire_icon_path(sense_tree_class: String) -> String:
 	return String()
 
 
+func try_acquire_script_path(sense_tree_class: String) -> String:
+	if sense_tree_class in _sense_tree_classes:
+		var class_definition = _sense_tree_classes[sense_tree_class]
+		if "path" in class_definition:
+			return class_definition["path"]
+	return String()
+
+
 func _form_sense_node_class_caches() -> void:
 	var global_class_list: Array[Dictionary] = ProjectSettings.get_global_class_list()
 
@@ -67,7 +75,7 @@ func _process_class_definition(class_definition: Dictionary) -> void:
 	if not definition_instance is SenseTreeNode:
 		definition_instance.queue_free()
 		return
-		
+
 	var sense_node = definition_instance as SenseTreeNode
 
 	var node_group: SenseTreeConstants.NodeGroup = sense_node.get_node_group()

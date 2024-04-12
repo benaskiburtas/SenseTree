@@ -38,8 +38,8 @@ func _ready():
 	_set_process_modes()
 
 	# Scene editing is only allowed while scene is not running
-	#if Engine.is_editor_hint():
-	_add_additional_action_buttons()
+	if Engine.is_editor_hint():
+		_add_additional_action_buttons()
 
 
 func _process(delta: float) -> void:

@@ -2,7 +2,7 @@
 class_name TreeVisualizerAddNodeButton
 extends TreeVisualizerActionButton
 
-signal create_node_requested(node_script_path: String)
+signal create_node_requested(node_class: String)
 
 const BUTTON_TEXT = "Add Node"
 
@@ -24,7 +24,7 @@ func _assign_button_state() -> void:
 	if self.selected_node == null or _selected_node_group == null:
 		disabled = true
 		
-	var scene_node = self.selected_node.scene_node	
+	var scene_node = self.selected_node.scene_node
 	match _selected_node_group:
 		SenseTreeConstants.NodeGroup.TREE:
 			disabled = scene_node.get_child_count() != 0
@@ -107,7 +107,6 @@ func _add_submenu(
 	var group_class_definitions = SenseTreeHelpers.get_class_definitions_by_group(node_group)
 	for i in range(group_class_definitions.size()):
 		var node_class_name: String = group_class_definitions[i]["class"]
-		var node_script_path: String = group_class_definitions[i]["path"]
 
 		var node_icon_path = SenseTreeHelpers.try_acquire_icon_path(node_class_name)
 		if node_icon_path:
@@ -117,7 +116,7 @@ func _add_submenu(
 		else:
 			group_submenu.add_item(node_class_name)
 
-		submenu_links.push_back(node_script_path)
+		submenu_links.push_back(node_class_name)
 
 	group_submenu.connect("index_pressed", submenu_item_click_handler)
 

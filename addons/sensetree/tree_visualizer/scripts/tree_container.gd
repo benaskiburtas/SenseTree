@@ -73,7 +73,8 @@ func _setup_process_mode() -> void:
 func _connect_graph_edit_signals() -> void:
 	_graph_edit.connect("node_selected", _on_node_selected)
 	_graph_edit.connect("node_deselected", _on_node_deselected)
-	_graph_edit.add_node_button.connect("create_node_requested", _on_create_node_requested)
+	if Engine.is_editor_hint():
+		_graph_edit.add_node_button.connect("create_node_requested", _on_create_node_requested)
 
 
 func _is_update_needed(nodes: Array) -> bool:
@@ -196,13 +197,20 @@ func _on_node_deselected(deselected_node: Node) -> void:
 	_graph_edit.delete_node_button.selected_node = null
 
 
-func _on_create_node_requested(node_script_path: String) -> void:
+func _on_create_node_requested(node_class: String) -> void:
 	if not Engine.is_editor_hint():
 		push_warning("Node creation via action button works only in editor mode.")
 		return
 	if not _selected_node:
 		push_warning("Cannot instantiate new node as no selected node is found.")
 		return
+	
+	var node_script_path = SenseTreeHelpers.try_acquire_script_path(node_class)
+	if not node_script_path:
+		push_warning("Could not resolve script path for SenseTree node %s" % node_class)
+		return
+		
 	var node_resource: Script = load(node_script_path)
 	var node_instance: SenseTreeNode = node_resource.new()
-	_selected_node.scene_node.add_child(node_instance)
+	node_instance.set_name(node_class)
+	_selected_node.scene_node.add_child(node_instance, true)
