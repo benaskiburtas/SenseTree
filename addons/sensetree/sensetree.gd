@@ -13,7 +13,7 @@ var _tree_editor_instance: Node
 var _previous_hash
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
 	add_autoload_singleton("SenseTreeConstants", "res://addons/sensetree/common/constants.gd")
 	add_autoload_singleton("SenseTreeHelpers", "res://addons/sensetree/common/helpers.gd")
 	_load_tree_editor()

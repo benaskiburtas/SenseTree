@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 const PLUGIN_BASE_CLASS_PATTERN_STRING: String = "SenseTree"
@@ -12,7 +13,7 @@ var _sense_tree_decorators: Array[Dictionary]
 var _sense_tree_leaves: Array[Dictionary]
 
 
-func _init():
+func _ready() -> void:
 	_form_sense_node_class_caches()
 
 
