@@ -45,11 +45,11 @@ blackboard = NodePath("")
 [node name="SenseTreeRandomSelectorComposite" type="Node" parent="SenseTree"]
 script = ExtResource("5_1032w")
 
-[node name="SenseTreeRandomizeDecorator" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
+[node name="SenseTreeRandomizeDecorator2" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
 script = ExtResource("6_vb6uh")
 success_probability = 15.0
 
-[node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeRandomizeDecorator"]
+[node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeRandomizeDecorator2"]
 script = ExtResource("4_76cb3")
 
 [node name="SenseTreeSuccessDecorator" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
@@ -57,3 +57,10 @@ script = ExtResource("7_pyo3g")
 
 [node name="SenseTreeCondition" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeSuccessDecorator"]
 script = ExtResource("8_6h41g")
+
+[node name="SenseTreeRandomizeDecorator" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
+script = ExtResource("6_vb6uh")
+success_probability = 15.0
+
+[node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeRandomizeDecorator"]
+script = ExtResource("4_76cb3")

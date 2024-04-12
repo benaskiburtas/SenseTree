@@ -5,14 +5,23 @@ extends GraphEdit
 const IDLE_MODE_REDRAW_RATE: int = 150
 const PHYSICS_MODE_REDRAW_RATE: int = 150
 
-const GraphNodeStyleBoxes = preload(
-	"res://addons/sensetree/tree_visualizer/scripts/graphnode_styleboxes.gd"
+const GraphNodeStyleBoxes: Resource = preload(
+	"res://addons/sensetree/tree_visualizer/scripts/tree_graph_node_styleboxes.gd"
 )
 const GraphNodeArranger = preload(
 	"res://addons/sensetree/tree_visualizer/scripts/tree_node_arranger.gd"
 )
+const AddNodeButton = preload(
+	"res://addons/sensetree/tree_visualizer/scripts/action_button/tree_add_node_button.gd"
+)
+const DeleteNodeButton = preload(
+	"res://addons/sensetree/tree_visualizer/scripts/action_button/tree_delete_node_button.gd"
+)
 
 var style_boxes: TreeVisualizerGraphNodeStyleBoxes
+
+var add_node_button: TreeVisualizerAddNodeButton = null
+var delete_node_button: TreeVisualizerDeleteNodeButton = null
 
 var _process_mode: SenseTreeConstants.ProcessMode
 var _ticks_since_redraw: int = 0
@@ -20,9 +29,9 @@ var _is_graph_being_updated: bool = false
 
 
 func _init(process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS):
-	_process_mode = process_mode
-	minimap_enabled = false
 	style_boxes = GraphNodeStyleBoxes.new()
+	minimap_enabled = false
+	_process_mode = process_mode
 
 
 func _ready():
@@ -47,7 +56,17 @@ func _set_process_modes() -> void:
 
 
 func _add_additional_action_buttons() -> void:
-	pass
+	# Scene editing is only allowed while scene is not running
+	if not Engine.is_editor_hint():
+		return
+
+	var toolbar = get_menu_hbox()
+	
+	add_node_button = AddNodeButton.new()
+	toolbar.add_child(add_node_button)
+	
+	delete_node_button = DeleteNodeButton.new()	
+	toolbar.add_child(delete_node_button)
 
 
 func _get_connection_line(from_position: Vector2, to_position: Vector2) -> PackedVector2Array:

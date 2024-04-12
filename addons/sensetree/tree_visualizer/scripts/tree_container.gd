@@ -10,6 +10,7 @@ var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMo
 var _hashing_context: HashingContext
 var _previous_scene_hash: PackedByteArray
 var _selected_tree: SenseTree
+var _selected_node: TreeVisualizerGraphNode
 var _current_idle_tick_count: int = 0
 var _current_physics_tick_count: int = 0
 
@@ -52,13 +53,13 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 				return
 
 	var sense_nodes = _get_scene_sense_nodes()
-	
+
 	if not _is_update_needed(sense_nodes):
 		return
-		
+
 	if _selected_tree not in sense_nodes:
 		_selected_tree = null
-		
+
 	var trees = sense_nodes.filter(func(node): return node is SenseTree)
 	_reset_elements()
 	_populate_buttons(trees)
@@ -114,7 +115,7 @@ func _nodes_valid_for_hashing(sense_nodes: Array) -> bool:
 func _reset_elements() -> void:
 	for child in _tree_list_vertical_box.get_children():
 		child.queue_free()
-	
+
 	if _selected_tree:
 		_graph_edit.assign_tree(_selected_tree)
 	else:
@@ -156,6 +157,15 @@ func _find_all_sense_nodes(node: Node) -> Array:
 	return result
 
 
+func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
+	var scene_node = selected_node.scene_node
+
+	# Select matching node in scene list
+	var scene_selector: EditorSelection = EditorInterface.get_selection()
+	scene_selector.clear()
+	scene_selector.add_node(scene_node)
+
+
 func _on_tree_selected(tree: SenseTree) -> void:
 	_selected_tree = tree
 	_graph_edit.assign_tree(tree)
@@ -165,14 +175,10 @@ func _on_node_selected(selected_node: Node) -> void:
 	# Exit early if running not in-editor
 	if not Engine.is_editor_hint():
 		return
-	
+
 	if not selected_node is TreeVisualizerGraphNode:
 		return
-		
-	var sense_graph_node = selected_node as TreeVisualizerGraphNode
-	var scene_node = sense_graph_node._scene_node
-	
-	# Select matching node in scene list
-	var scene_selector: EditorSelection = EditorInterface.get_selection()
-	scene_selector.clear()
-	scene_selector.add_node(scene_node)
+
+	_select_node_in_editor(selected_node)
+	#_graph_edit.add_node_button.set_selected(selected_node)
+	#_graph_edit.delete_node_button.set_selected(selected_node)

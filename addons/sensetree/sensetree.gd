@@ -2,7 +2,6 @@
 class_name SenseTreeConfiguration
 extends EditorPlugin
 
-
 const PLUGIN_NAME: String = "SenseTree"
 const PLUGIN_ICON: Resource = preload("res://addons/sensetree/btree/icons/Tree.svg")
 const TreeEditor = preload("res://addons/sensetree/tree_visualizer/scenes/tree_editor.tscn")
@@ -15,17 +14,19 @@ var _previous_hash
 
 
 func _enter_tree() -> void:
-	add_autoload_singleton("SenseTreeConstants", "res://addons/sensetree/common/constants.gd")	
+	add_autoload_singleton("SenseTreeConstants", "res://addons/sensetree/common/constants.gd")
+	add_autoload_singleton("SenseTreeHelpers", "res://addons/sensetree/common/helpers.gd")
 	_load_tree_editor()
-	
+
 	_undo_redo_history_manager = get_undo_redo()
 	_hashing_context = HashingContext.new()
-	
+
 	_make_visible(false)
 
 
 func _exit_tree() -> void:
 	remove_autoload_singleton("SenseTreeConstants")
+	remove_autoload_singleton("SenseTreeHelpers")
 	_cleanup_tree_editor()
 
 
