@@ -67,6 +67,7 @@ func _process_class_definition(class_definition: Dictionary) -> void:
 	if not definition_instance is SenseTreeNode:
 		definition_instance.queue_free()
 		return
+		
 	var sense_node = definition_instance as SenseTreeNode
 
 	var node_group: SenseTreeConstants.NodeGroup = sense_node.get_node_group()

@@ -25,9 +25,8 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_setup_process_mode()
+	_connect_graph_edit_signals()
 	_populate_tree_selection_buttons([])
-	_graph_edit.connect("node_selected", _on_node_selected)
-	_graph_edit.connect("node_deselected", _on_node_deselected)
 
 
 func _process(delta) -> void:
@@ -69,6 +68,12 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 func _setup_process_mode() -> void:
 	set_process(_process_mode == SenseTreeConstants.ProcessMode.IDLE)
 	set_physics_process(_process_mode == SenseTreeConstants.ProcessMode.PHYSICS)
+
+
+func _connect_graph_edit_signals() -> void:
+	_graph_edit.connect("node_selected", _on_node_selected)
+	_graph_edit.connect("node_deselected", _on_node_deselected)
+	_graph_edit.add_node_button.connect("create_node_requested", _on_create_node_requested)
 
 
 func _is_update_needed(nodes: Array) -> bool:
@@ -172,18 +177,32 @@ func _on_tree_selected(tree: SenseTree) -> void:
 	_graph_edit.assign_tree(tree)
 
 
-func _on_node_selected(selected_node: Node) -> void:
+func _on_node_selected(selected_node: TreeVisualizerGraphNode) -> void:
 	# Exit early if running not in-editor
-	#if not Engine.is_editor_hint():
-		#return
+	if not Engine.is_editor_hint():
+		return
 
 	if not selected_node is TreeVisualizerGraphNode:
 		return
 
-	#_select_node_in_editor(selected_node)
+	_selected_node = selected_node
+	_select_node_in_editor(selected_node)
 	_graph_edit.add_node_button.selected_node = selected_node
 	_graph_edit.delete_node_button.selected_node = selected_node
+
 
 func _on_node_deselected(deselected_node: Node) -> void:
 	_graph_edit.add_node_button.selected_node = null
 	_graph_edit.delete_node_button.selected_node = null
+
+
+func _on_create_node_requested(node_script_path: String) -> void:
+	if not Engine.is_editor_hint():
+		push_warning("Node creation via action button works only in editor mode.")
+		return
+	if not _selected_node:
+		push_warning("Cannot instantiate new node as no selected node is found.")
+		return
+	var node_resource: Script = load(node_script_path)
+	var node_instance: SenseTreeNode = node_resource.new()
+	_selected_node.scene_node.add_child(node_instance)

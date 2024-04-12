@@ -96,32 +96,17 @@ script = ExtResource("5_yxpt0")
 [node name="SenseTreeAction3" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeRandomSequenceComposite"]
 script = ExtResource("5_yxpt0")
 
-[node name="SenseTreeSelectorComposite" type="Node" parent="SenseTree"]
+[node name="SenseTreeSelectorComposite" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
 script = ExtResource("10_0xqoi")
 
-[node name="SenseTreeFailDecorator" type="Node" parent="SenseTree/SenseTreeSelectorComposite"]
+[node name="SenseTreeFailDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSelectorComposite"]
 script = ExtResource("11_ddpa6")
 
-[node name="SenseTreeLeafNode" type="Node" parent="SenseTree/SenseTreeSelectorComposite/SenseTreeFailDecorator"]
+[node name="SenseTreeLeafNode" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSelectorComposite/SenseTreeFailDecorator"]
 script = ExtResource("5_vc3w7")
 
-[node name="SenseTreeSuccessDecorator" type="Node" parent="SenseTree/SenseTreeSelectorComposite"]
+[node name="SenseTreeSuccessDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSelectorComposite"]
 script = ExtResource("12_7j0i5")
 
-[node name="SenseTreeCondition" type="Node" parent="SenseTree/SenseTreeSelectorComposite/SenseTreeSuccessDecorator"]
+[node name="SenseTreeCondition" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSelectorComposite/SenseTreeSuccessDecorator"]
 script = ExtResource("6_yosny")
-
-[node name="SenseTree2" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
-script = ExtResource("3_4ff3e")
-actor = NodePath("..")
-blackboard = NodePath("")
-
-[node name="SenseTreeCompositeNode" type="Node" parent="SenseTree2"]
-script = ExtResource("4_wmagj")
-
-[node name="SenseTreeRetryDecorator" type="Node" parent="SenseTree2/SenseTreeCompositeNode"]
-script = ExtResource("6_iwws8")
-retry_limit = 1
-
-[node name="SenseTreeLeafNode" type="Node" parent="SenseTree2/SenseTreeCompositeNode/SenseTreeRetryDecorator"]
-script = ExtResource("5_vc3w7")

@@ -64,3 +64,8 @@ success_probability = 15.0
 
 [node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeRandomizeDecorator"]
 script = ExtResource("4_76cb3")
+
+[node name="Demo" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("1_l4ywh")
+actor = NodePath("..")
+blackboard = NodePath("")
