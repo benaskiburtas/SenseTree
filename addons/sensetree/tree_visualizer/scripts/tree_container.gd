@@ -204,13 +204,17 @@ func _on_create_node_requested(node_class: String) -> void:
 	if not _selected_node:
 		push_warning("Cannot instantiate new node as no selected node is found.")
 		return
-	
+
 	var node_script_path = SenseTreeHelpers.try_acquire_script_path(node_class)
 	if not node_script_path:
-		push_warning("Could not resolve script path for SenseTree node %s" % node_class)
+		push_warning("Could not resolve script path for SenseTree node %s." % node_class)
 		return
-		
-	var node_resource: Script = load(node_script_path)
-	var node_instance: SenseTreeNode = node_resource.new()
-	node_instance.set_name(node_class)
-	_selected_node.scene_node.add_child(node_instance, true)
+
+	var scene_root = EditorInterface.get_edited_scene_root()
+	var scene_node = _selected_node.scene_node
+	var node_script: Script = load(node_script_path)
+	var new_node_instance: SenseTreeNode = node_script.new()
+
+	new_node_instance.set_name(node_class)
+	scene_node.add_child(new_node_instance, true)
+	new_node_instance.set_owner(scene_root)

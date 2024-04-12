@@ -110,3 +110,9 @@ script = ExtResource("12_7j0i5")
 
 [node name="SenseTreeCondition" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSelectorComposite/SenseTreeSuccessDecorator"]
 script = ExtResource("6_yosny")
+
+[node name="SenseTreeCompositeNode" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSelectorComposite"]
+script = ExtResource("4_wmagj")
+
+[node name="SenseTreeCompositeNode3" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+script = ExtResource("4_wmagj")
