@@ -38,7 +38,7 @@ func _init(
 	alignment_mode: AlignmentType = AlignmentType.HORIZONTAL
 ) -> void:
 	self.scene_node = arranged_node.tree
-	
+
 	_alignment_mode = alignment_mode
 	_set_base_properties()
 	_initialize_port()
@@ -182,9 +182,7 @@ func _load_node_properties() -> void:
 		_content_container.add_child(property_container)
 
 
-func _assign_styleboxes_by_group(
-	style_boxes: TreeVisualizerGraphNodeStyleBoxes
-) -> void:
+func _assign_styleboxes_by_group(style_boxes: TreeVisualizerGraphNodeStyleBoxes) -> void:
 	var group = self.scene_node.get_node_group()
 
 	var panel_stylebox = style_boxes.get_stylebox(group, style_boxes.StyleBoxType.PANEL_STYLE_BOX)

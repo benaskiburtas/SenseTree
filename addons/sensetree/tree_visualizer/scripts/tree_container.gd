@@ -65,6 +65,12 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 	_populate_tree_selection_buttons(trees)
 
 
+func _force_redraw() -> void:
+	_current_idle_tick_count = IDLE_POLL_RATE + 1
+	_current_physics_tick_count = PHYSICS_POLL_RATE + 1
+	_process_frame(_process_mode)
+
+
 func _setup_process_mode() -> void:
 	set_process(_process_mode == SenseTreeConstants.ProcessMode.IDLE)
 	set_physics_process(_process_mode == SenseTreeConstants.ProcessMode.PHYSICS)
@@ -75,6 +81,7 @@ func _connect_graph_edit_signals() -> void:
 	_graph_edit.connect("node_deselected", _on_node_deselected)
 	if Engine.is_editor_hint():
 		_graph_edit.add_node_button.connect("create_node_requested", _on_create_node_requested)
+		_graph_edit.delete_node_button.connect("delete_node_requested", _on_delete_node_requested)
 
 
 func _is_update_needed(nodes: Array) -> bool:
@@ -199,10 +206,11 @@ func _on_node_deselected(deselected_node: Node) -> void:
 
 func _on_create_node_requested(node_class: String) -> void:
 	if not Engine.is_editor_hint():
-		push_warning("Node creation via action button works only in editor mode.")
+		push_warning("Node creation via action button is permitted only in editor mode.")
 		return
+
 	if not _selected_node:
-		push_warning("Cannot instantiate new node as no selected node is found.")
+		push_warning("Cannot instantiate new node as no selected node was found.")
 		return
 
 	var node_script_path = SenseTreeHelpers.try_acquire_script_path(node_class)
@@ -218,3 +226,22 @@ func _on_create_node_requested(node_class: String) -> void:
 	new_node_instance.set_name(node_class)
 	scene_node.add_child(new_node_instance, true)
 	new_node_instance.set_owner(scene_root)
+
+	_force_redraw()
+
+
+func _on_delete_node_requested(node: TreeVisualizerGraphNode) -> void:
+	if not Engine.is_editor_hint():
+		push_warning("Node deletion via action button is permitted only in editor mode.")
+		return
+
+	if not node:
+		push_warning("Delete node request is missing target graph node.")
+		return
+
+	var scene_node = node.scene_node
+	node.queue_free()
+	scene_node.queue_free()
+	_selected_node = null
+
+	_force_redraw()

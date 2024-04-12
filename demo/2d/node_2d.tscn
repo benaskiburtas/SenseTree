@@ -1,13 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjlyudrws5oyy"]
+[gd_scene load_steps=13 format=3 uid="uid://bjlyudrws5oyy"]
 
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/tree.gd" id="1_l4ywh"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/sequence.gd" id="2_rigjo"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/selector.gd" id="3_uq7q6"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/action.gd" id="4_76cb3"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/random_selector.gd" id="5_1032w"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/fail.gd" id="5_kk5dd"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/randomize.gd" id="6_vb6uh"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/success.gd" id="7_pyo3g"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/nodes/leaf/condition.gd" id="8_6h41g"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/composite/composite.gd" id="10_jhxb6"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/retry.gd" id="11_25u7a"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/nodes/decorator/decorator.gd" id="12_420nm"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -34,8 +38,8 @@ script = ExtResource("2_rigjo")
 [node name="SenseTreeAction3" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSequenceComposite"]
 script = ExtResource("4_76cb3")
 
-[node name="SenseTreeAction4" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSequenceComposite"]
-script = ExtResource("4_76cb3")
+[node name="SenseTreeFailDecorator" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSequenceComposite"]
+script = ExtResource("5_kk5dd")
 
 [node name="SenseTree" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("1_l4ywh")
@@ -62,10 +66,22 @@ script = ExtResource("8_6h41g")
 script = ExtResource("6_vb6uh")
 success_probability = 15.0
 
-[node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeRandomizeDecorator"]
-script = ExtResource("4_76cb3")
-
 [node name="Demo" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("1_l4ywh")
 actor = NodePath("..")
 blackboard = NodePath("")
+
+[node name="SenseTreeCompositeNode" type="Node" parent="Demo"]
+script = ExtResource("10_jhxb6")
+
+[node name="SenseTreeRetryDecorator" type="Node" parent="Demo/SenseTreeCompositeNode"]
+script = ExtResource("11_25u7a")
+
+[node name="SenseTreeRandomizeDecorator" type="Node" parent="Demo/SenseTreeCompositeNode"]
+script = ExtResource("6_vb6uh")
+
+[node name="SenseTreeDecorator" type="Node" parent="Demo/SenseTreeCompositeNode/SenseTreeRandomizeDecorator"]
+script = ExtResource("12_420nm")
+
+[node name="SenseTreeConditionLeaf" type="Node" parent="Demo/SenseTreeCompositeNode/SenseTreeRandomizeDecorator/SenseTreeDecorator"]
+script = ExtResource("8_6h41g")
