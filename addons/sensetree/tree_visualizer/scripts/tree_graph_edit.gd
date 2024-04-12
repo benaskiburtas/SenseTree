@@ -70,9 +70,17 @@ func _add_additional_action_buttons() -> void:
 
 func _get_connection_line(from_position: Vector2, to_position: Vector2) -> PackedVector2Array:
 	var line_points: PackedVector2Array
-	line_points.push_back(from_position)
-	line_points.push_back(Vector2(from_position.x, to_position.y))
-	line_points.push_back(to_position)
+	
+	var middle_x = (from_position.x + to_position.x) / 2
+	var middle_y = (from_position.y + to_position.y) / 2
+	var middle = Vector2(middle_x, middle_y)
+	
+	line_points.push_back(Vector2(from_position.x, from_position.y))
+	line_points.push_back(Vector2(middle.x, from_position.y))
+	line_points.push_back(Vector2(middle.x, middle.y))
+	line_points.push_back(Vector2(middle.x, to_position.y))
+	line_points.push_back(Vector2(to_position.x, to_position.y))
+	
 	return line_points
 
 
