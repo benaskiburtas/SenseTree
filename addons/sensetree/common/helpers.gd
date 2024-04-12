@@ -24,7 +24,7 @@ func get_class_definitions_by_group(node_group: SenseTreeConstants.NodeGroup) ->
 		SenseTreeConstants.NodeGroup.DECORATOR:
 			return _sense_tree_decorators
 		SenseTreeConstants.NodeGroup.LEAF:
-			return _sense_tree_composites
+			return _sense_tree_leaves
 		_:
 			return []
 

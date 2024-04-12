@@ -25,8 +25,9 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_setup_process_mode()
-	_populate_buttons([])
+	_populate_tree_selection_buttons([])
 	_graph_edit.connect("node_selected", _on_node_selected)
+	_graph_edit.connect("node_deselected", _on_node_deselected)
 
 
 func _process(delta) -> void:
@@ -62,7 +63,7 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 
 	var trees = sense_nodes.filter(func(node): return node is SenseTree)
 	_reset_elements()
-	_populate_buttons(trees)
+	_populate_tree_selection_buttons(trees)
 
 
 func _setup_process_mode() -> void:
@@ -122,7 +123,7 @@ func _reset_elements() -> void:
 		_graph_edit.reset()
 
 
-func _populate_buttons(scene_trees: Array) -> void:
+func _populate_tree_selection_buttons(scene_trees: Array) -> void:
 	var scene: Node
 	if Engine.is_editor_hint():
 		scene = get_tree().edited_scene_root
@@ -173,12 +174,16 @@ func _on_tree_selected(tree: SenseTree) -> void:
 
 func _on_node_selected(selected_node: Node) -> void:
 	# Exit early if running not in-editor
-	if not Engine.is_editor_hint():
-		return
+	#if not Engine.is_editor_hint():
+		#return
 
 	if not selected_node is TreeVisualizerGraphNode:
 		return
 
-	_select_node_in_editor(selected_node)
-	#_graph_edit.add_node_button.set_selected(selected_node)
-	#_graph_edit.delete_node_button.set_selected(selected_node)
+	#_select_node_in_editor(selected_node)
+	_graph_edit.add_node_button.selected_node = selected_node
+	_graph_edit.delete_node_button.selected_node = selected_node
+
+func _on_node_deselected(deselected_node: Node) -> void:
+	_graph_edit.add_node_button.selected_node = null
+	_graph_edit.delete_node_button.selected_node = null

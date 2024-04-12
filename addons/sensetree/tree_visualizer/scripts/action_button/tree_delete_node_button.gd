@@ -9,8 +9,10 @@ func _init() -> void:
 	text = BUTTON_TEXT
 
 func _assign_button_state() -> void:
-	var sense_node = _selected_node.scene_node
-	var node_group = sense_node.get_node_group()
+	if self.selected_node == null or _selected_node_group == null:
+		disabled = true
 
 func _assign_button_options() -> void:
-	pass
+	get_popup().clear(true)
+	if self.selected_node == null or _selected_node_group == null:
+		return

@@ -36,6 +36,9 @@ func _init(process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.Pro
 
 func _ready():
 	_set_process_modes()
+
+	# Scene editing is only allowed while scene is not running
+	#if Engine.is_editor_hint():
 	_add_additional_action_buttons()
 
 
@@ -56,16 +59,12 @@ func _set_process_modes() -> void:
 
 
 func _add_additional_action_buttons() -> void:
-	# Scene editing is only allowed while scene is not running
-	if not Engine.is_editor_hint():
-		return
-
 	var toolbar = get_menu_hbox()
-	
+
 	add_node_button = AddNodeButton.new()
 	toolbar.add_child(add_node_button)
-	
-	delete_node_button = DeleteNodeButton.new()	
+
+	delete_node_button = DeleteNodeButton.new()
 	toolbar.add_child(delete_node_button)
 
 
