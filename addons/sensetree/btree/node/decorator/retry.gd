@@ -12,7 +12,7 @@ func _ready() -> void:
 	_current_retries = 0
 
 
-func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+func _tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if _current_retries < retry_limit:
 		var child = get_child(0)
 		var result = child.tick(actor, blackboard)

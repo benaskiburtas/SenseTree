@@ -3,10 +3,11 @@ class_name TreeVisualizerContainer
 extends Container
 
 const DEFAULT_HASH = HashingContext.HASH_MD5
-const IDLE_POLL_RATE: int = 15
-const PHYSICS_POLL_RATE: int = 15
+const IDLE_POLL_RATE: int = 10
+const PHYSICS_POLL_RATE: int = 10
 
 var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
+
 var _hashing_context: HashingContext
 var _previous_scene_hash: PackedByteArray
 var _selected_tree: SenseTree
@@ -19,7 +20,7 @@ var _current_physics_tick_count: int = 0
 var _tree_list_vertical_box: VBoxContainer = $TreeList/TreeListMarginContainer/TreeListVerticalBox
 
 
-func _enter_tree() -> void:
+func _init():
 	_hashing_context = HashingContext.new()
 
 
@@ -65,12 +66,6 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 	_populate_tree_selection_buttons(trees)
 
 
-func _force_redraw() -> void:
-	_current_idle_tick_count = IDLE_POLL_RATE + 1
-	_current_physics_tick_count = PHYSICS_POLL_RATE + 1
-	_process_frame(_process_mode)
-
-
 func _setup_process_mode() -> void:
 	set_process(_process_mode == SenseTreeConstants.ProcessMode.IDLE)
 	set_physics_process(_process_mode == SenseTreeConstants.ProcessMode.PHYSICS)
@@ -82,6 +77,25 @@ func _connect_graph_edit_signals() -> void:
 	if Engine.is_editor_hint():
 		_graph_edit.add_node_button.connect("create_node_requested", _on_create_node_requested)
 		_graph_edit.delete_node_button.connect("delete_node_requested", _on_delete_node_requested)
+
+
+func _populate_tree_selection_buttons(scene_trees: Array) -> void:
+	var scene: Node
+	if Engine.is_editor_hint():
+		scene = get_tree().edited_scene_root
+	else:
+		scene = get_tree().current_scene
+
+	for tree in scene_trees:
+		var button = TreeVisualizerSelectButton.new(tree)
+		button.connect("tree_selected", _on_tree_selected)
+		_tree_list_vertical_box.add_child(button)
+
+
+func _force_redraw() -> void:
+	_current_idle_tick_count = IDLE_POLL_RATE + 1
+	_current_physics_tick_count = PHYSICS_POLL_RATE + 1
+	_process_frame(_process_mode)
 
 
 func _is_update_needed(nodes: Array) -> bool:
@@ -134,19 +148,6 @@ func _reset_elements() -> void:
 		_graph_edit.assign_tree(_selected_tree)
 	else:
 		_graph_edit.reset()
-
-
-func _populate_tree_selection_buttons(scene_trees: Array) -> void:
-	var scene: Node
-	if Engine.is_editor_hint():
-		scene = get_tree().edited_scene_root
-	else:
-		scene = get_tree().current_scene
-
-	for tree in scene_trees:
-		var button = TreeVisualizerSelectButton.new(tree)
-		button.connect("tree_selected", _on_tree_selected)
-		_tree_list_vertical_box.add_child(button)
 
 
 func _get_scene_sense_nodes() -> Array:

@@ -6,32 +6,36 @@ const IDLE_MODE_REDRAW_RATE: int = 150
 const PHYSICS_MODE_REDRAW_RATE: int = 150
 
 const GraphNodeStyleBoxes: Resource = preload(
-	"res://addons/sensetree/tree_visualizer/resource/tree_graph_node_styleboxes.gd"
+	"res://addons/sensetree/tree_visualizer/singleton/tree_graph_node_style_boxes.gd"
 )
-const GraphNodeArranger = preload(
+const GraphNodeStatusPanels: Resource = preload(
+	"res://addons/sensetree/tree_visualizer/singleton/tree_graph_node_status_panels.gd"
+)
+const GraphNodeArranger: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/tree_node_arranger.gd"
 )
-const AddNodeButton = preload(
+const AddNodeButton: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/action_button/tree_add_node_button.gd"
 )
-const DeleteNodeButton = preload(
+const DeleteNodeButton: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/action_button/tree_delete_node_button.gd"
 )
 
 var style_boxes: TreeVisualizerGraphNodeStyleBoxes
+var status_panels: TreeVisualizerGraphNodeStatusPanels
 
 var add_node_button: TreeVisualizerAddNodeButton = null
 var delete_node_button: TreeVisualizerDeleteNodeButton = null
 
-var _process_mode: SenseTreeConstants.ProcessMode
+var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
 var _ticks_since_redraw: int = 0
 var _is_graph_being_updated: bool = false
 
 
-func _init(process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS):
-	style_boxes = GraphNodeStyleBoxes.new()
+func _init():
 	minimap_enabled = false
-	_process_mode = process_mode
+	style_boxes = GraphNodeStyleBoxes.new()
+	status_panels = GraphNodeStatusPanels.new()
 
 
 func _ready():
@@ -70,17 +74,17 @@ func _add_additional_action_buttons() -> void:
 
 func _get_connection_line(from_position: Vector2, to_position: Vector2) -> PackedVector2Array:
 	var line_points: PackedVector2Array
-	
+
 	var middle_x = (from_position.x + to_position.x) / 2
 	var middle_y = (from_position.y + to_position.y) / 2
 	var middle = Vector2(middle_x, middle_y)
-	
+
 	line_points.push_back(Vector2(from_position.x, from_position.y))
 	line_points.push_back(Vector2(middle.x, from_position.y))
 	line_points.push_back(Vector2(middle.x, middle.y))
 	line_points.push_back(Vector2(middle.x, to_position.y))
 	line_points.push_back(Vector2(to_position.x, to_position.y))
-	
+
 	return line_points
 
 
@@ -154,7 +158,7 @@ func _place_arranged_tree(arranged_tree: ArrangedVisualizerNode):
 		var arranged_node = node_details.node
 		var parent_node = node_details.parent
 
-		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes)
+		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes, status_panels)
 		add_child(graph_node)
 
 		if parent_node:

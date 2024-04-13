@@ -4,5 +4,5 @@ class_name SenseTreeConditionLeaf
 extends SenseTreeLeafNode
 
 
-func get_sensenode_class() -> String:
+func _get_sensenode_class() -> String:
 	return "SenseTreeConditionLeaf"

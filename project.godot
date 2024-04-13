@@ -22,7 +22,7 @@ buses/default_bus_layout=""
 [autoload]
 
 SenseTreeConstants="*res://addons/sensetree/common/constants.gd"
-SenseTreeHelpers="*res://addons/sensetree/common/helpers.gd"
+SenseTreeHelpers="*res://addons/sensetree/common/singleton/helpers.gd"
 
 [editor_plugins]
 

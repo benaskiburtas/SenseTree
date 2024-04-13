@@ -45,7 +45,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 	return configuration_warnings
 
-
 func _ready() -> void:
 	if not actor:
 		_set_default_actor()

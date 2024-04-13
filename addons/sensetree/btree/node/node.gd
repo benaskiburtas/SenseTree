@@ -3,6 +3,8 @@
 class_name SenseTreeNode
 extends Node
 
+signal status_changed
+
 enum Status { SUCCESS, FAILURE, RUNNING }
 
 
@@ -17,7 +19,10 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
-	return Status.SUCCESS
+	var result = _tick(actor, blackboard)
+	if EngineDebugger.is_active():
+		status_changed.emit(result)
+	return result
 
 
 func stop(actor: Node, blackboard: SenseTreeBlackboard) -> void:
@@ -38,3 +43,7 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 
 func has_children() -> bool:
 	return has_children()
+
+
+func _tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+	return Status.SUCCESS

@@ -12,7 +12,7 @@ func _ready() -> void:
 	_current_repetitions = 0
 
 
-func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+func _tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if _current_repetitions >= repeat_limit:
 		return Status.RUNNING
 	else:

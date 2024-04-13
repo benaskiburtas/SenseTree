@@ -6,7 +6,7 @@ extends SenseTreeCompositeNode
 var _last_running_index: int = 0
 
 
-func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+func _tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	for child_index in range(_last_running_index, get_children().size()):
 		var child = get_child(child_index)
 		var result: Status = child.tick(actor, blackboard)

@@ -9,7 +9,7 @@ enum StyleBoxType {
 	SLOT_STYLE_BOX
 }
 
-## Level of transparancey 0.0 -> 1.0
+## Level of transparancy 0.0 -> 1.0
 const PANEL_STYLE_BOX_ALPHA: float = 0.5
 const PANEL_SELECTED_STYLE_BOX_ALPHA: float = 0.9
 const TITLEBAR_STYLE_BOX_ALPHA: float = 0.6
@@ -74,7 +74,7 @@ func get_group_color(group: SenseTreeConstants.NodeGroup) -> Color:
 		SenseTreeConstants.NodeGroup.UNKNOWN:
 			return SenseTreeConstants.FALL_BACK_COLOR
 		_:
-			push_warning("Could not resolve node color for group %s" % group)
+			push_warning("Could not resolve color for node group %s" % group)
 			return SenseTreeConstants.FALL_BACK_COLOR
 
 

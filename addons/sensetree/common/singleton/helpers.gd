@@ -45,6 +45,18 @@ func try_acquire_script_path(sense_tree_class: String) -> String:
 	return String()
 
 
+static func set_container_margins(container: Container, margin: int) -> void:
+	container.add_theme_constant_override("margin_top", margin)
+	container.add_theme_constant_override("margin_left", margin)
+	container.add_theme_constant_override("margin_bottom", margin)
+	container.add_theme_constant_override("margin_right", margin)
+
+
+static func set_container_to_expand_fully(container: Container) -> void:
+	container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+
 func _form_sense_node_class_caches() -> void:
 	var global_class_list: Array[Dictionary] = ProjectSettings.get_global_class_list()
 

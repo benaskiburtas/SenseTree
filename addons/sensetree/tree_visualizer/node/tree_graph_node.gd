@@ -26,6 +26,9 @@ var _port: Control
 var _titlebar: HBoxContainer
 var _titlebar_icon: TextureRect
 
+var _status_panels: TreeVisualizerGraphNodeStatusPanels
+var _current_status_panel: Panel
+
 var _has_properties: bool = false:
 	set(has_properties):
 		_has_properties = has_properties
@@ -35,11 +38,14 @@ var _has_properties: bool = false:
 func _init(
 	arranged_node: ArrangedVisualizerNode,
 	style_boxes: TreeVisualizerGraphNodeStyleBoxes,
+	status_panels: TreeVisualizerGraphNodeStatusPanels,
 	alignment_mode: AlignmentType = AlignmentType.HORIZONTAL
 ) -> void:
 	self.scene_node = arranged_node.tree
 
+	_status_panels = status_panels
 	_alignment_mode = alignment_mode
+
 	_set_base_properties()
 	_initialize_port()
 	_initialize_content_vbox()
@@ -50,6 +56,7 @@ func _init(
 	_load_node_icon()
 	_load_node_title()
 	_load_node_properties()
+	_connect_status_changed_signal()
 	_assign_styleboxes_by_group(style_boxes)
 
 	_set_node_position(arranged_node)
@@ -67,11 +74,11 @@ func _initialize_port() -> void:
 
 func _initialize_content_vbox() -> void:
 	var margin_content_container = MarginContainer.new()
-	_set_container_margins(margin_content_container, CONTENT_AREA_MARGIN)
-	_set_container_to_expand_fully(margin_content_container)
+	SenseTreeHelpers.set_container_margins(margin_content_container, CONTENT_AREA_MARGIN)
+	SenseTreeHelpers.set_container_to_expand_fully(margin_content_container)
 
 	_content_container = VBoxContainer.new()
-	_set_container_to_expand_fully(_content_container)
+	SenseTreeHelpers.set_container_to_expand_fully(_content_container)
 
 	margin_content_container.add_child(_content_container)
 
@@ -168,7 +175,7 @@ func _load_node_properties() -> void:
 
 	for property in properties:
 		var property_container = HBoxContainer.new()
-		_set_container_margins(property_container, PROPERTY_ITEM_MARGIN)
+		SenseTreeHelpers.set_container_margins(property_container, PROPERTY_ITEM_MARGIN)
 		property_container.add_theme_constant_override("separation", 10)
 
 		var name_label = Label.new()
@@ -180,6 +187,10 @@ func _load_node_properties() -> void:
 		property_container.add_child(value_label)
 
 		_content_container.add_child(property_container)
+
+
+func _connect_status_changed_signal() -> void:
+	scene_node.connect("status_changed", _on_status_changed)
 
 
 func _assign_styleboxes_by_group(style_boxes: TreeVisualizerGraphNodeStyleBoxes) -> void:
@@ -222,13 +233,19 @@ func _set_node_position(arranged_node: ArrangedVisualizerNode) -> void:
 	position_offset = Vector2(x_position, y_position)
 
 
-func _set_container_margins(container: Container, margin: int) -> void:
-	container.add_theme_constant_override("margin_top", margin)
-	container.add_theme_constant_override("margin_left", margin)
-	container.add_theme_constant_override("margin_bottom", margin)
-	container.add_theme_constant_override("margin_right", margin)
+#func set_status_panel(new_panel: Panel) -> void:
+#if _status_panel == new_panel:
+#return
+#
+#_status_panel = new_panel
+#_content_container.add_child(_status_panel)
+#_content_container.move_child(_status_panel, 0)
+#
+#
+#func clear_status_panel() -> void:
+#if _status_panel:
+#_status_panel.queue_free()
 
 
-func _set_container_to_expand_fully(container: Container) -> void:
-	container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+func _on_status_changed(status: SenseTreeNode.Status) -> void:
+	pass
