@@ -6,10 +6,7 @@ const IDLE_MODE_REDRAW_RATE: int = 150
 const PHYSICS_MODE_REDRAW_RATE: int = 150
 
 const GraphNodeStyleBoxes: Resource = preload(
-	"res://addons/sensetree/tree_visualizer/singleton/tree_graph_node_style_boxes.gd"
-)
-const GraphNodeStatusPanels: Resource = preload(
-	"res://addons/sensetree/tree_visualizer/singleton/tree_graph_node_status_panels.gd"
+	"res://addons/sensetree/tree_visualizer/resource/tree_graph_node_style_boxes.gd"
 )
 const GraphNodeArranger: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/tree_node_arranger.gd"
@@ -22,7 +19,6 @@ const DeleteNodeButton: Script = preload(
 )
 
 var style_boxes: TreeVisualizerGraphNodeStyleBoxes
-var status_panels: TreeVisualizerGraphNodeStatusPanels
 
 var add_node_button: TreeVisualizerAddNodeButton = null
 var delete_node_button: TreeVisualizerDeleteNodeButton = null
@@ -31,16 +27,13 @@ var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMo
 var _ticks_since_redraw: int = 0
 var _is_graph_being_updated: bool = false
 
-
 func _init():
 	minimap_enabled = false
 	style_boxes = GraphNodeStyleBoxes.new()
-	status_panels = GraphNodeStatusPanels.new()
 
 
 func _ready():
 	_set_process_modes()
-
 	# Scene editing is only allowed while scene is not running
 	if Engine.is_editor_hint():
 		_add_additional_action_buttons()
@@ -158,7 +151,7 @@ func _place_arranged_tree(arranged_tree: ArrangedVisualizerNode):
 		var arranged_node = node_details.node
 		var parent_node = node_details.parent
 
-		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes, status_panels)
+		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes)
 		add_child(graph_node)
 
 		if parent_node:

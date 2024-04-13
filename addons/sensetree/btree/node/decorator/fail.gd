@@ -4,7 +4,7 @@ class_name SenseTreeFailDecorator
 extends SenseTreeDecorator
 
 
-func _tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var child: SenseTreeNode
 	if get_child_count() != 0:
 		child = get_child(0)

@@ -27,3 +27,13 @@ SenseTreeHelpers="*res://addons/sensetree/common/singleton/helpers.gd"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/gdscript_formatter/plugin.cfg", "res://addons/sensetree/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/sensetree/": "green",
+"res://addons/sensetree/btree/": "red",
+"res://addons/sensetree/common/": "orange",
+"res://addons/sensetree/detect/": "yellow",
+"res://addons/sensetree/tree_visualizer/": "blue"
+}

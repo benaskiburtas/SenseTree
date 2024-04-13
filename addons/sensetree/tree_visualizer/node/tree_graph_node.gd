@@ -26,9 +26,6 @@ var _port: Control
 var _titlebar: HBoxContainer
 var _titlebar_icon: TextureRect
 
-var _status_panels: TreeVisualizerGraphNodeStatusPanels
-var _current_status_panel: Panel
-
 var _has_properties: bool = false:
 	set(has_properties):
 		_has_properties = has_properties
@@ -38,12 +35,9 @@ var _has_properties: bool = false:
 func _init(
 	arranged_node: ArrangedVisualizerNode,
 	style_boxes: TreeVisualizerGraphNodeStyleBoxes,
-	status_panels: TreeVisualizerGraphNodeStatusPanels,
 	alignment_mode: AlignmentType = AlignmentType.HORIZONTAL
 ) -> void:
 	self.scene_node = arranged_node.tree
-
-	_status_panels = status_panels
 	_alignment_mode = alignment_mode
 
 	_set_base_properties()
@@ -56,7 +50,6 @@ func _init(
 	_load_node_icon()
 	_load_node_title()
 	_load_node_properties()
-	_connect_status_changed_signal()
 	_assign_styleboxes_by_group(style_boxes)
 
 	_set_node_position(arranged_node)
@@ -189,10 +182,6 @@ func _load_node_properties() -> void:
 		_content_container.add_child(property_container)
 
 
-func _connect_status_changed_signal() -> void:
-	scene_node.connect("status_changed", _on_status_changed)
-
-
 func _assign_styleboxes_by_group(style_boxes: TreeVisualizerGraphNodeStyleBoxes) -> void:
 	var group = self.scene_node.get_node_group()
 
@@ -231,21 +220,3 @@ func _set_node_position(arranged_node: ArrangedVisualizerNode) -> void:
 	var x_position = (node_x_offset_units + 1) * HORIZONTAL_SPACING_OFFSET
 	var y_position = (node_y_offset_units) * VERTICAL_SPACING_OFFSET
 	position_offset = Vector2(x_position, y_position)
-
-
-#func set_status_panel(new_panel: Panel) -> void:
-#if _status_panel == new_panel:
-#return
-#
-#_status_panel = new_panel
-#_content_container.add_child(_status_panel)
-#_content_container.move_child(_status_panel, 0)
-#
-#
-#func clear_status_panel() -> void:
-#if _status_panel:
-#_status_panel.queue_free()
-
-
-func _on_status_changed(status: SenseTreeNode.Status) -> void:
-	pass

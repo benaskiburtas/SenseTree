@@ -3,7 +3,7 @@
 class_name SenseTreeRepeatDecorator
 extends SenseTreeDecorator
 
-@export_range(0, 100000) var repeat_limit: int = 0
+@export_range(0, 100000) var repeat_limit: int = 5
 
 var _current_repetitions: int = 0
 
@@ -12,14 +12,17 @@ func _ready() -> void:
 	_current_repetitions = 0
 
 
-func _tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
-	if _current_repetitions >= repeat_limit:
-		return Status.RUNNING
-	else:
+func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+	if get_child_count() == 0:
+		_current_repetitions = 0
+		return Status.FAILURE
+
+	if _current_repetitions < repeat_limit:
 		var child = get_child(0)
 		var result = child.tick(actor, blackboard)
 
 		if result == Status.FAILURE:
+			_current_repetitions = 0
 			return Status.FAILURE
 		if result == Status.RUNNING:
 			return Status.RUNNING
@@ -27,9 +30,13 @@ func _tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		_current_repetitions += 1
 
 		if _current_repetitions >= repeat_limit:
+			_current_repetitions = 0
 			return Status.SUCCESS
 
 		return Status.RUNNING
+	else:
+		_current_repetitions = 0
+		return Status.SUCCESS
 
 
 func get_sensenode_class() -> String:
