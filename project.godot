@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="SenseTree"
-run/main_scene="res://addons/sensetree/tree_visualizer/scenes/tree_editor.tscn"
+run/main_scene="res://addons/sensetree/tree_visualizer/scene/tree_editor.tscn"
 config/features=PackedStringArray("4.2")
-config/icon="res://addons/sensetree/btree/icons/Leaf.svg"
+config/icon="res://addons/sensetree/btree/icon/Leaf.svg"
 
 [audio]
 

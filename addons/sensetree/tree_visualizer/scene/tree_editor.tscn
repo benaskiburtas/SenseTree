@@ -1,0 +1,137 @@
+[gd_scene load_steps=13 format=3 uid="uid://bubtlnxc8l0pt"]
+
+[ext_resource type="Theme" uid="uid://dxoe4c5iqtvjn" path="res://addons/sensetree/tree_visualizer/theme/visualizer_theme.tres" id="1_uxink"]
+[ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/node/tree_container.gd" id="2_xfh5u"]
+[ext_resource type="Script" path="res://addons/sensetree/tree_visualizer/node/tree_graph_edit.gd" id="3_4jcpq"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/tree.gd" id="4_gb8k1"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/composite.gd" id="5_t32kv"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/sequence.gd" id="6_0hy5g"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/retry.gd" id="6_algbh"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/leaf/action.gd" id="9_nbv1f"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/randomize.gd" id="10_lry7w"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/repeat.gd" id="11_e5wqv"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/success.gd" id="12_g4tbe"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/leaf/condition.gd" id="13_vixyr"]
+
+[node name="MarginContainer" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_uxink")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TreeContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+script = ExtResource("2_xfh5u")
+
+[node name="TreeGraphEditor" type="GraphEdit" parent="TreeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+zoom = 0.55
+zoom_min = 0.2
+zoom_max = 2.0
+minimap_enabled = false
+show_arrange_button = false
+script = ExtResource("3_4jcpq")
+
+[node name="TreeList" type="ItemList" parent="TreeContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TreeListMarginContainer" type="MarginContainer" parent="TreeContainer/TreeList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TreeListVerticalBox" type="VBoxContainer" parent="TreeContainer/TreeList/TreeListMarginContainer"]
+layout_mode = 2
+
+[node name="SenseTree" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("4_gb8k1")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTreeCompositeNode" type="Node" parent="SenseTree"]
+script = ExtResource("5_t32kv")
+
+[node name="SenseTreeSequenceComposite" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+script = ExtResource("6_0hy5g")
+
+[node name="SenseTreeSuccessDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite"]
+script = ExtResource("12_g4tbe")
+
+[node name="SenseTreeConditionLeaf" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite/SenseTreeSuccessDecorator"]
+script = ExtResource("13_vixyr")
+
+[node name="SenseTreeRetryDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite"]
+script = ExtResource("6_algbh")
+
+[node name="SenseTreeConditionLeaf2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite/SenseTreeRetryDecorator"]
+script = ExtResource("13_vixyr")
+
+[node name="SenseTreeRandomizeDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite"]
+script = ExtResource("10_lry7w")
+
+[node name="SenseTreeConditionLeaf3" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite/SenseTreeRandomizeDecorator"]
+script = ExtResource("13_vixyr")
+
+[node name="SenseTreeRepeatDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite"]
+script = ExtResource("11_e5wqv")
+
+[node name="SenseTreeConditionLeaf4" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite/SenseTreeRepeatDecorator"]
+script = ExtResource("13_vixyr")
+
+[node name="SenseTreeRepeatDecorator2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite"]
+script = ExtResource("11_e5wqv")
+
+[node name="SenseTreeActionLeaf" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite/SenseTreeRepeatDecorator2"]
+script = ExtResource("9_nbv1f")
+
+[node name="SenseTreeSequenceComposite2" type="Node" parent="SenseTree/SenseTreeCompositeNode"]
+script = ExtResource("6_0hy5g")
+
+[node name="SenseTreeSuccessDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2"]
+script = ExtResource("12_g4tbe")
+
+[node name="SenseTreeConditionLeaf" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2/SenseTreeSuccessDecorator"]
+script = ExtResource("13_vixyr")
+
+[node name="SenseTreeRetryDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2"]
+script = ExtResource("6_algbh")
+retry_limit = 20
+
+[node name="SenseTreeConditionLeaf2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2/SenseTreeRetryDecorator"]
+script = ExtResource("13_vixyr")
+
+[node name="SenseTreeRandomizeDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2"]
+script = ExtResource("10_lry7w")
+
+[node name="SenseTreeConditionLeaf3" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2/SenseTreeRandomizeDecorator"]
+script = ExtResource("13_vixyr")
+
+[node name="SenseTreeRepeatDecorator" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2"]
+script = ExtResource("11_e5wqv")
+
+[node name="SenseTreeConditionLeaf4" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2/SenseTreeRepeatDecorator"]
+script = ExtResource("13_vixyr")
+
+[node name="SenseTreeRepeatDecorator2" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2"]
+script = ExtResource("11_e5wqv")
+
+[node name="SenseTreeActionLeaf" type="Node" parent="SenseTree/SenseTreeCompositeNode/SenseTreeSequenceComposite2/SenseTreeRepeatDecorator2"]
+script = ExtResource("9_nbv1f")

@@ -3,8 +3,8 @@ class_name SenseTreeConfiguration
 extends EditorPlugin
 
 const PLUGIN_NAME: String = "SenseTree"
-const PLUGIN_ICON: Resource = preload("res://addons/sensetree/btree/icons/Tree.svg")
-const TreeEditor = preload("res://addons/sensetree/tree_visualizer/scenes/tree_editor.tscn")
+const PLUGIN_ICON: Resource = preload("res://addons/sensetree/btree/icon/Tree.svg")
+const TreeVisualizerEditor = preload("res://addons/sensetree/tree_visualizer/scene/tree_editor.tscn")
 
 var _undo_redo_history_manager: EditorUndoRedoManager
 var _hashing_context: HashingContext
@@ -48,7 +48,7 @@ func _has_main_screen():
 
 
 func _load_tree_editor() -> void:
-	_tree_editor_instance = TreeEditor.instantiate()
+	_tree_editor_instance = TreeVisualizerEditor.instantiate()
 	EditorInterface.get_editor_main_screen().add_child(_tree_editor_instance)
 
 

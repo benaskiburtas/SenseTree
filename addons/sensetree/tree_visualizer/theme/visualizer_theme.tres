@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dxoe4c5iqtvjn"]
+
+[ext_resource type="FontFile" uid="uid://dfwfllr50ofto" path="res://addons/sensetree/tree_visualizer/font/Code New Roman.woff" id="1_tr10m"]
+
+[resource]
+default_font = ExtResource("1_tr10m")
+default_font_size = 14
+Button/fonts/font = ExtResource("1_tr10m")
+GraphEdit/colors/grid_major = Color(0.356863, 0.803922, 0.278431, 0.2)
+GraphEdit/colors/grid_minor = Color(0.14902, 0.666667, 0.698039, 0.0509804)
