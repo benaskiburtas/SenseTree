@@ -1,5 +1,5 @@
 @tool
-class_name SetAlertStatus
+class_name SetAlertStatusAction
 extends SenseTreeBlackboardAssignValueAction
 
 enum AlertStatus { IDLE, SUSPICIOUS, ALERTED, INVESTIGATING, CHASING, SEARCHING, FLEEING }
@@ -12,7 +12,7 @@ const ALERT_STATUS_KEY: String = "ACTOR_ALERT_STATUS"
 
 func _init() -> void:
 	self.blackboard_key = ALERT_STATUS_KEY
-	self.key_value = alert_status
+	self.key_value = str(alert_status)
 
 
 func _get_configuration_warnings() -> PackedStringArray:

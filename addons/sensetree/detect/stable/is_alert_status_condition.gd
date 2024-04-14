@@ -1,5 +1,5 @@
 @tool
-class_name IsAlertStatus
+class_name IsAlertStatusCondition
 extends SenseTreeBlackboardCompareValueAction
 
 enum AlertStatus { IDLE, SUSPICIOUS, ALERTED, INVESTIGATING, CHASING, SEARCHING, FLEEING }
@@ -13,7 +13,7 @@ const ALERT_STATUS_COMPARISON_OPERATOR = ComparisonOperator.EQUALS
 
 func _init() -> void:
 	self.blackboard_key = ALERT_STATUS_KEY
-	self.key_value = alert_status
+	self.comparison_value = str(alert_status)
 	self.comparison_operator = ALERT_STATUS_COMPARISON_OPERATOR
 
 
