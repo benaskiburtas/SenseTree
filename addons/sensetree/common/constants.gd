@@ -13,8 +13,5 @@ const FALL_BACK_COLOR = Color("#000000")
 
 # Resources
 var GraphNodeStyleBoxes: Resource = load(
-	"res://addons/sensetree/tree_visualizer/singleton/tree_graph_node_style_boxes.gd"
-)
-var GraphNodeStatusPanels: Resource = load(
-	"res://addons/sensetree/tree_visualizer/singleton/tree_graph_node_style_boxes.gd"
+	"res://addons/sensetree/tree_visualizer/resource/tree_graph_node_style_boxes.gd"
 )

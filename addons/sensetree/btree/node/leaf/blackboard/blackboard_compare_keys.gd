@@ -1,6 +1,6 @@
 @tool
 class_name SenseTreeBlackboardCompareKeysAction
-extends SenseTreeActionLeaf
+extends SenseTreeConditionLeaf
 
 enum ComparisonOperator {
 	LESS_THAN, LESS_THAN_OR_EQUALS, EQUALS, NOT_EQUALS, GREATER_THAN_OR_EQUALS, GREATER_THAN

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bjlyudrws5oyy"]
+[gd_scene load_steps=15 format=3 uid="uid://bjlyudrws5oyy"]
 
 [ext_resource type="Script" path="res://addons/sensetree/btree/node/tree.gd" id="1_l4ywh"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/sequence.gd" id="2_rigjo"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" path="res://addons/sensetree/btree/node/leaf/condition.gd" id="8_6h41g"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/composite.gd" id="10_jhxb6"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/retry.gd" id="11_25u7a"]
+[ext_resource type="Script" path="res://addons/sensetree/detect/area_detect_2d.gd" id="12_g3fej"]
+[ext_resource type="Script" path="res://addons/sensetree/detect/set_alert_status.gd" id="13_a6r8x"]
+[ext_resource type="Script" path="res://addons/sensetree/detect/is_alert_status.gd" id="14_5m3u0"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -82,5 +85,24 @@ script = ExtResource("8_6h41g")
 [node name="SenseTreeRandomizeDecorator" type="Node" parent="Demo/SenseTreeCompositeNode"]
 script = ExtResource("6_vb6uh")
 
+[node name="AreaDetectCondition2D" type="Node" parent="Demo/SenseTreeCompositeNode/SenseTreeRandomizeDecorator"]
+script = ExtResource("12_g3fej")
+detection_area_shape = 1
+groups_to_detect = Array[String](["player"])
+
 [node name="SenseTreeRandomizeDecorator2" type="Node" parent="Demo/SenseTreeCompositeNode"]
 script = ExtResource("6_vb6uh")
+
+[node name="SetAlertStatus" type="Node" parent="Demo/SenseTreeCompositeNode/SenseTreeRandomizeDecorator2"]
+script = ExtResource("13_a6r8x")
+blackboard_key = "ACTOR_ALERT_STATUS"
+key_value = 0
+
+[node name="SetAlertStatus" type="Node" parent="Demo/SenseTreeCompositeNode"]
+script = ExtResource("13_a6r8x")
+blackboard_key = "ACTOR_ALERT_STATUS"
+key_value = 0
+
+[node name="CheckAlertStatus" type="Node" parent="Demo/SenseTreeCompositeNode"]
+script = ExtResource("14_5m3u0")
+blackboard_key = "ACTOR_ALERT_STATUS"
