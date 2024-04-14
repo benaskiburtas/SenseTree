@@ -32,3 +32,4 @@ func _populate_confirm_submenu() -> void:
 
 func _on_delete_node_pressed(index: int):
 	delete_node_requested.emit(self.selected_node)
+	disabled = true

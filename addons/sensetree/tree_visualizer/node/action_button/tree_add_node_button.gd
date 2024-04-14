@@ -23,6 +23,8 @@ func _init() -> void:
 func _assign_button_state() -> void:
 	if self.selected_node == null or _selected_node_group == null:
 		disabled = true
+	if self.selected_node.scene_node == null:
+		disabled = true
 		
 	var scene_node = self.selected_node.scene_node
 	match _selected_node_group:
@@ -127,13 +129,16 @@ func _add_submenu(
 func _on_add_composite_node_pressed(menu_item_index: int):
 	if menu_item_index < _composite_submenu_items.size():
 		create_node_requested.emit(_composite_submenu_items[menu_item_index])
+		disabled = true
 
 
 func _on_add_decorator_node_pressed(menu_item_index: int):
 	if menu_item_index < _decorator_submenu_items.size():
 		create_node_requested.emit(_decorator_submenu_items[menu_item_index])
+		disabled = true
 
 
 func _on_add_leaf_node_pressed(menu_item_index: int):
 	if menu_item_index < _leaf_submenu_items.size():
 		create_node_requested.emit(_leaf_submenu_items[menu_item_index])
+		disabled = true
