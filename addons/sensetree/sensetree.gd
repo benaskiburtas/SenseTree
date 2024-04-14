@@ -13,26 +13,16 @@ var _tree_editor_instance: Node
 
 
 func _enter_tree() -> void:
+	add_autoload_singleton("SenseTreeConstants", "res://addons/sensetree/common/singleton/constants.gd")
 	add_autoload_singleton("SenseTreeHelpers", "res://addons/sensetree/common/singleton/helpers.gd")
-	#add_autoload_singleton(
-		#"TreeVisualizerGraphNodeStyleBoxes",
-		#"res://addons/sensetree/tree_visualizer/singleton/tree_graph_node_status_panels.gd"
-	#)
-	#add_autoload_singleton(
-		#"TreeVisualizerGraphNodeStatusPanels",
-		#"res://addons/sensetree/tree_visualizer/singleton/tree_graph_node_style_boxes.gd"
-	#)
-
 	_load_tree_editor()
 	_make_visible(false)
 
 
 func _exit_tree() -> void:
 	_remove_tree_editor()
-
 	remove_autoload_singleton("SenseTreeHelpers")
-	#remove_autoload_singleton("TreeVisualizerGraphNodeStyleBoxes")
-	#remove_autoload_singleton("TreeVisualizerGraphNodeStatusPanels")
+	remove_autoload_singleton("SenseTreeConstants")
 
 
 func _get_plugin_name() -> String:
