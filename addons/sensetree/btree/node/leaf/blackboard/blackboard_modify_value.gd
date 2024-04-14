@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/sensetree/btree/icon/Action.svg")
 class_name SenseTreeBlackboardModifyValueAction
 extends SenseTreeActionLeaf
 
@@ -67,3 +68,25 @@ func _validate_and_parse_expression(blackboard_value: Variant) -> Error:
 
 func _is_number(input: Variant) -> bool:
 	return true if typeof(input) == TYPE_INT or typeof(input) == TYPE_FLOAT else false
+
+
+func get_sensenode_class() -> String:
+	return "SenseTreeBlackboardModifyValueAction"
+
+
+func get_exported_properties() -> Array[SenseTreeExportedProperty]:
+	var blackboard_key_property = SenseTreeExportedProperty.new()
+	blackboard_key_property.property_name = "blackboard_key"
+	blackboard_key_property.property_title = "Blackboard key"
+	blackboard_key_property.value = blackboard_key
+
+	var modification_value_property = SenseTreeExportedProperty.new()
+	modification_value_property.property_name = "modification_value"
+	modification_value_property.property_title = "Modification value"
+	modification_value_property.value = modification_value
+
+	var modification_operator_property = SenseTreeExportedProperty.new()
+	modification_operator_property.property_name = "modification_operator"
+	modification_operator_property.property_title = "Modification Opeartor"
+	modification_operator_property.value = ModificationOperator.keys()[modification_operator]
+	return [blackboard_key_property, modification_value_property, modification_operator_property]

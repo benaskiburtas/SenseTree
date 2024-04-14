@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/sensetree/btree/icon/Condition.svg")
 class_name SenseTreeBlackboardCompareKeysAction
 extends SenseTreeConditionLeaf
 
@@ -44,3 +45,20 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 			return Status.SUCCESS if first_key_value < second_key_value else Status.FAILURE
 		_:
 			return Status.FAILURE
+
+
+func get_sensenode_class() -> String:
+	return "SenseTreeBlackboardCompareKeysAction"
+
+
+func get_exported_properties() -> Array[SenseTreeExportedProperty]:
+	var first_blackboard_key_property = SenseTreeExportedProperty.new()
+	first_blackboard_key_property.property_name = "first_blackboard_key"
+	first_blackboard_key_property.property_title = "First blackboard key"
+	first_blackboard_key_property.value = first_blackboard_key
+
+	var second_blackboard_key_property = SenseTreeExportedProperty.new()
+	second_blackboard_key_property.property_name = "second_blackboard_key"
+	second_blackboard_key_property.property_title = "Second blackboard key"
+	second_blackboard_key_property.value = second_blackboard_key
+	return [first_blackboard_key_property, second_blackboard_key_property]

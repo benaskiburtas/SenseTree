@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/sensetree/btree/icon/Condition.svg")
 class_name SenseTreeBlackboardHasKeyAction
 extends SenseTreeActionLeaf
 
@@ -17,3 +18,15 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		return Status.SUCCESS
 	else:
 		return Status.FAILURE
+
+
+func get_sensenode_class() -> String:
+	return "SenseTreeBlackboardHasKeyAction"
+
+
+func get_exported_properties() -> Array[SenseTreeExportedProperty]:
+	var blackboard_key_property = SenseTreeExportedProperty.new()
+	blackboard_key_property.property_name = "blackboard_key"
+	blackboard_key_property.property_title = "Blackboard key"
+	blackboard_key_property.value = blackboard_key
+	return [blackboard_key_property]
