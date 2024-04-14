@@ -4,6 +4,9 @@ extends Node
 enum ProcessMode { IDLE, PHYSICS }
 enum NodeGroup { TREE, COMPOSITE, DECORATOR, LEAF, UNKNOWN }
 
+# String Constants
+const PLUGIN_NODE_CLASS_PREFIX = "SenseTree"
+
 # Color Constants
 const TREE_GROUP_BASE_COLOR = Color("#19782a")
 const COMPOSITE_GROUP_BASE_COLOR = Color("#193e78")

@@ -24,7 +24,7 @@ func _assign_button_state() -> void:
 	if self.selected_node == null or _selected_node_group == null:
 		disabled = true
 		return
-		
+
 	var scene_node = self.selected_node.scene_node
 	match _selected_node_group:
 		SenseTreeConstants.NodeGroup.TREE:
@@ -107,9 +107,12 @@ func _add_submenu(
 
 	var group_class_definitions = SenseTreeHelpers.get_class_definitions_by_group(node_group)
 	for i in range(group_class_definitions.size()):
-		var node_class_name: String = group_class_definitions[i]["class"]
+		var full_node_class_name: String = group_class_definitions[i]["class"]
+		var node_class_name: String = full_node_class_name.replace(
+			SenseTreeConstants.PLUGIN_NODE_CLASS_PREFIX, ""
+		)
 
-		var node_icon_path = SenseTreeHelpers.try_acquire_icon_path(node_class_name)
+		var node_icon_path = SenseTreeHelpers.try_acquire_icon_path(full_node_class_name)
 		if node_icon_path:
 			var node_icon: Texture2D = load(node_icon_path)
 			if node_icon:
@@ -117,7 +120,7 @@ func _add_submenu(
 		else:
 			group_submenu.add_item(node_class_name)
 
-		submenu_links.push_back(node_class_name)
+		submenu_links.push_back(full_node_class_name)
 
 	group_submenu.connect("index_pressed", submenu_item_click_handler)
 

@@ -180,6 +180,9 @@ func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
 	scene_selector.clear()
 	scene_selector.add_node(scene_node)
 
+func _disable_graph_edit_action_buttons() -> void:
+	_graph_edit.add_node_button.selected_node = null
+	_graph_edit.delete_node_button.selected_node = null
 
 func _on_tree_selected(tree: SenseTree) -> void:
 	_selected_tree = tree
@@ -201,11 +204,12 @@ func _on_node_selected(selected_node: TreeVisualizerGraphNode) -> void:
 
 
 func _on_node_deselected(deselected_node: Node) -> void:
-	_graph_edit.add_node_button.selected_node = null
-	_graph_edit.delete_node_button.selected_node = null
+	_disable_graph_edit_action_buttons()
 
 
 func _on_create_node_requested(node_class: String) -> void:
+	_disable_graph_edit_action_buttons()
+	
 	if not Engine.is_editor_hint():
 		push_warning("Node creation via action button is permitted only in editor mode.")
 		return
@@ -232,6 +236,8 @@ func _on_create_node_requested(node_class: String) -> void:
 
 
 func _on_delete_node_requested(node: TreeVisualizerGraphNode) -> void:
+	_disable_graph_edit_action_buttons()
+	
 	if not Engine.is_editor_hint():
 		push_warning("Node deletion via action button is permitted only in editor mode.")
 		return
