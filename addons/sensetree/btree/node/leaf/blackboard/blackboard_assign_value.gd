@@ -3,7 +3,7 @@ class_name SenseTreeBlackboardAssignValueAction
 extends SenseTreeActionLeaf
 
 @export_placeholder("Blackboard key") var blackboard_key: String
-@export_placeholder("Key value") var key_value: Variant
+@export_placeholder("Key value") var key_value: String
 
 
 func _get_configuration_warnings() -> PackedStringArray:
