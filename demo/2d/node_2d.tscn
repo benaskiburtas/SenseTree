@@ -1,108 +1,21 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjlyudrws5oyy"]
+[gd_scene load_steps=2 format=3 uid="uid://cnghymwo4up84"]
 
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/tree.gd" id="1_l4ywh"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/sequence.gd" id="2_rigjo"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/selector.gd" id="3_uq7q6"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/leaf/action.gd" id="4_76cb3"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/random_selector.gd" id="5_1032w"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/fail.gd" id="5_kk5dd"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/randomize.gd" id="6_vb6uh"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/success.gd" id="7_pyo3g"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/leaf/condition.gd" id="8_6h41g"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/composite.gd" id="10_jhxb6"]
-[ext_resource type="Script" path="res://addons/sensetree/btree/node/decorator/retry.gd" id="11_25u7a"]
-[ext_resource type="Script" path="res://addons/sensetree/detect/area_detect_2d.gd" id="12_g3fej"]
-[ext_resource type="Script" path="res://addons/sensetree/detect/set_alert_status.gd" id="13_a6r8x"]
-[ext_resource type="Script" path="res://addons/sensetree/detect/is_alert_status.gd" id="14_5m3u0"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jar0s"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Test" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
-script = ExtResource("1_l4ywh")
-actor = NodePath("..")
-blackboard = NodePath("")
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
 
-[node name="SenseTreeSequenceComposite" type="Node" parent="Test"]
-script = ExtResource("2_rigjo")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_jar0s")
 
-[node name="SenseTreeSelectorComposite" type="Node" parent="Test/SenseTreeSequenceComposite"]
-script = ExtResource("3_uq7q6")
+[node name="RayCast2D" type="RayCast2D" parent="RigidBody2D"]
 
-[node name="SenseTreeAction" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSelectorComposite"]
-script = ExtResource("4_76cb3")
+[node name="RayCast2D2" type="RayCast2D" parent="RigidBody2D"]
 
-[node name="SenseTreeAction2" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSelectorComposite"]
-script = ExtResource("4_76cb3")
+[node name="RayCast2D3" type="RayCast2D" parent="RigidBody2D"]
 
-[node name="SenseTreeSequenceComposite" type="Node" parent="Test/SenseTreeSequenceComposite"]
-script = ExtResource("2_rigjo")
+[node name="RayCast2D4" type="RayCast2D" parent="RigidBody2D"]
 
-[node name="SenseTreeAction3" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSequenceComposite"]
-script = ExtResource("4_76cb3")
-
-[node name="SenseTreeFailDecorator" type="Node" parent="Test/SenseTreeSequenceComposite/SenseTreeSequenceComposite"]
-script = ExtResource("5_kk5dd")
-
-[node name="SenseTree" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
-script = ExtResource("1_l4ywh")
-actor = NodePath("..")
-blackboard = NodePath("")
-
-[node name="SenseTreeRandomSelectorComposite" type="Node" parent="SenseTree"]
-script = ExtResource("5_1032w")
-
-[node name="SenseTreeRandomizeDecorator2" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
-script = ExtResource("6_vb6uh")
-success_probability = 15.0
-
-[node name="SenseTreeAction" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeRandomizeDecorator2"]
-script = ExtResource("4_76cb3")
-
-[node name="SenseTreeSuccessDecorator" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
-script = ExtResource("7_pyo3g")
-
-[node name="SenseTreeCondition" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite/SenseTreeSuccessDecorator"]
-script = ExtResource("8_6h41g")
-
-[node name="SenseTreeRandomizeDecorator" type="Node" parent="SenseTree/SenseTreeRandomSelectorComposite"]
-script = ExtResource("6_vb6uh")
-success_probability = 15.0
-
-[node name="Demo" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
-script = ExtResource("1_l4ywh")
-actor = NodePath("..")
-blackboard = NodePath("")
-
-[node name="SenseTreeCompositeNode" type="Node" parent="Demo"]
-script = ExtResource("10_jhxb6")
-
-[node name="SenseTreeRetryDecorator" type="Node" parent="Demo/SenseTreeCompositeNode"]
-script = ExtResource("11_25u7a")
-
-[node name="SenseTreeConditionLeaf" type="Node" parent="Demo/SenseTreeCompositeNode/SenseTreeRetryDecorator"]
-script = ExtResource("8_6h41g")
-
-[node name="SenseTreeRandomizeDecorator" type="Node" parent="Demo/SenseTreeCompositeNode"]
-script = ExtResource("6_vb6uh")
-
-[node name="AreaDetectCondition2D" type="Node" parent="Demo/SenseTreeCompositeNode/SenseTreeRandomizeDecorator"]
-script = ExtResource("12_g3fej")
-detection_area_shape = 1
-groups_to_detect = Array[String](["player"])
-
-[node name="SenseTreeRandomizeDecorator2" type="Node" parent="Demo/SenseTreeCompositeNode"]
-script = ExtResource("6_vb6uh")
-
-[node name="SetAlertStatus" type="Node" parent="Demo/SenseTreeCompositeNode/SenseTreeRandomizeDecorator2"]
-script = ExtResource("13_a6r8x")
-blackboard_key = "ACTOR_ALERT_STATUS"
-key_value = 0
-
-[node name="SetAlertStatus" type="Node" parent="Demo/SenseTreeCompositeNode"]
-script = ExtResource("13_a6r8x")
-blackboard_key = "ACTOR_ALERT_STATUS"
-key_value = 0
-
-[node name="CheckAlertStatus" type="Node" parent="Demo/SenseTreeCompositeNode"]
-script = ExtResource("14_5m3u0")
-blackboard_key = "ACTOR_ALERT_STATUS"
+[node name="RayCast2D5" type="RayCast2D" parent="RigidBody2D"]
+target_position = Vector2(50, 25)
