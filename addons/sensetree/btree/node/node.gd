@@ -22,10 +22,6 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	return Status.SUCCESS
 
 
-func stop(actor: Node, blackboard: SenseTreeBlackboard) -> void:
-	pass
-
-
 func get_sensenode_class() -> String:
 	return "SenseTreeNode"
 
