@@ -153,7 +153,7 @@ animations = [{
 
 [node name="Player" type="Node2D"]
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
 visibility_layer = 2
 motion_mode = 1
 platform_floor_layers = 0

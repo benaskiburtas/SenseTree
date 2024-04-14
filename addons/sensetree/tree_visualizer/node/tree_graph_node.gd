@@ -16,12 +16,14 @@ const PROPERTY_ITEM_MARGIN: int = 5
 
 const HORIZONTAL_SPACING_OFFSET: float = 375
 const VERTICAL_SPACING_OFFSET: float = 100
+const PROPERTY_SPACING_OFFSET_UNIT: float = 25
 
 var scene_node: SenseTreeNode
 
 var _alignment_mode: AlignmentType
 var _node_icon_texture: Texture2D
 var _content_container: VBoxContainer
+var _property_container: HBoxContainer
 var _port: Control
 var _titlebar: HBoxContainer
 var _titlebar_icon: TextureRect
@@ -167,19 +169,19 @@ func _load_node_properties() -> void:
 		_has_properties = true
 
 	for property in properties:
-		var property_container = HBoxContainer.new()
-		SenseTreeHelpers.set_container_margins(property_container, PROPERTY_ITEM_MARGIN)
-		property_container.add_theme_constant_override("separation", 10)
+		_property_container = HBoxContainer.new()
+		SenseTreeHelpers.set_container_margins(_property_container, PROPERTY_ITEM_MARGIN)
+		_property_container.add_theme_constant_override("separation", 10)
 
 		var name_label = Label.new()
 		name_label.text = "%s:" % property.property_title
-		property_container.add_child(name_label)
+		_property_container.add_child(name_label)
 
 		var value_label = Label.new()
 		value_label.text = str(property.value)
-		property_container.add_child(value_label)
+		_property_container.add_child(value_label)
 
-		_content_container.add_child(property_container)
+		_content_container.add_child(_property_container)
 
 
 func _assign_styleboxes_by_group(style_boxes: TreeVisualizerGraphNodeStyleBoxes) -> void:
@@ -217,6 +219,10 @@ func _set_node_position(arranged_node: ArrangedVisualizerNode) -> void:
 	else:
 		push_error("Unsupported tree graph alignment type: %s" % _alignment_mode)
 
+	var _property_entry_offset: float = 0
+	if _property_container:
+		_property_entry_offset = _property_container.get_child_count() * PROPERTY_ITEM_MARGIN
+
 	var x_position = (node_x_offset_units + 1) * HORIZONTAL_SPACING_OFFSET
-	var y_position = (node_y_offset_units) * VERTICAL_SPACING_OFFSET
+	var y_position = (node_y_offset_units) * VERTICAL_SPACING_OFFSET + _property_entry_offset
 	position_offset = Vector2(x_position, y_position)

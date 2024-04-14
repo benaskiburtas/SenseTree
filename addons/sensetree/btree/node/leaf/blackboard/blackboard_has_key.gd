@@ -25,8 +25,7 @@ func get_sensenode_class() -> String:
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
-	var blackboard_key_property = SenseTreeExportedProperty.new()
-	blackboard_key_property.property_name = "blackboard_key"
-	blackboard_key_property.property_title = "Blackboard key"
-	blackboard_key_property.value = blackboard_key
+	var blackboard_key_property = SenseTreeExportedProperty.new(
+		"blackboard_key", "Blackboard key", blackboard_key
+	)
 	return [blackboard_key_property]

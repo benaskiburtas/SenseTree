@@ -22,13 +22,12 @@ extends SenseTreeNode
 		if not blackboard:
 			blackboard = _create_default_blackboard()
 
-@export var tick_process_mode: SenseTreeConstants.ProcessMode = (
-	SenseTreeConstants.ProcessMode.PHYSICS
-)
-@export_range(0, 100) var ticks_per_frame: int = 1
+@export
+var tick_process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
+@export_range(0, 100) var frames_per_tick: int = 15
 
 var _child: SenseTreeNode
-var _tick_count: int
+var _frames_since_last_tick: int
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -45,6 +44,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 	return configuration_warnings
 
+
 func _ready() -> void:
 	if not actor:
 		_set_default_actor()
@@ -52,7 +52,7 @@ func _ready() -> void:
 		blackboard = _create_default_blackboard()
 
 	_setup_process_modes()
-	_tick_count = ticks_per_frame - randi_range(0, ticks_per_frame)
+	_frames_since_last_tick = frames_per_tick - randi_range(0, frames_per_tick)
 
 
 func _process(delta: float) -> void:
@@ -72,11 +72,29 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		_child = get_child(0)
 	return _child.tick(actor, blackboard)
 
+
 func get_sensenode_class() -> String:
 	return "SenseTree"
 
+
 func get_node_group() -> SenseTreeConstants.NodeGroup:
 	return SenseTreeConstants.NodeGroup.TREE
+
+
+func get_exported_properties() -> Array[SenseTreeExportedProperty]:
+	var is_enabled_property = SenseTreeExportedProperty.new(
+		"is_enabled", "Is Enabled", str(is_enabled)
+	)
+	var tick_process_mode_property = SenseTreeExportedProperty.new(
+		"tick_process_mode",
+		"Tick Process Mode",
+		SenseTreeConstants.ProcessMode.keys()[tick_process_mode]
+	)
+	var frames_per_tick_property = SenseTreeExportedProperty.new(
+		"Frames Per Tick", "Frames Per Tick", frames_per_tick
+	)
+	return [is_enabled_property, tick_process_mode_property, frames_per_tick_property]
+
 
 func _set_default_actor() -> void:
 	actor = get_parent()
@@ -91,13 +109,17 @@ func _is_in_editor() -> bool:
 
 
 func _resolve_process() -> void:
-	if _is_in_editor():
+	if _is_in_editor() or OS.is_debug_build():
 		return
 
 	if not is_enabled:
 		return
 
-	tick(actor, blackboard)
+	_frames_since_last_tick += 1
+
+	if _frames_since_last_tick >= frames_per_tick:
+		tick(actor, blackboard)
+		_frames_since_last_tick = 0
 
 
 func _setup_process_modes() -> void:

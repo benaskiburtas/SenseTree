@@ -1,5 +1,6 @@
 @tool
-class_name InvestigateAreaAction2D
+@icon("res://addons/sensetree/btree/icon/Action.svg")
+class_name SenseTreeInvestigateAreaAction2D
 extends SenseTreeActionLeaf
 
 ## Navigation agent to update and modify.

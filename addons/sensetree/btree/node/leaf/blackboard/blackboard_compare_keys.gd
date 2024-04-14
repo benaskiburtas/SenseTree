@@ -52,13 +52,15 @@ func get_sensenode_class() -> String:
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
-	var first_blackboard_key_property = SenseTreeExportedProperty.new()
-	first_blackboard_key_property.property_name = "first_blackboard_key"
-	first_blackboard_key_property.property_title = "First blackboard key"
-	first_blackboard_key_property.value = first_blackboard_key
-
-	var second_blackboard_key_property = SenseTreeExportedProperty.new()
-	second_blackboard_key_property.property_name = "second_blackboard_key"
-	second_blackboard_key_property.property_title = "Second blackboard key"
-	second_blackboard_key_property.value = second_blackboard_key
-	return [first_blackboard_key_property, second_blackboard_key_property]
+	var first_blackboard_key_property = SenseTreeExportedProperty.new(
+		"first_blackboard_key", "First blackboard key", first_blackboard_key
+	)
+	var second_blackboard_key_property = SenseTreeExportedProperty.new(
+		"second_blackboard_key", "Second blackboard key", second_blackboard_key
+	)
+	var comparison_operator_property = SenseTreeExportedProperty.new(
+		"comparison_operator", "Comparison Operator", ComparisonOperator.keys()[comparison_operator]
+	)
+	return [
+		first_blackboard_key_property, second_blackboard_key_property, comparison_operator_property
+	]

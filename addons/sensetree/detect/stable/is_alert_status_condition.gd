@@ -1,5 +1,6 @@
 @tool
-class_name IsAlertStatusCondition
+@icon("res://addons/sensetree/btree/icon/Condition.svg")
+class_name SenseTreeIsAlertStatusCondition
 extends SenseTreeBlackboardCompareValueAction
 
 enum AlertStatus { IDLE, SUSPICIOUS, ALERTED, INVESTIGATING, CHASING, SEARCHING, FLEEING }
@@ -22,6 +23,17 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if alert_status == null:
 		configuration_warnings.push_back("Alert status for comparison should be set.")
 	return configuration_warnings
+
+
+func get_sensenode_class() -> String:
+	return "SenseTreeIsAlertStatusCondition"
+
+
+func get_exported_properties() -> Array[SenseTreeExportedProperty]:
+	var alert_status_property = SenseTreeExportedProperty.new(
+		"alert_status", "Alert Status", AlertStatus.keys()[alert_status]
+	)
+	return [alert_status_property]
 
 
 func _validate_property(property: Dictionary) -> void:

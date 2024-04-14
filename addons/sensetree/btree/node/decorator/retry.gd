@@ -44,8 +44,7 @@ func get_sensenode_class() -> String:
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
-	var retry_limit_property = SenseTreeExportedProperty.new()
-	retry_limit_property.property_name = "retry_limit"
-	retry_limit_property.property_title = "Retry Limit"
-	retry_limit_property.value = retry_limit
+	var retry_limit_property = SenseTreeExportedProperty.new(
+		"retry_limit", "Retry Limit", retry_limit
+	)
 	return [retry_limit_property]

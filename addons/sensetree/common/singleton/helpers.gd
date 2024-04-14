@@ -1,11 +1,13 @@
 @tool
 extends Node
 
-const PLUGIN_BASE_CLASS_PATTERN_STRING: String = "SenseTree"
-const PLUGIN_NODE_PATH_PATTERN_STRING: String = "node"
+const PLUGIN_BASE_CLASS_PATTERN: String = "SenseTree"
+const BEHAVIOR_TREE_NODE_PATH_PATTERN: String = "btree/node"
+const DETECT_NODE_PATH_PATTERN: String = "detect"
 
-var _sense_tree_class_regex: RegEx = RegEx.create_from_string(PLUGIN_BASE_CLASS_PATTERN_STRING)
-var _sense_nodes_path_regex: RegEx = RegEx.create_from_string(PLUGIN_NODE_PATH_PATTERN_STRING)
+var _sense_tree_class_regex: RegEx = RegEx.create_from_string(PLUGIN_BASE_CLASS_PATTERN)
+var _btree_nodes_path_regex: RegEx = RegEx.create_from_string(BEHAVIOR_TREE_NODE_PATH_PATTERN)
+var _detect_nodes_path_regex: RegEx = RegEx.create_from_string(DETECT_NODE_PATH_PATTERN)
 
 var _sense_tree_classes: Dictionary
 var _sense_tree_composites: Array[Dictionary]
@@ -116,4 +118,8 @@ func _is_sense_tree_class(class_definition: Dictionary) -> bool:
 func _has_node_script(class_definition: Dictionary) -> bool:
 	if not "path" in class_definition:
 		return false
-	return _sense_nodes_path_regex.search(class_definition["path"]) != null
+
+	var is_behavior_tree_node = _btree_nodes_path_regex.search(class_definition["path"]) != null
+	var is_detection_node = _detect_nodes_path_regex.search(class_definition["path"]) != null
+
+	return true if is_behavior_tree_node or is_detection_node else false

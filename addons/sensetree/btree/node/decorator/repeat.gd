@@ -44,8 +44,7 @@ func get_sensenode_class() -> String:
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
-	var repeat_limit_property = SenseTreeExportedProperty.new()
-	repeat_limit_property.property_name = "repeat_limit"
-	repeat_limit_property.property_title = "Repeat Limit"
-	repeat_limit_property.value = repeat_limit
+	var repeat_limit_property = SenseTreeExportedProperty.new(
+		"repeat_limit", "Repeat Limit", repeat_limit
+	)
 	return [repeat_limit_property]
