@@ -23,8 +23,7 @@ func _init() -> void:
 func _assign_button_state() -> void:
 	if self.selected_node == null or _selected_node_group == null:
 		disabled = true
-	if self.selected_node.scene_node == null:
-		disabled = true
+		return
 		
 	var scene_node = self.selected_node.scene_node
 	match _selected_node_group:
