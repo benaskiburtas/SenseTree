@@ -109,7 +109,7 @@ func _is_in_editor() -> bool:
 
 
 func _resolve_process() -> void:
-	if _is_in_editor() or OS.is_debug_build():
+	if _is_in_editor() or not OS.is_debug_build():
 		return
 
 	if not is_enabled:
