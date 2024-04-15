@@ -1530,13 +1530,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="note to self" type="Label" parent="Labels"]
-offset_left = 656.0
-offset_top = 696.0
-offset_right = 978.0
-offset_bottom = 719.0
-text = "make touching the statue spawn a corpse"
-
 [node name="Label" type="Label" parent="Labels"]
 offset_left = 1552.0
 offset_top = -128.0

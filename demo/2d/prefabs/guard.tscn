@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://i0pp23s5we14"]
+[gd_scene load_steps=48 format=3 uid="uid://i0pp23s5we14"]
 
 [ext_resource type="Texture2D" uid="uid://dv7ahvy8hkqjj" path="res://demo/2d/assets/Characters/Knight/ATTACK flipped.png" id="1_fwqv3"]
 [ext_resource type="Script" path="res://demo/2d/scripts/guard.gd" id="1_lokqt"]
@@ -9,10 +9,12 @@
 [ext_resource type="Script" path="res://addons/sensetree/btree/node/tree.gd" id="6_rr05j"]
 [ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/sequence.gd" id="7_ppa1y"]
 [ext_resource type="Script" path="res://addons/sensetree/detect/stable/area_detect_condition_2d.gd" id="8_esb4y"]
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/composite/selector.gd" id="8_nxcb7"]
 [ext_resource type="Script" path="res://addons/sensetree/detect/stable/target_chase_action_2d.gd" id="9_tot0e"]
+[ext_resource type="Script" path="res://addons/sensetree/detect/stable/investigate_area_action_2d.gd" id="11_4p6yk"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7pprf"]
-height = 36.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_et185"]
+height = 33.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gh60r"]
 atlas = ExtResource("1_fwqv3")
@@ -274,11 +276,11 @@ animations = [{
 }]
 
 [node name="Guard" type="CharacterBody2D"]
+safe_margin = 0.1
 script = ExtResource("1_lokqt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_7pprf")
-metadata/_edit_group_ = true
+shape = SubResource("CapsuleShape2D_et185")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 texture_filter = 1
@@ -287,24 +289,39 @@ animation = &"attackleft"
 frame_progress = 0.0119954
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 3.0
+time_horizon_agents = 0.5
 debug_enabled = true
 debug_use_custom = true
 
-[node name="SenseTree" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+[node name="Guard Tree" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("6_rr05j")
 actor = NodePath("..")
 blackboard = NodePath("")
+tick_process_mode = 0
+frames_per_tick = 1
 
-[node name="SenseTreeSequenceComposite" type="Node" parent="SenseTree"]
+[node name="SenseTreeSequenceComposite" type="Node" parent="Guard Tree"]
 script = ExtResource("7_ppa1y")
 
-[node name="SenseTreeAreaDetectCondition2D" type="Node" parent="SenseTree/SenseTreeSequenceComposite"]
+[node name="Selector" type="Node" parent="Guard Tree/SenseTreeSequenceComposite"]
+script = ExtResource("8_nxcb7")
+
+[node name="ChaseNearby" type="Node" parent="Guard Tree/SenseTreeSequenceComposite/Selector"]
+script = ExtResource("7_ppa1y")
+
+[node name="SenseTreeAreaDetectCondition2D" type="Node" parent="Guard Tree/SenseTreeSequenceComposite/Selector/ChaseNearby"]
 script = ExtResource("8_esb4y")
-detection_area_shape = 1
+detection_range = 100
 groups_to_detect = Array[String](["player"])
 
-[node name="SenseTreeChaseTargetAction2D" type="Node" parent="SenseTree/SenseTreeSequenceComposite" node_paths=PackedStringArray("navigation_agent")]
+[node name="SenseTreeTargetChaseAction2D" type="Node" parent="Guard Tree/SenseTreeSequenceComposite/Selector/ChaseNearby" node_paths=PackedStringArray("navigation_agent")]
 script = ExtResource("9_tot0e")
-navigation_agent = NodePath("../../../NavigationAgent2D")
+navigation_agent = NodePath("../../../../../NavigationAgent2D")
 chase_group = "player"
-max_speed = 20.0
+
+[node name="Investigate" type="Node" parent="Guard Tree/SenseTreeSequenceComposite/Selector" node_paths=PackedStringArray("navigation_agent")]
+script = ExtResource("11_4p6yk")
+navigation_agent = NodePath("../../../../NavigationAgent2D")
