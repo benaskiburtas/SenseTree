@@ -24,6 +24,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+	if not blackboard.has_key(blackboard_key):
+		return Status.FAILURE
+	
 	var blackboard_value: Variant = blackboard.get_value(blackboard_key)
 
 	if blackboard_value == null or comparison_value == null:
