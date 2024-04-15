@@ -14,9 +14,8 @@ const MINIMUM_HEIGHT: int = 50
 const CONTENT_AREA_MARGIN: int = 5
 const PROPERTY_ITEM_MARGIN: int = 5
 
-const HORIZONTAL_SPACING_OFFSET: float = 375
-const VERTICAL_SPACING_OFFSET: float = 100
-const PROPERTY_SPACING_OFFSET_UNIT: float = 25
+const HORIZONTAL_SPACING_OFFSET: float = 350
+const VERTICAL_SPACING_OFFSET: float = 300
 
 var scene_node: SenseTreeNode
 
