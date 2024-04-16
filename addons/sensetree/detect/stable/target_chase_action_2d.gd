@@ -10,9 +10,9 @@ const MAX_FLOAT = 1.79769e308
 ## Group whose closest member will be navigated to and chased.
 @export var chase_group: String
 ## Agent chase navigation speed.
-@export var max_speed: float
+@export var max_speed: float = 65
 ## Distance between target position and chase target within which target is considered 'reached'.
-@export_range(10, 500) var desired_distance: float = 20
+@export_range(10, 500) var desired_distance: float = 30
 ## Allowed distance from travel points while navigating
 @export_range(0, 10000) var max_path_deviance: float = 100
 
@@ -23,6 +23,8 @@ const MAX_FLOAT = 1.79769e308
 ## Path waypoint size when navigation agent is set to 'debug' mode.
 @export var debug_path_custom_point_size: float = 6
 
+var _has_chase_target: bool = false
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings = super._get_configuration_warnings()
@@ -30,8 +32,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 		configuration_warnings.push_back("Navigation agent should be set.")
 	if not chase_group:
 		configuration_warnings.push_back("Chase group should be set.")
-	if not max_speed:
-		configuration_warnings.push_back("Maximum navigation speed should be set.")
 	return configuration_warnings
 
 

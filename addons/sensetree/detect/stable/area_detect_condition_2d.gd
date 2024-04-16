@@ -23,7 +23,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 		configuration_warnings.push_back("Groups to be detected should be set.")
 	return configuration_warnings
 
-
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if not _detection_area:
 		_setup_detection_area(actor)

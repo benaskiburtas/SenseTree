@@ -8,12 +8,12 @@ enum AlertStatus { IDLE, SUSPICIOUS, ALERTED, INVESTIGATING, CHASING, SEARCHING,
 const ALERT_STATUS_KEY: String = "ACTOR_ALERT_STATUS"
 
 ## Defines what the current actor state should be set to
-@export var alert_status: AlertStatus
+@export var alert_status: AlertStatus = AlertStatus.IDLE
 
 
-func _init() -> void:
+func _ready() -> void:
 	self.blackboard_key = ALERT_STATUS_KEY
-	self.key_value = str(alert_status)
+	self.key_value = AlertStatus.keys()[alert_status]
 
 
 func _get_configuration_warnings() -> PackedStringArray:

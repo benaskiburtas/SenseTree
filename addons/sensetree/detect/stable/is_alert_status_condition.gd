@@ -9,12 +9,12 @@ const ALERT_STATUS_KEY: String = "ACTOR_ALERT_STATUS"
 const ALERT_STATUS_COMPARISON_OPERATOR = ComparisonOperator.EQUALS
 
 ## Defines what the current actor state should be set to
-@export var alert_status: AlertStatus
+@export var alert_status: AlertStatus = AlertStatus.IDLE
 
 
-func _init() -> void:
+func _ready() -> void:
 	self.blackboard_key = ALERT_STATUS_KEY
-	self.comparison_value = str(alert_status)
+	self.comparison_value = AlertStatus.keys()[alert_status]
 	self.comparison_operator = ALERT_STATUS_COMPARISON_OPERATOR
 
 
