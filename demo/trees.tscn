@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://7pk4ipxeftxs"]
+
+[ext_resource type="Script" path="res://addons/sensetree/btree/node/tree.gd" id="1_q8pli"]
+
+[node name="Trees" type="Node2D"]
+
+[node name="SenseTree" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("1_q8pli")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTree2" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("1_q8pli")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTree3" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("1_q8pli")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTree4" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("1_q8pli")
+actor = NodePath("..")
+blackboard = NodePath("")
+
+[node name="SenseTree5" type="Node" parent="." node_paths=PackedStringArray("actor", "blackboard")]
+script = ExtResource("1_q8pli")
+actor = NodePath("..")
+blackboard = NodePath("")

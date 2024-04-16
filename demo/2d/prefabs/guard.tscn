@@ -303,25 +303,25 @@ blackboard = NodePath("")
 tick_process_mode = 0
 frames_per_tick = 1
 
-[node name="SenseTreeSequenceComposite" type="Node" parent="Guard Tree"]
-script = ExtResource("7_ppa1y")
-
-[node name="Selector" type="Node" parent="Guard Tree/SenseTreeSequenceComposite"]
+[node name="Selector" type="Node" parent="Guard Tree"]
 script = ExtResource("8_nxcb7")
 
-[node name="ChaseNearby" type="Node" parent="Guard Tree/SenseTreeSequenceComposite/Selector"]
+[node name="ChaseNearby" type="Node" parent="Guard Tree/Selector"]
 script = ExtResource("7_ppa1y")
 
-[node name="SenseTreeAreaDetectCondition2D" type="Node" parent="Guard Tree/SenseTreeSequenceComposite/Selector/ChaseNearby"]
+[node name="SenseTreeAreaDetectCondition2D" type="Node" parent="Guard Tree/Selector/ChaseNearby"]
 script = ExtResource("8_esb4y")
 detection_range = 100
 groups_to_detect = Array[String](["player"])
 
-[node name="SenseTreeTargetChaseAction2D" type="Node" parent="Guard Tree/SenseTreeSequenceComposite/Selector/ChaseNearby" node_paths=PackedStringArray("navigation_agent")]
+[node name="SenseTreeTargetChaseAction2D" type="Node" parent="Guard Tree/Selector/ChaseNearby" node_paths=PackedStringArray("navigation_agent")]
 script = ExtResource("9_tot0e")
-navigation_agent = NodePath("../../../../../NavigationAgent2D")
+navigation_agent = NodePath("../../../../NavigationAgent2D")
 chase_group = "player"
 
-[node name="Investigate" type="Node" parent="Guard Tree/SenseTreeSequenceComposite/Selector" node_paths=PackedStringArray("navigation_agent")]
+[node name="SenseTreeSequenceComposite" type="Node" parent="Guard Tree/Selector"]
+script = ExtResource("7_ppa1y")
+
+[node name="Investigate" type="Node" parent="Guard Tree/Selector/SenseTreeSequenceComposite" node_paths=PackedStringArray("navigation_agent")]
 script = ExtResource("11_4p6yk")
 navigation_agent = NodePath("../../../../NavigationAgent2D")
