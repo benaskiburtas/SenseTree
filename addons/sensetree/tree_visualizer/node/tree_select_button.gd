@@ -4,7 +4,7 @@ extends Button
 
 signal tree_selected(tree: SenseTree)
 
-const DEFAULT_BUTTON_ICON = preload("res://addons/sensetree/btree/icon/Tree.svg")
+const DEFAULT_BUTTON_ICON = preload("res://addons/sensetree/behavior_tree/icon/Tree.svg")
 
 var _tree: SenseTree
 

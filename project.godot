@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="SenseTree"
-run/main_scene="res://demo/2d/main.tscn"
+run/main_scene="res://addons/sensetree/demo/2d/main.tscn"
 config/features=PackedStringArray("4.2")
-config/icon="res://addons/sensetree/btree/icon/Leaf.svg"
+config/icon="res://addons/sensetree/behavior_tree/icon/Leaf.svg"
 
 [audio]
 
@@ -32,9 +32,10 @@ enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/gdscr
 
 folder_colors={
 "res://addons/sensetree/": "green",
-"res://addons/sensetree/btree/": "red",
+"res://addons/sensetree/behavior_tree/": "red",
 "res://addons/sensetree/common/": "orange",
-"res://addons/sensetree/detect/": "yellow",
+"res://addons/sensetree/demo/": "purple",
+"res://addons/sensetree/example/": "yellow",
 "res://addons/sensetree/tree_visualizer/": "blue"
 }
 

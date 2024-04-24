@@ -3,7 +3,7 @@ class_name SenseTreeConfiguration
 extends EditorPlugin
 
 const PLUGIN_NAME: String = "SenseTree"
-const PLUGIN_ICON: Resource = preload("res://addons/sensetree/btree/icon/Tree.svg")
+const PLUGIN_ICON: Resource = preload("res://addons/sensetree/behavior_tree/icon/Tree.svg")
 
 const TreeVisualizerEditor = preload(
 	"res://addons/sensetree/tree_visualizer/scene/tree_editor.tscn"

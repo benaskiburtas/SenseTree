@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw1lsuxikfud6"]
+
+[ext_resource type="Texture2D" uid="uid://pp56jqiocugt" path="res://addons/sensetree/demo/2d/assets/FD_Dungeon_Free.png" id="1_c5pgc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7382k"]
+size = Vector2(64, 48)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Barrels" type="StaticBody2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrels"]
+shape = SubResource("RectangleShape2D_7382k")
+
+[node name="Sprite2D" type="Sprite2D" parent="Barrels/CollisionShape2D"]
+texture = ExtResource("1_c5pgc")
+region_enabled = true
+region_rect = Rect2(128, 656, 64, 48)
