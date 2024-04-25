@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pgosrfasy14p"
-path="res://.godot/imported/Sequence.svg-48084accb38602640dfdbd711243d245.ctex"
+uid="uid://dmmt6ls3jsi2"
+path="res://.godot/imported/Leave_Footprint.svg-dbc3d33b609c1200f2b3fa7bad5f6a70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/sensetree/behavior_tree/icon/Sequence.svg"
-dest_files=["res://.godot/imported/Sequence.svg-48084accb38602640dfdbd711243d245.ctex"]
+source_file="res://addons/sensetree/example/icon/Leave_Footprint.svg"
+dest_files=["res://.godot/imported/Leave_Footprint.svg-dbc3d33b609c1200f2b3fa7bad5f6a70.ctex"]
 
 [params]
 

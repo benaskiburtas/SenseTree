@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pgosrfasy14p"
-path="res://.godot/imported/Sequence.svg-48084accb38602640dfdbd711243d245.ctex"
+uid="uid://i2y4f75wl2ct"
+path="res://.godot/imported/Chase_Entity.svg-7d360ab8c4ecff6e55a1f4b1ab2f0a88.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/sensetree/behavior_tree/icon/Sequence.svg"
-dest_files=["res://.godot/imported/Sequence.svg-48084accb38602640dfdbd711243d245.ctex"]
+source_file="res://addons/sensetree/example/icon/Chase_Entity.svg"
+dest_files=["res://.godot/imported/Chase_Entity.svg-7d360ab8c4ecff6e55a1f4b1ab2f0a88.ctex"]
 
 [params]
 

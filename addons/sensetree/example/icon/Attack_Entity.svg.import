@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pgosrfasy14p"
-path="res://.godot/imported/Sequence.svg-48084accb38602640dfdbd711243d245.ctex"
+uid="uid://b7sichicn40cr"
+path="res://.godot/imported/Attack_Entity.svg-03ffeb0f95a2a53f2acd578211e295ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/sensetree/behavior_tree/icon/Sequence.svg"
-dest_files=["res://.godot/imported/Sequence.svg-48084accb38602640dfdbd711243d245.ctex"]
+source_file="res://addons/sensetree/example/icon/Attack_Entity.svg"
+dest_files=["res://.godot/imported/Attack_Entity.svg-03ffeb0f95a2a53f2acd578211e295ee.ctex"]
 
 [params]
 
