@@ -26,7 +26,7 @@ SenseTreeHelpers="*res://addons/sensetree/common/singleton/helpers.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/gdscript_formatter/plugin.cfg", "res://addons/sensetree/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdscript_formatter/plugin.cfg", "res://addons/sensetree/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
 
 [file_customization]
 
