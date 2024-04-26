@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Condition.svg")
+@icon("res://addons/sensetree/behavior_tree/icon/Blackboard_Compare_Value.svg")
 class_name SenseTreeBlackboardCompareValueAction
 extends SenseTreeConditionLeaf
 

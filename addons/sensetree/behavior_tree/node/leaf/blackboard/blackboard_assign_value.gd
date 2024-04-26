@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/behavior_tree/icon/Blackboard_Assign_Value.svg")
 class_name SenseTreeBlackboardAssignValueAction
 extends SenseTreeActionLeaf
 

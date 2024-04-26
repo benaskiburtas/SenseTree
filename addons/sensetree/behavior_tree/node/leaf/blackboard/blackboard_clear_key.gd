@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/behavior_tree/icon/Blackboard_Clear_Key.svg")
 class_name SenseTreeBlackboardClearKeyAction
 extends SenseTreeActionLeaf
 

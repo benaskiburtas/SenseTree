@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Condition.svg")
+@icon("res://addons/sensetree/behavior_tree/icon/Blackboard_Has_Key.svg")
 class_name SenseTreeBlackboardHasKeyAction
 extends SenseTreeActionLeaf
 
