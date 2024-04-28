@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://bxdvvoa53a177"]
+
+[ext_resource type="Texture2D" uid="uid://0wsogu6x0dsd" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/animals/TimberWolfIdleSide.png" id="1_kmghh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iomy7"]
+size = Vector2(30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts744"]
+atlas = ExtResource("1_kmghh")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84guj"]
+atlas = ExtResource("1_kmghh")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0prj"]
+atlas = ExtResource("1_kmghh")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qo5yi"]
+atlas = ExtResource("1_kmghh")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5wsg"]
+atlas = ExtResource("1_kmghh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7nqh"]
+atlas = ExtResource("1_kmghh")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq37n"]
+atlas = ExtResource("1_kmghh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coswx"]
+atlas = ExtResource("1_kmghh")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7ydk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts744")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84guj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0prj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qo5yi")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5wsg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7nqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jq37n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coswx")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}]
+
+[node name="Wolf" type="Node"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_iomy7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/CollisionShape2D"]
+sprite_frames = SubResource("SpriteFrames_f7ydk")
+animation = &"idle_left"
