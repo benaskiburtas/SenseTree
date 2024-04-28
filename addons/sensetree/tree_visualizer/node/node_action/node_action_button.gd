@@ -1,5 +1,5 @@
 @tool
-class_name TreeVisualizerActionButton
+class_name TreeVisualizerNodeActionButton
 extends MenuButton
 
 var selected_node: TreeVisualizerGraphNode = null:

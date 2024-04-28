@@ -11,21 +11,39 @@ const GraphNodeStyleBoxes: Resource = preload(
 const GraphNodeArranger: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/tree_node_arranger.gd"
 )
+
+const NewTreeButton: Script = preload(
+	"res://addons/sensetree/tree_visualizer/node/action_button/new_tree_button.gd"
+)
+const LoadTreeButton: Script = preload(
+	"res://addons/sensetree/tree_visualizer/node/action_button/load_tree_button.gd"
+)
+const SaveTreeButton: Script = preload(
+	"res://addons/sensetree/tree_visualizer/node/action_button/save_tree_button.gd"
+)
 const AddNodeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/action_button/tree_add_node_button.gd"
+	"res://addons/sensetree/tree_visualizer/node/action_button/add_node_button.gd"
+)
+const RenameNodeButton: Script = preload(
+	"res://addons/sensetree/tree_visualizer/node/action_button/rename_node_button.gd"
 )
 const DeleteNodeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/action_button/tree_delete_node_button.gd"
+	"res://addons/sensetree/tree_visualizer/node/action_button/delete_node_button.gd"
 )
 
 var style_boxes: TreeVisualizerGraphNodeStyleBoxes
 
+var new_tree_button: TreeVisualizeNewTreeButton = null
+var load_tree_button: TreeVisualizeLoadTreeButton = null
+var save_tree_button: TreeVisualizeSaveTreeButton = null
 var add_node_button: TreeVisualizerAddNodeButton = null
+var rename_node_button: TreeVisualizeRenameNodeButton = null
 var delete_node_button: TreeVisualizerDeleteNodeButton = null
 
 var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
 var _ticks_since_redraw: int = 0
 var _is_graph_being_updated: bool = false
+
 
 func _init():
 	minimap_enabled = false
@@ -57,9 +75,24 @@ func _set_process_modes() -> void:
 
 func _add_additional_action_buttons() -> void:
 	var toolbar = get_menu_hbox()
+	
+	new_tree_button = NewTreeButton.new()
+	toolbar.add_child(new_tree_button)
+
+	load_tree_button = LoadTreeButton.new()
+	toolbar.add_child(load_tree_button)
+
+	save_tree_button = SaveTreeButton.new()
+	toolbar.add_child(save_tree_button)
+	
+	# Separate tree actions and node actions
+	toolbar.add_spacer(false)
 
 	add_node_button = AddNodeButton.new()
 	toolbar.add_child(add_node_button)
+
+	rename_node_button = RenameNodeButton.new()
+	toolbar.add_child(rename_node_button)
 
 	delete_node_button = DeleteNodeButton.new()
 	toolbar.add_child(delete_node_button)

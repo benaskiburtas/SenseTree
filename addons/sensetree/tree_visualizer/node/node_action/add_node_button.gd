@@ -1,6 +1,6 @@
 @tool
 class_name TreeVisualizerAddNodeButton
-extends TreeVisualizerActionButton
+extends TreeVisualizerNodeActionButton
 
 signal create_node_requested(node_class: String)
 

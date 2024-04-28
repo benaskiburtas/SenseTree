@@ -1,6 +1,6 @@
 @tool
 class_name TreeVisualizerDeleteNodeButton
-extends TreeVisualizerActionButton
+extends TreeVisualizerNodeActionButton
 
 signal delete_node_requested(node: TreeVisualizerGraphNode)
 
@@ -9,10 +9,12 @@ const CONFIRM_TEXT = "Confirm"
 
 const WarningIcon: Texture2D = preload("res://addons/sensetree/tree_visualizer/icon/warning.svg")
 
+
 func _init() -> void:
 	super()
 	text = BUTTON_TEXT
 	_populate_confirm_submenu()
+
 
 func _assign_button_state() -> void:
 	if self.selected_node == null:
@@ -23,6 +25,7 @@ func _assign_button_state() -> void:
 
 func _assign_button_options() -> void:
 	pass
+
 
 func _populate_confirm_submenu() -> void:
 	var popup_container = get_popup()
