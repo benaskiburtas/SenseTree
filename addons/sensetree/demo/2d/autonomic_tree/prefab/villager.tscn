@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://ci8vutooqf7ic"]
 
-[ext_resource type="Texture2D" uid="uid://3mcm1oklkvvk" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/characters/Character_001.png" id="1_jqira"]
+[ext_resource type="Texture2D" uid="uid://3mcm1oklkvvk" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/characters/Character_001.png" id="1_jqira"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m8tol"]
 radius = 15.0
@@ -141,14 +141,21 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Villager" type="Node"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D"]
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_m8tol")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("SpriteFrames_xlumy")
 animation = &"walk_right"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+avoidance_enabled = true
+radius = 60.0
+max_speed = 20.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.72549, 0.47451, 0.356863, 1)

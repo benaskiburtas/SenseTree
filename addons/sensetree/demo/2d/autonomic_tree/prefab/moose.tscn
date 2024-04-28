@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://g8r6qmra5h20"]
 
-[ext_resource type="Texture2D" uid="uid://byucwlo8n2vb3" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/animals/MajesticMooseIdleSide.png" id="1_3su8r"]
+[ext_resource type="Texture2D" uid="uid://byucwlo8n2vb3" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/animals/MajesticMooseIdleSide.png" id="1_3su8r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6hk5t"]
 size = Vector2(30, 30)
@@ -130,16 +130,23 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Moose" type="Node"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D"]
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6hk5t")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("SpriteFrames_efrdh")
-animation = &"idle_right"
-frame = 4
-frame_progress = 0.315249
+animation = &"idle_left"
+frame = 1
+frame_progress = 0.962103
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+avoidance_enabled = true
+radius = 60.0
+max_speed = 20.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.72549, 0.47451, 0.356863, 1)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=105 format=3 uid="uid://b0kylqaj53fab"]
 
-[ext_resource type="Texture2D" uid="uid://b8rxvg0fuf52l" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/characters/PrinceRanger.png" id="1_42nr6"]
-[ext_resource type="Texture2D" uid="uid://s24kjlj11gj6" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/characters/prince_ranger_flipped.png" id="1_xx1mr"]
+[ext_resource type="Texture2D" uid="uid://b8rxvg0fuf52l" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/characters/PrinceRanger.png" id="1_42nr6"]
+[ext_resource type="Texture2D" uid="uid://s24kjlj11gj6" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/characters/prince_ranger_flipped.png" id="1_xx1mr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uai3o"]
 height = 35.0
@@ -720,7 +720,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_kmjwu")
 }],
 "loop": true,
-"name": &"walk_left",
+"name": &"move_left",
 "speed": 5.0
 }, {
 "frames": [{
@@ -755,20 +755,25 @@ animations = [{
 "texture": SubResource("AtlasTexture_43ykw")
 }],
 "loop": true,
-"name": &"walk_right",
+"name": &"move_right",
 "speed": 5.0
 }]
 
-[node name="Hunter" type="Node"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D"]
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_uai3o")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("SpriteFrames_bwlqx")
-animation = &"walk_left"
-frame = 8
-frame_progress = 0.737632
+animation = &"move_right"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+avoidance_enabled = true
+radius = 60.0
+max_speed = 20.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.72549, 0.47451, 0.356863, 1)

@@ -1,42 +1,10 @@
 [gd_scene load_steps=37 format=3 uid="uid://b24bna70orgd5"]
 
-[ext_resource type="Texture2D" uid="uid://c3o7g1g27r4j6" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/animals/rabbit_idle.png" id="1_53twt"]
-[ext_resource type="Texture2D" uid="uid://cwsviwelshy7i" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/animals/rabbit.png" id="2_blyft"]
+[ext_resource type="Texture2D" uid="uid://c3o7g1g27r4j6" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/animals/rabbit_idle.png" id="1_53twt"]
+[ext_resource type="Texture2D" uid="uid://cwsviwelshy7i" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/animals/rabbit.png" id="2_blyft"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vewyv"]
 size = Vector2(30, 35)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iurwh"]
-atlas = ExtResource("1_53twt")
-region = Rect2(0, 36, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nm8wd"]
-atlas = ExtResource("1_53twt")
-region = Rect2(32, 36, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tm6xs"]
-atlas = ExtResource("1_53twt")
-region = Rect2(64, 36, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3cm5a"]
-atlas = ExtResource("1_53twt")
-region = Rect2(96, 36, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nfmek"]
-atlas = ExtResource("1_53twt")
-region = Rect2(0, 108, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uc6rm"]
-atlas = ExtResource("1_53twt")
-region = Rect2(32, 108, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y4otj"]
-atlas = ExtResource("1_53twt")
-region = Rect2(64, 108, 32, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_knf5p"]
-atlas = ExtResource("1_53twt")
-region = Rect2(96, 108, 32, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qxp2l"]
 atlas = ExtResource("1_53twt")
@@ -54,6 +22,22 @@ region = Rect2(64, 0, 32, 36)
 atlas = ExtResource("1_53twt")
 region = Rect2(96, 0, 32, 36)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_iurwh"]
+atlas = ExtResource("1_53twt")
+region = Rect2(0, 36, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nm8wd"]
+atlas = ExtResource("1_53twt")
+region = Rect2(32, 36, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm6xs"]
+atlas = ExtResource("1_53twt")
+region = Rect2(64, 36, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cm5a"]
+atlas = ExtResource("1_53twt")
+region = Rect2(96, 36, 32, 36)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_v0jdw"]
 atlas = ExtResource("1_53twt")
 region = Rect2(0, 72, 32, 36)
@@ -70,20 +54,20 @@ region = Rect2(64, 72, 32, 36)
 atlas = ExtResource("1_53twt")
 region = Rect2(96, 72, 32, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mxmuj"]
-atlas = ExtResource("2_blyft")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfmek"]
+atlas = ExtResource("1_53twt")
 region = Rect2(0, 108, 32, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e76dt"]
-atlas = ExtResource("2_blyft")
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc6rm"]
+atlas = ExtResource("1_53twt")
 region = Rect2(32, 108, 32, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_disbd"]
-atlas = ExtResource("2_blyft")
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4otj"]
+atlas = ExtResource("1_53twt")
 region = Rect2(64, 108, 32, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ehe1o"]
-atlas = ExtResource("2_blyft")
+[sub_resource type="AtlasTexture" id="AtlasTexture_knf5p"]
+atlas = ExtResource("1_53twt")
 region = Rect2(96, 108, 32, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gpitj"]
@@ -134,42 +118,24 @@ region = Rect2(64, 72, 32, 36)
 atlas = ExtResource("2_blyft")
 region = Rect2(96, 72, 32, 36)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxmuj"]
+atlas = ExtResource("2_blyft")
+region = Rect2(0, 108, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e76dt"]
+atlas = ExtResource("2_blyft")
+region = Rect2(32, 108, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_disbd"]
+atlas = ExtResource("2_blyft")
+region = Rect2(64, 108, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehe1o"]
+atlas = ExtResource("2_blyft")
+region = Rect2(96, 108, 32, 36)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_qqm2o"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iurwh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nm8wd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tm6xs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3cm5a")
-}],
-"loop": true,
-"name": &"idle-left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nfmek")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uc6rm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y4otj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_knf5p")
-}],
-"loop": true,
-"name": &"idle_back",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qxp2l")
@@ -184,7 +150,24 @@ animations = [{
 "texture": SubResource("AtlasTexture_23fic")
 }],
 "loop": true,
-"name": &"idle_front",
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iurwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nm8wd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm6xs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cm5a")
+}],
+"loop": true,
+"name": &"idle_left",
 "speed": 5.0
 }, {
 "frames": [{
@@ -206,19 +189,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mxmuj")
+"texture": SubResource("AtlasTexture_nfmek")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e76dt")
+"texture": SubResource("AtlasTexture_uc6rm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_disbd")
+"texture": SubResource("AtlasTexture_y4otj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ehe1o")
+"texture": SubResource("AtlasTexture_knf5p")
 }],
 "loop": true,
-"name": &"run_back",
+"name": &"idle_up",
 "speed": 5.0
 }, {
 "frames": [{
@@ -235,7 +218,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_713dp")
 }],
 "loop": true,
-"name": &"run_front",
+"name": &"move_down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -252,7 +235,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_jwaih")
 }],
 "loop": true,
-"name": &"run_left",
+"name": &"move_left",
 "speed": 5.0
 }, {
 "frames": [{
@@ -269,19 +252,43 @@ animations = [{
 "texture": SubResource("AtlasTexture_t7cn2")
 }],
 "loop": true,
-"name": &"run_right",
+"name": &"move_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxmuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e76dt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_disbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehe1o")
+}],
+"loop": true,
+"name": &"move_up",
 "speed": 5.0
 }]
 
-[node name="Rabbit" type="Node"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D"]
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vewyv")
 one_way_collision_margin = 0.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("SpriteFrames_qqm2o")
-animation = &"run_right"
+animation = &"idle_up"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+avoidance_enabled = true
+radius = 60.0
+max_speed = 20.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.72549, 0.47451, 0.356863, 1)

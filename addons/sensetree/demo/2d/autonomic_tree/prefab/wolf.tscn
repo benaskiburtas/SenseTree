@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bxdvvoa53a177"]
 
-[ext_resource type="Texture2D" uid="uid://0wsogu6x0dsd" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/animals/TimberWolfIdleSide.png" id="1_kmghh"]
+[ext_resource type="Texture2D" uid="uid://0wsogu6x0dsd" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/animals/TimberWolfIdleSide.png" id="1_kmghh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iomy7"]
 size = Vector2(30, 30)
@@ -74,14 +74,21 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Wolf" type="Node"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D"]
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_iomy7")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("SpriteFrames_f7ydk")
-animation = &"idle_left"
+animation = &"idle_right"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+avoidance_enabled = true
+radius = 60.0
+max_speed = 20.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.72549, 0.47451, 0.356863, 1)
