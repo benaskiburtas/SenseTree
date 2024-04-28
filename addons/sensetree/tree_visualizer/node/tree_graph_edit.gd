@@ -13,22 +13,22 @@ const GraphNodeArranger: Script = preload(
 )
 
 const NewTreeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/action_button/new_tree_button.gd"
+	"res://addons/sensetree/tree_visualizer/node/tree_action/new_tree_button.gd"
 )
 const LoadTreeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/action_button/load_tree_button.gd"
+	"res://addons/sensetree/tree_visualizer/node/tree_action/load_tree_button.gd"
 )
 const SaveTreeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/action_button/save_tree_button.gd"
+	"res://addons/sensetree/tree_visualizer/node/tree_action/save_tree_button.gd"
 )
 const AddNodeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/action_button/add_node_button.gd"
+	"res://addons/sensetree/tree_visualizer/node/node_action/add_node_button.gd"
 )
 const RenameNodeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/action_button/rename_node_button.gd"
+	"res://addons/sensetree/tree_visualizer/node/node_action/rename_node_button.gd"
 )
 const DeleteNodeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/action_button/delete_node_button.gd"
+	"res://addons/sensetree/tree_visualizer/node/node_action/delete_node_button.gd"
 )
 
 var style_boxes: TreeVisualizerGraphNodeStyleBoxes

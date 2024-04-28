@@ -2,6 +2,8 @@
 class_name TreeVisualizeSaveTreeButton
 extends TreeVisualizerTreeActionButton
 
+signal save_tree_requested
+
 const BUTTON_TEXT = "Save Tree"
 
 

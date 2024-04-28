@@ -2,6 +2,8 @@
 class_name TreeVisualizeNewTreeButton
 extends TreeVisualizerTreeActionButton
 
+signal new_tree_requested
+
 const BUTTON_TEXT = "New Tree"
 
 

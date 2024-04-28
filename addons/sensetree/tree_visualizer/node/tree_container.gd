@@ -75,6 +75,7 @@ func _connect_graph_edit_signals() -> void:
 	_graph_edit.connect("node_selected", _on_node_selected)
 	_graph_edit.connect("node_deselected", _on_node_deselected)
 	if Engine.is_editor_hint():
+		_graph_edit.new_tree_button.connect("new_tree_requested", _on_new_tree_requested)
 		_graph_edit.load_tree_button.connect("load_tree_requested", _on_load_tree_requested)
 		_graph_edit.save_tree_button.connect("save_tree_requested", _on_save_tree_requested)
 		_graph_edit.add_node_button.connect("create_node_requested", _on_create_node_requested)
@@ -215,12 +216,16 @@ func _on_node_deselected(deselected_node: Node) -> void:
 	_disable_graph_edit_action_buttons()
 
 
-func _on_tree_load_requested(node: TreeVisualizerGraphNode) -> void:
-	print("on_tree_load_requested reached tree container")
+func _on_new_tree_requested(node: TreeVisualizerGraphNode) -> void:
+	print("on_new_tree_requested reached tree container")
 
 
-func _on_tree_save_requested(node: TreeVisualizerGraphNode) -> void:
-	print("on_tree_save_requested reached tree container")
+func _on_load_tree_requested(node: TreeVisualizerGraphNode) -> void:
+	print("on_load_tree_requested reached tree container")
+
+
+func _on_save_tree_requested(node: TreeVisualizerGraphNode) -> void:
+	print("on_save_tree_requested reached tree container")
 
 
 func _on_create_node_requested(node_class: String) -> void:
@@ -252,7 +257,7 @@ func _on_create_node_requested(node_class: String) -> void:
 
 
 func _on_rename_node_requested(node: TreeVisualizerGraphNode) -> void:
-	print("on_rename_requested reached tree container")
+	print("on_rename_node_requested reached tree container")
 
 
 func _on_delete_node_requested(node: TreeVisualizerGraphNode) -> void:

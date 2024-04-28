@@ -37,5 +37,5 @@ func _initialize_file_modal() -> void:
 
 
 func _on_button_pressed() -> void:
-	print("test")
+	print("test load tree pressed")
 	_file_modal.show()
