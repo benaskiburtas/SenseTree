@@ -23,8 +23,10 @@ extends SenseTreeActionLeaf
 
 var _has_investigation_target: bool = false
 
+
 func _init():
 	randomize()
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings = super._get_configuration_warnings()
@@ -42,8 +44,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if navigation_agent.debug_enabled:
 		_set_debug_properties()
 	_update_navigation_agent_properties()
-	
-	
+
 	if not _has_investigation_target or not navigation_agent.is_target_reachable():
 		navigation_agent.target_position = _generate_investigation_point(actor)
 		_has_investigation_target = true
@@ -57,6 +58,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		return Status.SUCCESS
 
 	return Status.RUNNING
+
 
 func get_sensenode_class() -> String:
 	return "SenseTreeInvestigateAreaAction2D"
@@ -88,7 +90,7 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 	return [
 		navigation_agent_property,
 		max_speed_property,
-		investigation_radius_property,		
+		investigation_radius_property,
 		desired_distance_property,
 		max_path_deviance_property,
 		debug_path_custom_color_property,
@@ -111,13 +113,14 @@ func _update_navigation_agent_properties() -> void:
 	if not navigation_agent.path_max_distance == self.max_path_deviance:
 		navigation_agent.path_max_distance = self.max_path_deviance
 
+
 func _generate_investigation_point(actor: Node) -> Vector2:
 	var random_angle = deg_to_rad(randi_range(-180, 180))
 	var new_point_distance = randf_range(1, self.investigation_radius)
-	
+
 	var new_point_x = new_point_distance * cos(random_angle)
 	var new_point_y = new_point_distance * sin(random_angle)
-	
+
 	var actor_position = actor.get_global_position()
-	
+
 	return Vector2(actor_position.x + new_point_x, actor_position.y + new_point_y)
