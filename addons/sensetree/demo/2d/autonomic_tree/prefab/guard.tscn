@@ -1,7 +1,7 @@
 [gd_scene load_steps=37 format=3 uid="uid://dp13wffy60733"]
 
-[ext_resource type="Texture2D" uid="uid://d084gx55gqajk" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/characters/Knight-1_idle.png" id="1_go7do"]
-[ext_resource type="Texture2D" uid="uid://4u6t778hy4gi" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/characters/Knight-1.png" id="2_rw7a4"]
+[ext_resource type="Texture2D" uid="uid://d084gx55gqajk" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/characters/Knight-1_idle.png" id="1_go7do"]
+[ext_resource type="Texture2D" uid="uid://4u6t778hy4gi" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/characters/Knight-1.png" id="2_rw7a4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p16mm"]
 radius = 16.0
@@ -274,15 +274,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Guard" type="Node"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D"]
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_p16mm")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/CollisionShape2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("SpriteFrames_3fc4n")
-animation = &"walk_left"
-frame_progress = 0.873931
+animation = &"walk_back"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+max_speed = 20.0
