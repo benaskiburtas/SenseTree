@@ -2,6 +2,8 @@
 class_name TreeVisualizeLoadTreeButton
 extends TreeVisualizerTreeActionButton
 
+signal save_tree_requested
+
 const BUTTON_TEXT: String = "Load Tree"
 const MODAL_FILE_MODE: EditorFileDialog.FileMode = EditorFileDialog.FILE_MODE_OPEN_FILE
 const MODAL_ACCESS_MODE: EditorFileDialog.Access = EditorFileDialog.ACCESS_RESOURCES
