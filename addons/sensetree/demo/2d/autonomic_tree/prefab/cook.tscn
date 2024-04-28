@@ -1,7 +1,7 @@
 [gd_scene load_steps=41 format=3 uid="uid://sf34vveoj2sx"]
 
-[ext_resource type="Texture2D" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/characters/Maid-1_idle.png" id="1_exnsf"]
-[ext_resource type="Texture2D" uid="uid://bochhhrl1hlt4" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/characters/Maid-1.png" id="2_uv0o0"]
+[ext_resource type="Texture2D" uid="uid://3d31okgyws8s" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/characters/Maid-1_idle.png" id="1_exnsf"]
+[ext_resource type="Texture2D" uid="uid://bochhhrl1hlt4" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/characters/Maid-1.png" id="2_uv0o0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p2u0o"]
 radius = 16.0

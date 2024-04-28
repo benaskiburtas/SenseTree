@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://drcytnkcmoyqd"]
 
-[ext_resource type="Texture2D" uid="uid://wgq5krdidufh" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/animals/carrot.png" id="1_ony02"]
+[ext_resource type="Texture2D" uid="uid://wgq5krdidufh" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/animals/carrot.png" id="1_ony02"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x7ewx"]
 radius = 7.0

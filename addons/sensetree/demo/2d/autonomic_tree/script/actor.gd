@@ -10,11 +10,11 @@ const ANIM_MOVE_RIGHT = "move_right"
 const ANIM_MOVE_UP = "move_up"
 const ANIM_MOVE_DOWN = "move_down"
 
-@export var movement_speed: float = 300
-@export var movement_acceleration: float = 5
-@export var wander_radius: float = 100
-@export var min_direction_change_time: float = 0.5
-@export var max_direction_change_time: float = 3.0
+@export var movement_speed: float = 200
+@export var movement_acceleration: float = 4
+@export var wander_radius: float = 300
+@export var min_direction_change_time: float = 0.25
+@export var max_direction_change_time: float = 2.0
 
 var _animated_sprite: AnimatedSprite2D = $CollisionShape2D/AnimatedSprite2D
 var _navigation_agent: NavigationAgent2D = $NavigationAgent2D
@@ -24,21 +24,23 @@ var _current_direction = Vector2.ZERO
 
 func _ready():
 	_navigation_agent.max_speed = movement_speed
-	_navigation_timer.connect("timeout", _on_navigation_timer_timeout)
-	add_child(_navigation_timer)
-	_navigation_timer.start()
+	_initialize_timer()
 	
 	_generate_investigation_point()
 	
 
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	var next_position = _navigation_agent.get_next_path_position() - self.global_position
 	var direction = next_position.normalized()
 	
 	velocity = velocity.lerp(direction * movement_speed, movement_acceleration * delta)
 	move_and_slide()
 
+func _initialize_timer() -> void:
+	_navigation_timer.connect("timeout", _on_navigation_timer_timeout)
+	add_child(_navigation_timer)
+	_navigation_timer.start()
 
 func _play_sprite_by_direction() -> void:
 	var normalized_velocity = velocity.normalized()

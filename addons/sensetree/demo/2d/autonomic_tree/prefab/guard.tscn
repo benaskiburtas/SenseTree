@@ -285,4 +285,12 @@ sprite_frames = SubResource("SpriteFrames_3fc4n")
 animation = &"walk_back"
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+avoidance_enabled = true
+radius = 60.0
 max_speed = 20.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.72549, 0.47451, 0.356863, 1)
+debug_path_custom_point_size = 10.0
+debug_path_custom_line_width = 5.0

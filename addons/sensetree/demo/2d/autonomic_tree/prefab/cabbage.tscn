@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dpdbhnlrpaxtd"]
 
-[ext_resource type="Texture2D" uid="uid://dmygeqeu4wxc" path="res://addons/sensetree/demo/2D/autonomic_tree/asset/sprites/animals/cabbage.png" id="1_kkkhp"]
+[ext_resource type="Texture2D" uid="uid://dmygeqeu4wxc" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/sprites/animals/cabbage.png" id="1_kkkhp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5wq55"]
 radius = 7.0
