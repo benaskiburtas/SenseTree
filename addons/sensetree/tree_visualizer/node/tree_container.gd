@@ -16,9 +16,6 @@ var _current_idle_tick_count: int = 0
 var _current_physics_tick_count: int = 0
 
 @onready var _graph_edit: TreeVisualizerGraphEdit = $TreeGraphEditor
-@onready
-var _tree_list_vertical_box: VBoxContainer = $TreeList/TreeListMarginContainer/TreeListVerticalBox
-
 
 func _init():
 	_hashing_context = HashingContext.new()
