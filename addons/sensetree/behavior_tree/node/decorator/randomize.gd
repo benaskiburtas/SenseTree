@@ -12,15 +12,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		child = get_child(0)
 	if child:
 		child.tick(actor, blackboard)
-	return pick_random_status()
-
-
-func pick_random_status() -> Status:
-	randomize()
-	if randf() * 100 < success_probability:
-		return Status.SUCCESS
-	else:
-		return Status.FAILURE
+	return _pick_random_status()
 
 
 func get_sensenode_class() -> String:
@@ -32,3 +24,11 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 		"success_probability", "Success Probability", success_probability
 	)
 	return [success_probability_property]
+
+
+func _pick_random_status() -> Status:
+	randomize()
+	if randf() * 100 < success_probability:
+		return Status.SUCCESS
+	else:
+		return Status.FAILURE
