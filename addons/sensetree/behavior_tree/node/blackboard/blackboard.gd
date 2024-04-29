@@ -6,7 +6,7 @@ extends Node
 var data: Dictionary = {}
 
 
-func set_value(key: String, value) -> void:
+func set_value(key: String, value: Variant) -> void:
 	data[key] = value
 
 
