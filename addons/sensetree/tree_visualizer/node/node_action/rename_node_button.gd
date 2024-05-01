@@ -6,9 +6,11 @@ signal rename_node_requested(node: TreeVisualizerGraphNode)
 
 const BUTTON_TEXT = "Rename Node"
 
+
 func _init() -> void:
 	super()
 	text = BUTTON_TEXT
+
 
 func _assign_button_state() -> void:
 	if self.selected_node == null:
@@ -18,4 +20,7 @@ func _assign_button_state() -> void:
 
 
 func _assign_button_options() -> void:
-	pass
+	if self.selected_node == null:
+		disabled = true
+	else:
+		disabled = false

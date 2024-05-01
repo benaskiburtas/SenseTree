@@ -3,8 +3,6 @@
 class_name SenseTreeNode
 extends Node
 
-signal status_changed
-
 enum Status { SUCCESS, FAILURE, RUNNING }
 
 

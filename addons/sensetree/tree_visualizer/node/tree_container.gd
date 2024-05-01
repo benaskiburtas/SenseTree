@@ -3,28 +3,38 @@ class_name TreeVisualizerContainer
 extends Container
 
 const DEFAULT_HASH = HashingContext.HASH_MD5
-const IDLE_POLL_RATE: int = 10
-const PHYSICS_POLL_RATE: int = 10
+const IDLE_POLL_RATE: int = 100
+const PHYSICS_POLL_RATE: int = 100
+
+const TreeFileManager: Resource = preload(
+	"res://addons/sensetree/tree_visualizer/node/tree_file_manager.gd"
+)
 
 var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
 
 var _hashing_context: HashingContext
 var _previous_scene_hash: PackedByteArray
+
 var _selected_tree: SenseTree
 var _selected_node: TreeVisualizerGraphNode
+
 var _current_idle_tick_count: int = 0
 var _current_physics_tick_count: int = 0
 
-@onready var _graph_edit: TreeVisualizerGraphEdit = $TreeGraphEditor
+var _file_manager: TreeVisualizerFileManager
+var _graph_edit: TreeVisualizerGraphEdit
+
 
 func _init():
 	_hashing_context = HashingContext.new()
 
 
 func _ready() -> void:
+	_initialize_file_manager()
+	_initiliaze_graph_edit()
 	_setup_process_mode()
 	_connect_graph_edit_signals()
-	_populate_tree_selection_buttons([])
+	_connect_file_manager_signals()
 
 
 func _process(delta) -> void:
@@ -33,6 +43,15 @@ func _process(delta) -> void:
 
 func _physics_process(delta) -> void:
 	_process_frame(SenseTreeConstants.ProcessMode.PHYSICS)
+
+
+func _initialize_file_manager() -> void:
+	_file_manager = TreeFileManager.new()
+	add_child(_file_manager)
+
+
+func _initiliaze_graph_edit() -> void:
+	_graph_edit = $TreeGraphEditor
 
 
 func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
@@ -50,17 +69,8 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 			else:
 				return
 
-	var sense_nodes = _get_scene_sense_nodes()
-
-	if not _is_update_needed(sense_nodes):
-		return
-
-	if _selected_tree not in sense_nodes:
-		_selected_tree = null
-
-	var trees = sense_nodes.filter(func(node): return node is SenseTree)
-	_reset_elements()
-	_populate_tree_selection_buttons(trees)
+	if _selected_tree:
+		_file_manager.reload_tree()
 
 
 func _setup_process_mode() -> void:
@@ -80,17 +90,8 @@ func _connect_graph_edit_signals() -> void:
 		_graph_edit.delete_node_button.connect("delete_node_requested", _on_delete_node_requested)
 
 
-func _populate_tree_selection_buttons(scene_trees: Array) -> void:
-	var scene: Node
-	if Engine.is_editor_hint():
-		scene = get_tree().edited_scene_root
-	else:
-		scene = get_tree().current_scene
-
-	for tree in scene_trees:
-		var button = TreeVisualizerSelectButton.new(tree)
-		button.connect("tree_selected", _on_tree_selected)
-		_tree_list_vertical_box.add_child(button)
+func _connect_file_manager_signals() -> void:
+	_file_manager.connect("tree_loaded", _on_tree_loaded)
 
 
 func _force_redraw() -> void:
@@ -100,24 +101,34 @@ func _force_redraw() -> void:
 
 
 func _is_update_needed(nodes: Array) -> bool:
-	var current_scene_hash = _generate_scene_sense_nodes_hash(nodes)
+	if not _selected_tree:
+		return true
 
+	var current_scene_hash = _generate_sense_nodes_hash(nodes)
+	print(current_scene_hash)
 	if current_scene_hash != _previous_scene_hash:
 		_previous_scene_hash = current_scene_hash
 		return true
 	return false
 
 
-func _generate_scene_sense_nodes_hash(sense_nodes: Array) -> PackedByteArray:
+func _generate_sense_nodes_hash(sense_nodes: Array) -> PackedByteArray:
 	if not _nodes_valid_for_hashing(sense_nodes):
 		return PackedByteArray()
 
 	_hashing_context.start(DEFAULT_HASH)
 	for node in sense_nodes:
 		var node_identifier = "[%s %s]" % [node.name, inst_to_dict(node)]
+		node_identifier = _remove_objectid_identifiers(node_identifier)
 		_hashing_context.update(node_identifier.to_utf8_buffer())
 	var finish = _hashing_context.finish()
 	return finish
+
+
+func _remove_objectid_identifiers(node_identifier: String) -> String:
+	var regex = RegEx.new()
+	regex.compile("#\\d+")
+	return regex.sub(node_identifier, "", true)
 
 
 func _nodes_valid_for_hashing(sense_nodes: Array) -> bool:
@@ -142,41 +153,51 @@ func _nodes_valid_for_hashing(sense_nodes: Array) -> bool:
 
 
 func _reset_elements() -> void:
-	for child in _tree_list_vertical_box.get_children():
-		child.queue_free()
-
 	if _selected_tree:
 		_graph_edit.assign_tree(_selected_tree)
 	else:
 		_graph_edit.reset()
 
 
-func _get_scene_sense_nodes() -> Array:
-	var scene: Node
-	if Engine.is_editor_hint():
-		scene = get_tree().edited_scene_root
-	else:
-		scene = get_tree().current_scene
-
-	return _find_all_sense_nodes(scene)
-
-
-func _find_all_sense_nodes(node: Node) -> Array:
+func _get_tree_sense_nodes(root: Node) -> Array:
 	var result = []
-	if node is SenseTreeNode:
-		result.append(node)
+	if root is SenseTreeNode:
+		result.append(root)
 
-	if node:
-		for child in node.get_children():
-			result.append_array(_find_all_sense_nodes(child))
+	if root:
+		for child in root.get_children():
+			result.append_array(_get_tree_sense_nodes(child))
 
 	return result
 
 
 func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
-	var scene_node = selected_node.scene_node
+	if not selected_node:
+		push_warning(
+			"SenseTree Visualizer Warning: Cannot match in-editor node selection as no visualizer node is selected."
+		)
+		return
+
+	if not selected_node.scene_node:
+		push_warning(
+			"SenseTree Visualizer Warning: Cannot match in-editor node selection as scene node is missing."
+		)
+		return
+
+	var node_name = selected_node.scene_node.name
 
 	# Select matching node in scene list
+	var scene_root: Node = EditorInterface.get_edited_scene_root()
+
+	var scene_node: Node
+	if scene_root and scene_root.name == node_name:
+		scene_node = scene_root
+	else:
+		scene_node = scene_root.find_child(node_name, true)
+
+	if not scene_node:
+		return
+
 	var scene_selector: EditorSelection = EditorInterface.get_selection()
 	scene_selector.clear()
 	scene_selector.add_node(scene_node)
@@ -185,11 +206,7 @@ func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
 func _disable_graph_edit_action_buttons() -> void:
 	_graph_edit.add_node_button.selected_node = null
 	_graph_edit.delete_node_button.selected_node = null
-
-
-func _on_tree_selected(tree: SenseTree) -> void:
-	_selected_tree = tree
-	_graph_edit.assign_tree(tree)
+	_graph_edit.rename_node_button.selected_node = null
 
 
 func _on_node_selected(selected_node: TreeVisualizerGraphNode) -> void:
@@ -204,6 +221,7 @@ func _on_node_selected(selected_node: TreeVisualizerGraphNode) -> void:
 	_select_node_in_editor(selected_node)
 	_graph_edit.add_node_button.selected_node = selected_node
 	_graph_edit.delete_node_button.selected_node = selected_node
+	_graph_edit.rename_node_button.selected_node = selected_node
 
 
 func _on_node_deselected(deselected_node: Node) -> void:
@@ -213,16 +231,16 @@ func _on_node_deselected(deselected_node: Node) -> void:
 	_disable_graph_edit_action_buttons()
 
 
-func _on_new_tree_requested(node: TreeVisualizerGraphNode) -> void:
-	print("on_new_tree_requested reached tree container")
+func _on_new_tree_requested() -> void:
+	_file_manager.new_tree()
 
 
-func _on_load_tree_requested(node: TreeVisualizerGraphNode) -> void:
-	print("on_load_tree_requested reached tree container")
+func _on_load_tree_requested() -> void:
+	_file_manager.load_tree()
 
 
-func _on_save_tree_requested(node: TreeVisualizerGraphNode) -> void:
-	print("on_save_tree_requested reached tree container")
+func _on_save_tree_requested(tree: SenseTree) -> void:
+	_file_manager.save_tree(tree)
 
 
 func _on_create_node_requested(node_class: String) -> void:
@@ -241,15 +259,15 @@ func _on_create_node_requested(node_class: String) -> void:
 		push_warning("Could not resolve script path for SenseTree node %s." % node_class)
 		return
 
-	var scene_root = EditorInterface.get_edited_scene_root()
 	var scene_node = _selected_node.scene_node
 	var node_script: Script = load(node_script_path)
 	var new_node_instance: SenseTreeNode = node_script.new()
 
 	new_node_instance.set_name(node_class)
 	scene_node.add_child(new_node_instance, true)
-	new_node_instance.set_owner(scene_root)
-
+	new_node_instance.set_owner(scene_node)
+	
+	_file_manager.auto_save_tree()
 	_force_redraw()
 
 
@@ -274,3 +292,17 @@ func _on_delete_node_requested(node: TreeVisualizerGraphNode) -> void:
 	_selected_node = null
 
 	_force_redraw()
+
+
+func _on_tree_loaded(tree: SenseTree) -> void:
+	var sense_nodes = _get_tree_sense_nodes(tree)
+	if not _is_update_needed(sense_nodes):
+		return
+
+	if _selected_tree:
+		_selected_tree.queue_free()
+	_selected_tree = tree
+
+	_graph_edit.save_tree_button.selected_tree = tree
+
+	_reset_elements()

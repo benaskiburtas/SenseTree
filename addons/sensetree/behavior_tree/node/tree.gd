@@ -12,7 +12,7 @@ extends SenseTreeNode
 	set(new_actor):
 		actor = new_actor
 		if not actor:
-			_set_default_actor()
+			actor = get_parent()
 
 @export var blackboard: SenseTreeBlackboard:
 	set(new_blackboard):
@@ -20,7 +20,7 @@ extends SenseTreeNode
 			blackboard.free()
 		blackboard = new_blackboard
 		if not blackboard:
-			blackboard = _create_default_blackboard()
+			blackboard = SenseTreeBlackboard.new()
 
 @export
 var tick_process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
@@ -47,9 +47,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func _ready() -> void:
 	if not actor:
-		_set_default_actor()
+		actor = get_parent()
 	if not blackboard:
-		blackboard = _create_default_blackboard()
+		blackboard = SenseTreeBlackboard.new()
 
 	_setup_process_modes()
 	_frames_since_last_tick = frames_per_tick - randi_range(0, frames_per_tick)
@@ -94,14 +94,6 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 		"Frames Per Tick", "Frames Per Tick", frames_per_tick
 	)
 	return [is_enabled_property, tick_process_mode_property, frames_per_tick_property]
-
-
-func _set_default_actor() -> void:
-	actor = get_parent()
-
-
-func _create_default_blackboard() -> SenseTreeBlackboard:
-	return SenseTreeBlackboard.new()
 
 
 func _is_in_editor() -> bool:

@@ -5,6 +5,8 @@ extends GraphEdit
 const IDLE_MODE_REDRAW_RATE: int = 150
 const PHYSICS_MODE_REDRAW_RATE: int = 150
 
+const INITIAL_ZOOM: float = 0.62
+
 const GraphNodeStyleBoxes: Resource = preload(
 	"res://addons/sensetree/tree_visualizer/resource/tree_graph_node_style_boxes.gd"
 )
@@ -56,6 +58,9 @@ func _ready():
 	if Engine.is_editor_hint():
 		_add_additional_action_buttons()
 
+	# Set default offset and zoom
+	set_zoom(INITIAL_ZOOM)
+
 
 func _process(delta: float) -> void:
 	_process_draw(SenseTreeConstants.ProcessMode.IDLE)
@@ -75,7 +80,7 @@ func _set_process_modes() -> void:
 
 func _add_additional_action_buttons() -> void:
 	var toolbar = get_menu_hbox()
-	
+
 	new_tree_button = NewTreeButton.new()
 	toolbar.add_child(new_tree_button)
 
@@ -84,7 +89,7 @@ func _add_additional_action_buttons() -> void:
 
 	save_tree_button = SaveTreeButton.new()
 	toolbar.add_child(save_tree_button)
-	
+
 	# Separate tree actions and node actions
 	toolbar.add_spacer(false)
 

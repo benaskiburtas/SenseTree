@@ -11,15 +11,23 @@ const TreeVisualizerEditor = preload(
 
 var _tree_editor_instance: Node
 
+@onready var _visualizer_tree_container: TreeVisualizerContainer = _tree_editor_instance.find_child(
+	"TreeContainer"
+)
+
 
 func _enter_tree() -> void:
-	add_autoload_singleton("SenseTreeConstants", "res://addons/sensetree/common/singleton/constants.gd")
+	add_autoload_singleton(
+		"SenseTreeConstants", "res://addons/sensetree/common/singleton/constants.gd"
+	)
 	add_autoload_singleton("SenseTreeHelpers", "res://addons/sensetree/common/singleton/helpers.gd")
 	_load_tree_editor()
+	#_connect_editor_signals()
 	_make_visible(false)
 
 
 func _exit_tree() -> void:
+	#_disconnect_editor_signals()
 	_remove_tree_editor()
 	remove_autoload_singleton("SenseTreeHelpers")
 	remove_autoload_singleton("SenseTreeConstants")
@@ -50,3 +58,18 @@ func _load_tree_editor() -> void:
 func _remove_tree_editor() -> void:
 	if _tree_editor_instance:
 		_tree_editor_instance.queue_free()
+
+#func _connect_editor_signals() -> void:
+#print("connected")
+#connect("resource_saved", _on_resource_saved)
+#
+#
+#func _disconnect_editor_signals() -> void:
+#if is_connected("resource_saved", _on_resource_saved):
+#print("disconnected")
+#disconnect("resource_saved", _on_resource_saved)
+#
+#
+#func _on_resource_saved(resource: Resource) -> void:
+#print("resource savedddddd")
+#pass

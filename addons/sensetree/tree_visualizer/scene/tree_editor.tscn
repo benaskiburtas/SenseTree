@@ -25,7 +25,6 @@ script = ExtResource("2_xfh5u")
 [node name="TreeGraphEditor" type="GraphEdit" parent="TreeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-scroll_offset = Vector2(-12, 0)
 zoom = 0.55
 zoom_min = 0.2
 zoom_max = 2.0

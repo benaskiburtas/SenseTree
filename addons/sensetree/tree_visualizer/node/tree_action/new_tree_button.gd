@@ -9,8 +9,7 @@ const BUTTON_TEXT = "New Tree"
 
 func _init() -> void:
 	super()
-	disabled = false
-	text = BUTTON_TEXT
+	_initialize_button_functionality()
 
 
 func _assign_button_state() -> void:
@@ -20,5 +19,12 @@ func _assign_button_state() -> void:
 func _assign_button_options() -> void:
 	pass
 
+
+func _initialize_button_functionality() -> void:
+	disabled = false
+	self.pressed.connect(_on_button_pressed)
+	text = BUTTON_TEXT
+
+
 func _on_button_pressed() -> void:
-	print("test")
+	new_tree_requested.emit()
