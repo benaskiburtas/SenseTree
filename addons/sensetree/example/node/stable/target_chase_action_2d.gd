@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Chase_Entity.svg")
 class_name SenseTreeTargetChaseAction2D
 extends SenseTreeActionLeaf
 
