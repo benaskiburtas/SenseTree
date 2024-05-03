@@ -1,10 +1,10 @@
 @tool
-class_name TreeVisualizeSaveTreeButton
+class_name TreeVisualizeSaveTreeAsButton
 extends TreeVisualizerTreeActionButton
 
-signal save_tree_requested(tree: SenseTree)
+signal save_tree_as_requested(tree: SenseTree)
 
-const BUTTON_TEXT = "Save Tree"
+const BUTTON_TEXT = "Save Tree As"
 
 
 func _init() -> void:
@@ -25,4 +25,4 @@ func _initialize_button_functionality() -> void:
 
 
 func _on_button_pressed() -> void:
-	save_tree_requested.emit(selected_tree)
+	save_tree_as_requested.emit(selected_tree)

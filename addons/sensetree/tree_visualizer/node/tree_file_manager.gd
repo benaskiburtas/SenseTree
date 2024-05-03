@@ -15,6 +15,7 @@ const FILE_DIALOG_LOAD_FILE_MODE: EditorFileDialog.FileMode = EditorFileDialog.F
 const FILE_DIALOG_SAVE_FILE_MODE: EditorFileDialog.FileMode = EditorFileDialog.FILE_MODE_SAVE_FILE
 
 var _file_dialog: EditorFileDialog
+var _resource_hash_verifier: ResourceHashVerifier = ResourceHashVerifier.new()
 
 var _current_operation: FileOperation = FileOperation.UNSET
 var _current_tree: SenseTree
@@ -30,7 +31,7 @@ func _init() -> void:
 func new_tree() -> void:
 	_current_tree = SenseTree.new()
 	_current_tree.set_name("SenseTree")
-	save_tree()
+	save_tree_as()
 
 
 func load_tree() -> void:
@@ -40,7 +41,13 @@ func load_tree() -> void:
 
 
 func save_tree(tree: SenseTree = null) -> void:
-	print(tree)
+	if not _resource_path or not _current_tree:
+		return
+	else:
+		_save_tree_to_file()
+
+
+func save_tree_as(tree: SenseTree = null) -> void:
 	if tree:
 		_current_tree = tree
 
@@ -63,7 +70,9 @@ func reload_tree() -> void:
 		_load_tree_from_file()
 
 
-func auto_save_tree() -> void:
+func resave_tree() -> void:
+	print("resaving")
+	_current_tree.print_tree_pretty()
 	if not _resource_path or not _current_tree:
 		return
 	else:
@@ -109,16 +118,18 @@ func _save_tree_to_file() -> void:
 	tree_resource.pack(_current_tree)
 	tree_resource.set_path(_resource_path)
 
+	_current_tree.free()
+
 	var save_result: Error = ResourceSaver.save(tree_resource)
 	if not save_result == Error.OK:
 		push_error(
 			"SenseTree Save Error: Error whilst saving tree structure, error code %s." % save_result
 		)
 		return
-	print("tree saved")
 
 
 func _load_tree_from_file() -> void:
+	# Load & validate resource file
 	var loaded_resource = ResourceLoader.load(_resource_path, "PackedScene")
 	if not loaded_resource:
 		push_error("SenseTree Load Error: Could not load resource file %s." % _resource_path)
@@ -130,27 +141,39 @@ func _load_tree_from_file() -> void:
 			"SenseTree Load Error: Not possible to instantiate stored resource %s." % _resource_path
 		)
 		return
+
+	# Cast to Scene and instantiate if this resource and current resource hash differs
 	var scene_resource = loaded_resource as PackedScene
+
+	if not _resource_hash_verifier.is_resource_modified(scene_resource):
+		return
+
 	var scene_tree = scene_resource.instantiate()
 
 	if not _validate_tree_structure(scene_tree):
+		push_error(
+			(
+				"SenseTree Load Error: Loaded resource does not contain a valid tree structure %s."
+				% _resource_path
+			)
+		)
 		_reset()
 		return
 
-	if not _resource == scene_resource:
-		if _resource and _resource.is_connected("changed", _on_resource_changed):
-			_resource.disconnect("changed", _on_resource_changed)
-		_resource = scene_resource
-		_resource.connect("changed", _on_resource_changed)
+	# Clear current tree before re-assignment to avoid memory leaks
+	if _current_tree:
+		_current_tree.free()
 
+	# Re-assignment & emit loaded status
+	_resource = scene_resource
 	_current_tree = scene_tree
 
 	tree_loaded.emit(_current_tree)
 
 
 func _reset() -> void:
-	if _resource and _resource.is_connected("changed", _on_resource_changed):
-		_resource.disconnect("changed", _on_resource_changed)
+	_current_tree.queue_free()
+
 	_current_tree = null
 	_resource = null
 	_resource_path = ""
@@ -181,8 +204,3 @@ func _on_file_selected(path: String) -> void:
 	if _current_operation == FileOperation.LOAD:
 		_load_tree_from_file()
 	_current_operation = FileOperation.UNSET
-
-
-func _on_resource_changed() -> void:
-	print("resource property has been changed")
-	pass

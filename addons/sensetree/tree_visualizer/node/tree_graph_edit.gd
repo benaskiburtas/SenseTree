@@ -23,6 +23,9 @@ const LoadTreeButton: Script = preload(
 const SaveTreeButton: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/tree_action/save_tree_button.gd"
 )
+const SaveTreeAsButton: Script = preload(
+	"res://addons/sensetree/tree_visualizer/node/tree_action/save_tree_as_button.gd"
+)
 const AddNodeButton: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/node_action/add_node_button.gd"
 )
@@ -38,6 +41,7 @@ var style_boxes: TreeVisualizerGraphNodeStyleBoxes
 var new_tree_button: TreeVisualizeNewTreeButton = null
 var load_tree_button: TreeVisualizeLoadTreeButton = null
 var save_tree_button: TreeVisualizeSaveTreeButton = null
+var save_tree_as_button: TreeVisualizeSaveTreeAsButton = null
 var add_node_button: TreeVisualizerAddNodeButton = null
 var rename_node_button: TreeVisualizeRenameNodeButton = null
 var delete_node_button: TreeVisualizerDeleteNodeButton = null
@@ -90,6 +94,8 @@ func _add_additional_action_buttons() -> void:
 	save_tree_button = SaveTreeButton.new()
 	toolbar.add_child(save_tree_button)
 
+	save_tree_as_button = SaveTreeAsButton.new()
+	toolbar.add_child(save_tree_as_button)
 	# Separate tree actions and node actions
 	toolbar.add_spacer(false)
 
@@ -173,6 +179,7 @@ func _draw_new_tree(tree: SenseTreeNode) -> void:
 
 	var arranged_tree: ArrangedVisualizerNode = _arrange_tree(tree)
 	_place_arranged_tree(arranged_tree)
+	arranged_tree.queue_free()
 
 
 func _arrange_tree(tree: SenseTree) -> ArrangedVisualizerNode:
@@ -199,6 +206,7 @@ func _place_arranged_tree(arranged_tree: ArrangedVisualizerNode):
 		node_children.reverse()
 		for child in node_children:
 			tree_stack.push_back(GraphNodeDetails.new(child, graph_node))
+
 
 
 class GraphNodeDetails:
