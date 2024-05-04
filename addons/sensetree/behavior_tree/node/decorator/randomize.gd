@@ -5,15 +5,20 @@ extends SenseTreeDecorator
 
 @export_range(0, 100) var success_probability: float = 50
 
+var random_generator: RandomNumberGenerator
+
+func _init():
+	random_generator = RandomNumberGenerator.new()
+	random_generator.randomize()
+
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var child: SenseTreeNode
-	if get_child_count() != 0:
-		child = get_child(0)
-	if child:
-		child.tick(actor, blackboard)
-	return _pick_random_status()
-
+	if get_child_count() == 0:
+		return Status.FAILURE
+	child = get_child(0)
+	var status = child.tick(actor, blackboard)
+	return Status.RUNNING if status == Status.RUNNING else _pick_random_status()
 
 func get_sensenode_class() -> String:
 	return "SenseTreeRandomizeDecorator"
@@ -27,8 +32,9 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 
 
 func _pick_random_status() -> Status:
-	randomize()
-	if randf() * 100 < success_probability:
+	var roll = random_generator.randf() * 100
+	print(roll)
+	if roll < success_probability:
 		return Status.SUCCESS
 	else:
 		return Status.FAILURE

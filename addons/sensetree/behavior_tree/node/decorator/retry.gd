@@ -3,7 +3,7 @@
 class_name SenseTreeRetryDecorator
 extends SenseTreeDecorator
 
-@export_range(0, 100000) var retry_limit: int = 0
+@export_range(0, 100000) var retry_limit: int = 5
 
 var _current_retries: int = 0
 
@@ -17,26 +17,22 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		_current_retries = 0
 		return Status.FAILURE
 
-	if _current_retries < retry_limit:
-		var child = get_child(0)
-		var result = child.tick(actor, blackboard)
+	var child = get_child(0)
+	var result = child.tick(actor, blackboard)
 
-		if result == Status.SUCCESS:
-			_current_retries = 0
-			return Status.SUCCESS
-		if result == Status.RUNNING:
-			return Status.RUNNING
-
-		_current_retries += 1
-
-		if _current_retries >= retry_limit:
-			_current_retries = 0
-			return Status.FAILURE
-
+	if result == Status.SUCCESS:
+		_current_retries = 0
+		return Status.SUCCESS
+	if result == Status.RUNNING:
 		return Status.RUNNING
-	else:
+
+	_current_retries += 1
+
+	if _current_retries >= retry_limit:
 		_current_retries = 0
 		return Status.FAILURE
+
+	return Status.RUNNING
 
 
 func get_sensenode_class() -> String:

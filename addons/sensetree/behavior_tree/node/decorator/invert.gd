@@ -13,7 +13,6 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		result = child.tick(actor, blackboard)
 	return return_inverted_status(result)
 
-
 func return_inverted_status(child_status: Status) -> Status:
 	if child_status == Status.SUCCESS:
 		return Status.FAILURE

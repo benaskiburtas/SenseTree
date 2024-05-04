@@ -17,26 +17,22 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		_current_repetitions = 0
 		return Status.FAILURE
 
-	if _current_repetitions < repeat_limit:
-		var child = get_child(0)
-		var result = child.tick(actor, blackboard)
+	var child = get_child(0)
+	var result = child.tick(actor, blackboard)
 
-		if result == Status.FAILURE:
-			_current_repetitions = 0
-			return Status.FAILURE
-		if result == Status.RUNNING:
-			return Status.RUNNING
-
-		_current_repetitions += 1
-
-		if _current_repetitions >= repeat_limit:
-			_current_repetitions = 0
-			return Status.SUCCESS
-
+	if result == Status.FAILURE:
+		_current_repetitions = 0
+		return Status.FAILURE
+	if result == Status.RUNNING:
 		return Status.RUNNING
-	else:
+
+	_current_repetitions += 1
+
+	if _current_repetitions >= repeat_limit:
 		_current_repetitions = 0
 		return Status.SUCCESS
+
+	return Status.RUNNING
 
 
 func get_sensenode_class() -> String:
