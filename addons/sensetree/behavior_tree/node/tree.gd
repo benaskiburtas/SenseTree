@@ -11,8 +11,6 @@ extends SenseTreeNode
 @export var actor: Node:
 	set(new_actor):
 		actor = new_actor
-		if not actor:
-			actor = get_parent()
 
 @export var blackboard: SenseTreeBlackboard:
 	set(new_blackboard):
