@@ -123,7 +123,7 @@ func _connect_file_dialog_signals() -> void:
 func _save_tree_to_file() -> void:
 	var tree_resource = PackedScene.new()
 	tree_resource.pack(_current_tree)
-	tree_resource.set_path(_resource_path)
+	tree_resource.take_over_path(_resource_path)
 
 	#_current_tree.free()
 
