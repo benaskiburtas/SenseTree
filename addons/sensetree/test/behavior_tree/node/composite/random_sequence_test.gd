@@ -33,7 +33,6 @@ func before_test() -> void:
 func test_tick_child_randomization() -> void:
 	# Given
 	seed(50)
-	var expected_structure = ".\n@Node@7\n@Node@5\n@Node@6\n@Node@8\n@Node@9\n"
 
 	var child_mock_a = mock(SenseTreeConditionLeaf)
 	var child_mock_b = mock(SenseTreeConditionLeaf)
@@ -57,8 +56,17 @@ func test_tick_child_randomization() -> void:
 	sensetree.tick(actor, blackboard)
 
 	# Then
-	var result_structure = random_sequence_composite.get_tree_string()
-	assert_str(result_structure).is_equal(expected_structure)
+	var result_a = random_sequence_composite.get_child(1)
+	var result_b = random_sequence_composite.get_child(2)
+	var result_c = random_sequence_composite.get_child(0)
+	var result_d = random_sequence_composite.get_child(3)
+	var result_e = random_sequence_composite.get_child(4)
+
+	assert_bool(result_a == child_mock_a).is_true()
+	assert_bool(result_b == child_mock_b).is_true()
+	assert_bool(result_c == child_mock_c).is_true()
+	assert_bool(result_d == child_mock_d).is_true()
+	assert_bool(result_e == child_mock_e).is_true()
 
 
 func test_get_sensenode_class() -> void:

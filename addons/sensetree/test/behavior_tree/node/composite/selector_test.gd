@@ -61,7 +61,7 @@ func test_parameterized_child_index (child_a_status: int, child_b_status :int, c
 
 func test_get_sensenode_class() -> void:
 	# Given
-	var expected_class_name = "SenseTreeSequenceComposite"
+	var expected_class_name = "SenseTreeSelectorComposite"
 
 	# When
 	var result_class_name = selector_composite.get_sensenode_class()
