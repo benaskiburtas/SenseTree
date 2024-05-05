@@ -25,7 +25,7 @@ func _assign_button_state() -> void:
 		disabled = true
 		return
 
-	var node = self.selected_node.node
+	var node = self.selected_node.sensetree_node
 	match _selected_node_group:
 		SenseTreeConstants.NodeGroup.TREE:
 			disabled = node.get_child_count() != 0

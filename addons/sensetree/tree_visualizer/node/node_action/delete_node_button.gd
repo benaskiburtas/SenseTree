@@ -17,7 +17,7 @@ func _init() -> void:
 
 
 func _assign_button_state() -> void:
-	if self.selected_node == null or selected_node.node is SenseTree:
+	if self.selected_node == null or selected_node.sensetree_node is SenseTree:
 		disabled = true
 	else:
 		disabled = false

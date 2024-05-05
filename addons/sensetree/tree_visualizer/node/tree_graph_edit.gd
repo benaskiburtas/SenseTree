@@ -188,6 +188,7 @@ func _place_arranged_tree(arranged_tree: ArrangedVisualizerNode):
 		var parent_node = node_details.parent
 
 		var graph_node = TreeVisualizerGraphNode.new(arranged_node, style_boxes)
+		graph_node.connect("node_double_clicked", _on_node_double_clicked)
 		add_child(graph_node)
 
 		if parent_node:
@@ -197,6 +198,23 @@ func _place_arranged_tree(arranged_tree: ArrangedVisualizerNode):
 		node_children.reverse()
 		for child in node_children:
 			tree_stack.push_back(GraphNodeDetails.new(child, graph_node))
+
+
+func _on_node_double_clicked(graph_node: TreeVisualizerGraphNode) -> void:
+	if not graph_node or not "sensetree_node" in graph_node:
+		return
+
+	var stored_node = graph_node.sensetree_node
+	if not stored_node is SenseTreeNode:
+		return
+
+	var sensetree_node = stored_node as SenseTreeNode
+
+	var node_script_path = sensetree_node.get_script()
+	if not node_script_path:
+		return
+	else:
+		EditorInterface.edit_script(node_script_path)
 
 
 class GraphNodeDetails:

@@ -2,6 +2,8 @@
 class_name TreeVisualizerGraphNode
 extends GraphNode
 
+signal node_double_clicked(graph_node: TreeVisualizerGraphNode)
+
 enum PortType { INPUT, OUTPUT }
 enum AlignmentType { VERTICAL, HORIZONTAL }
 
@@ -17,7 +19,7 @@ const PROPERTY_ITEM_MARGIN: int = 5
 const HORIZONTAL_SPACING_OFFSET: float = 400
 const VERTICAL_SPACING_OFFSET: float = 300
 
-var node: SenseTreeNode
+var sensetree_node: SenseTreeNode
 
 var _alignment_mode: AlignmentType
 var _node_icon_texture: Texture2D
@@ -38,7 +40,7 @@ func _init(
 	style_boxes: TreeVisualizerGraphNodeStyleBoxes,
 	alignment_mode: AlignmentType = AlignmentType.HORIZONTAL
 ) -> void:
-	self.node = arranged_node.tree
+	self.sensetree_node = arranged_node.tree
 	_alignment_mode = alignment_mode
 
 	_set_base_properties()
@@ -54,6 +56,7 @@ func _init(
 	_assign_styleboxes_by_group(style_boxes)
 
 	_set_node_position(arranged_node)
+	_set_interaction_signal()
 
 
 func _set_base_properties() -> void:
@@ -91,7 +94,7 @@ func _initialize_titlebar_icon() -> void:
 
 
 func _configure_ports() -> void:
-	var node_group: SenseTreeConstants.NodeGroup = self.node.get_node_group()
+	var node_group: SenseTreeConstants.NodeGroup = self.sensetree_node.get_node_group()
 	match node_group:
 		SenseTreeConstants.NodeGroup.TREE:
 			set_slot(
@@ -139,9 +142,9 @@ func _configure_ports() -> void:
 
 
 func _load_node_icon() -> void:
-	var sense_node_class: String = self.node.get_sensenode_class()
+	var sense_node_class: String = self.sensetree_node.get_sensenode_class()
 	if not sense_node_class or sense_node_class.is_empty():
-		push_warning("Could not resolve class name from SenseTree node %s." % self.node.name)
+		push_warning("Could not resolve class name from SenseTree node %s." % self.sensetree_node.name)
 		return
 
 	var icon_path: String = SenseTreeHelpers.try_acquire_icon_path(sense_node_class)
@@ -157,12 +160,12 @@ func _load_node_icon() -> void:
 
 func _load_node_title() -> void:
 	var title_label = Label.new()
-	title_label.text = self.node.name
+	title_label.text = self.sensetree_node.name
 	_titlebar.add_child(title_label)
 
 
 func _load_node_properties() -> void:
-	var properties: Array[SenseTreeExportedProperty] = self.node.get_exported_properties()
+	var properties: Array[SenseTreeExportedProperty] = self.sensetree_node.get_exported_properties()
 
 	if not properties.is_empty():
 		_has_properties = true
@@ -184,7 +187,7 @@ func _load_node_properties() -> void:
 
 
 func _assign_styleboxes_by_group(style_boxes: TreeVisualizerGraphNodeStyleBoxes) -> void:
-	var group = self.node.get_node_group()
+	var group = self.sensetree_node.get_node_group()
 
 	var panel_stylebox = style_boxes.get_stylebox(group, style_boxes.StyleBoxType.PANEL_STYLE_BOX)
 	var panel_selected_stylebox = style_boxes.get_stylebox(
@@ -225,3 +228,19 @@ func _set_node_position(arranged_node: ArrangedVisualizerNode) -> void:
 	var x_position = (node_x_offset_units + 1) * HORIZONTAL_SPACING_OFFSET
 	var y_position = (node_y_offset_units) * VERTICAL_SPACING_OFFSET + _property_entry_offset
 	position_offset = Vector2(x_position, y_position)
+
+
+func _set_interaction_signal() -> void:
+	connect("gui_input", _on_input_event)
+
+
+func _on_input_event(event: InputEvent) -> void:
+	if not event is InputEventMouseButton:
+		return
+
+	var mouse_event = event as InputEventMouseButton
+
+	if not mouse_event.double_click:
+		return
+
+	node_double_clicked.emit(self)

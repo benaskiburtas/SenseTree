@@ -121,13 +121,13 @@ func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
 		)
 		return
 
-	if not selected_node.node:
+	if not selected_node.sensetree_node:
 		push_warning(
 			"SenseTree Visualizer Warning: Cannot match in-editor node selection as the underlying graph node is missing."
 		)
 		return
 
-	var node_name = selected_node.node.name
+	var node_name = selected_node.sensetree_node.name
 
 	# Select matching node in scene list
 	var inspector_root_node: Node = EditorInterface.get_edited_scene_root()
@@ -198,16 +198,15 @@ func _on_create_node_requested(node_class: String) -> void:
 		push_warning("Could not resolve script path for SenseTree node %s." % node_class)
 		return
 
-	var node = _selected_node.node
+	var node = _selected_node.sensetree_node
 	var node_script: Script = load(node_script_path)
 	var new_node_instance: SenseTreeNode = node_script.new()
 
 	new_node_instance.set_name(node_class)
 	node.add_child(new_node_instance, true)
-	new_node_instance.set_owner(node)
+	new_node_instance.set_owner(_selected_tree)
 
 	_file_manager.resave_tree()
-	_force_redraw()
 
 
 func _on_delete_node_requested(node_to_delete: TreeVisualizerGraphNode) -> void:
@@ -221,12 +220,12 @@ func _on_delete_node_requested(node_to_delete: TreeVisualizerGraphNode) -> void:
 		push_warning("Delete node request is missing target graph node.")
 		return
 
-	var scene_node = node_to_delete.node
-	node_to_delete.queue_free()
-	scene_node.queue_free()
+	var sense_node = node_to_delete.node
+	sense_node.free()
+	node_to_delete.free()
 	_selected_node = null
 
-	_force_redraw()
+	_file_manager.resave_tree()
 
 
 func _on_tree_loaded(tree: SenseTree) -> void:
