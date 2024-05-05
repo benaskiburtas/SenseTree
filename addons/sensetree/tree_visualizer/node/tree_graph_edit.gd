@@ -152,8 +152,12 @@ func assign_tree(tree: SenseTree) -> void:
 	clear_connections()
 	_remove_graph_nodes()
 
-	if tree and tree.has_children:
+	if tree:
 		_draw_new_tree(tree)
+	else:
+		push_warning(
+			"Behavior tree is empty and graph view cannot be drawn. Is it configured properly?"
+		)
 
 	_is_graph_being_updated = false
 
@@ -171,12 +175,6 @@ func _remove_graph_nodes() -> void:
 
 
 func _draw_new_tree(tree: SenseTreeNode) -> void:
-	if not tree.has_children:
-		push_warning(
-			"Behavior tree is empty and graph view cannot be drawn. Is it configured properly?"
-		)
-		return
-
 	var arranged_tree: ArrangedVisualizerNode = _arrange_tree(tree)
 	_place_arranged_tree(arranged_tree)
 	arranged_tree.queue_free()
@@ -206,7 +204,6 @@ func _place_arranged_tree(arranged_tree: ArrangedVisualizerNode):
 		node_children.reverse()
 		for child in node_children:
 			tree_stack.push_back(GraphNodeDetails.new(child, graph_node))
-
 
 
 class GraphNodeDetails:

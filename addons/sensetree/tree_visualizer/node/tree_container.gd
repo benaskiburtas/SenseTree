@@ -61,8 +61,8 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 			else:
 				return
 
-	if _selected_tree:
-		_file_manager.reload_tree()
+	#if _selected_tree:
+	#_file_manager.reload_tree()
 
 
 func _setup_process_mode() -> void:
@@ -122,29 +122,29 @@ func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
 		)
 		return
 
-	if not selected_node.scene_node:
+	if not selected_node.node:
 		push_warning(
-			"SenseTree Visualizer Warning: Cannot match in-editor node selection as scene node is missing."
+			"SenseTree Visualizer Warning: Cannot match in-editor node selection as the underlying graph node is missing."
 		)
 		return
 
-	var node_name = selected_node.scene_node.name
+	var node_name = selected_node.node.name
 
 	# Select matching node in scene list
-	var scene_root: Node = EditorInterface.get_edited_scene_root()
+	var inspector_root_node: Node = EditorInterface.get_edited_scene_root()
 
-	var scene_node: Node
-	if scene_root and scene_root.name == node_name:
-		scene_node = scene_root
+	var matching_editor_node: Node
+	if inspector_root_node and inspector_root_node.name == node_name:
+		matching_editor_node = inspector_root_node
 	else:
-		scene_node = scene_root.find_child(node_name, true)
+		matching_editor_node = inspector_root_node.find_child(node_name, true)
 
-	if not scene_node:
+	if not matching_editor_node:
 		return
 
 	var scene_selector: EditorSelection = EditorInterface.get_selection()
 	scene_selector.clear()
-	scene_selector.add_node(scene_node)
+	scene_selector.add_node(matching_editor_node)
 
 
 func _disable_graph_edit_action_buttons() -> void:
@@ -181,7 +181,9 @@ func _on_load_tree_requested() -> void:
 
 
 func _on_save_tree_requested(tree: SenseTree) -> void:
+	print("TreeContainer Log: Signal save_tree_requested received")
 	_file_manager.save_tree(tree)
+	print("TreeContainer Log: File Manager save_tree complete")
 
 
 func _on_save_tree_as_requested(tree: SenseTree) -> void:
@@ -190,10 +192,6 @@ func _on_save_tree_as_requested(tree: SenseTree) -> void:
 
 func _on_create_node_requested(node_class: String) -> void:
 	_disable_graph_edit_action_buttons()
-
-	if not Engine.is_editor_hint():
-		push_warning("Node creation via action button is permitted only in editor mode.")
-		return
 
 	if not _selected_node:
 		push_warning("Cannot instantiate new node as no selected node was found.")
@@ -204,35 +202,35 @@ func _on_create_node_requested(node_class: String) -> void:
 		push_warning("Could not resolve script path for SenseTree node %s." % node_class)
 		return
 
-	var scene_node = _selected_node.scene_node
+	var node = _selected_node.node
 	var node_script: Script = load(node_script_path)
 	var new_node_instance: SenseTreeNode = node_script.new()
 
 	new_node_instance.set_name(node_class)
-	scene_node.add_child(new_node_instance, true)
-	new_node_instance.set_owner(scene_node)
+	node.add_child(new_node_instance, true)
+	new_node_instance.set_owner(node)
 
 	_file_manager.resave_tree()
 	_force_redraw()
 
 
-func _on_rename_node_requested(node: TreeVisualizerGraphNode) -> void:
+func _on_rename_node_requested(node_to_rename: TreeVisualizerGraphNode) -> void:
 	print("on_rename_node_requested reached tree container")
 
 
-func _on_delete_node_requested(node: TreeVisualizerGraphNode) -> void:
+func _on_delete_node_requested(node_to_delete: TreeVisualizerGraphNode) -> void:
 	_disable_graph_edit_action_buttons()
 
 	if not Engine.is_editor_hint():
 		push_warning("Node deletion via action button is permitted only in editor mode.")
 		return
 
-	if not node:
+	if not node_to_delete:
 		push_warning("Delete node request is missing target graph node.")
 		return
 
-	var scene_node = node.scene_node
-	node.queue_free()
+	var scene_node = node_to_delete.scene_node
+	node_to_delete.queue_free()
 	scene_node.queue_free()
 	_selected_node = null
 
@@ -241,7 +239,6 @@ func _on_delete_node_requested(node: TreeVisualizerGraphNode) -> void:
 
 func _on_tree_loaded(tree: SenseTree) -> void:
 	_selected_tree = tree
-
 	_graph_edit.save_tree_button.selected_tree = tree
 	_graph_edit.save_tree_as_button.selected_tree = tree
 	_reset_elements()

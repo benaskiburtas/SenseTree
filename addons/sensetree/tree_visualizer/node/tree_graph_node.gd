@@ -17,7 +17,7 @@ const PROPERTY_ITEM_MARGIN: int = 5
 const HORIZONTAL_SPACING_OFFSET: float = 400
 const VERTICAL_SPACING_OFFSET: float = 300
 
-var scene_node: SenseTreeNode
+var node: SenseTreeNode
 
 var _alignment_mode: AlignmentType
 var _node_icon_texture: Texture2D
@@ -38,7 +38,7 @@ func _init(
 	style_boxes: TreeVisualizerGraphNodeStyleBoxes,
 	alignment_mode: AlignmentType = AlignmentType.HORIZONTAL
 ) -> void:
-	self.scene_node = arranged_node.tree
+	self.node = arranged_node.tree
 	_alignment_mode = alignment_mode
 
 	_set_base_properties()
@@ -91,7 +91,7 @@ func _initialize_titlebar_icon() -> void:
 
 
 func _configure_ports() -> void:
-	var node_group: SenseTreeConstants.NodeGroup = self.scene_node.get_node_group()
+	var node_group: SenseTreeConstants.NodeGroup = self.node.get_node_group()
 	match node_group:
 		SenseTreeConstants.NodeGroup.TREE:
 			set_slot(
@@ -139,9 +139,9 @@ func _configure_ports() -> void:
 
 
 func _load_node_icon() -> void:
-	var sense_node_class: String = self.scene_node.get_sensenode_class()
+	var sense_node_class: String = self.node.get_sensenode_class()
 	if not sense_node_class or sense_node_class.is_empty():
-		push_warning("Could not resolve class name from SenseTree node %s." % self.scene_node.name)
+		push_warning("Could not resolve class name from SenseTree node %s." % self.node.name)
 		return
 
 	var icon_path: String = SenseTreeHelpers.try_acquire_icon_path(sense_node_class)
@@ -157,12 +157,12 @@ func _load_node_icon() -> void:
 
 func _load_node_title() -> void:
 	var title_label = Label.new()
-	title_label.text = self.scene_node.name
+	title_label.text = self.node.name
 	_titlebar.add_child(title_label)
 
 
 func _load_node_properties() -> void:
-	var properties: Array[SenseTreeExportedProperty] = self.scene_node.get_exported_properties()
+	var properties: Array[SenseTreeExportedProperty] = self.node.get_exported_properties()
 
 	if not properties.is_empty():
 		_has_properties = true
@@ -184,7 +184,7 @@ func _load_node_properties() -> void:
 
 
 func _assign_styleboxes_by_group(style_boxes: TreeVisualizerGraphNodeStyleBoxes) -> void:
-	var group = self.scene_node.get_node_group()
+	var group = self.node.get_node_group()
 
 	var panel_stylebox = style_boxes.get_stylebox(group, style_boxes.StyleBoxType.PANEL_STYLE_BOX)
 	var panel_selected_stylebox = style_boxes.get_stylebox(

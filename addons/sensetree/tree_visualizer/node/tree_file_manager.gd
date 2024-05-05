@@ -14,17 +14,17 @@ const FILE_DIALOG_ACCESS_MODE: EditorFileDialog.Access = EditorFileDialog.ACCESS
 const FILE_DIALOG_LOAD_FILE_MODE: EditorFileDialog.FileMode = EditorFileDialog.FILE_MODE_OPEN_FILE
 const FILE_DIALOG_SAVE_FILE_MODE: EditorFileDialog.FileMode = EditorFileDialog.FILE_MODE_SAVE_FILE
 
-var _file_dialog: EditorFileDialog
+var _load_file_dialog: EditorFileDialog
+var _save_file_dialog: EditorFileDialog
 var _resource_hash_verifier: ResourceHashVerifier = ResourceHashVerifier.new()
 
 var _current_operation: FileOperation = FileOperation.UNSET
 var _current_tree: SenseTree
-var _resource: Resource
 var _resource_path: String
 
 
 func _init() -> void:
-	_initialize_file_dialog()
+	_initialize_file_dialogs()
 	_connect_file_dialog_signals()
 
 
@@ -36,12 +36,13 @@ func new_tree() -> void:
 
 func load_tree() -> void:
 	_current_operation = FileOperation.LOAD
-	_file_dialog.file_mode = FILE_DIALOG_LOAD_FILE_MODE
-	_file_dialog.popup_centered(MINIMUM_DIALOG_SIZE)
+	_load_file_dialog.popup_centered(MINIMUM_DIALOG_SIZE)
 
 
 func save_tree(tree: SenseTree = null) -> void:
+	print("FileManager Log: save_tree was called")
 	if not _resource_path or not _current_tree:
+		print("FileManager Log: no resource path, exiting save")
 		return
 	else:
 		_save_tree_to_file()
@@ -59,11 +60,11 @@ func save_tree_as(tree: SenseTree = null) -> void:
 		return
 
 	_current_operation = FileOperation.SAVE
-	_file_dialog.file_mode = FILE_DIALOG_SAVE_FILE_MODE
-	_file_dialog.popup_centered(MINIMUM_DIALOG_SIZE)
+	_save_file_dialog.popup_centered(MINIMUM_DIALOG_SIZE)
 
 
 func reload_tree() -> void:
+	print("FileManager Log: Reloading Tree")
 	if not _resource_path or not _current_tree:
 		return
 	else:
@@ -71,19 +72,24 @@ func reload_tree() -> void:
 
 
 func resave_tree() -> void:
-	print("resaving")
-	_current_tree.print_tree_pretty()
 	if not _resource_path or not _current_tree:
 		return
 	else:
 		_save_tree_to_file()
 
 
-func _initialize_file_dialog() -> void:
-	_file_dialog = EditorFileDialog.new()
-	_file_dialog.access = FILE_DIALOG_ACCESS_MODE
-	_file_dialog.add_filter(SENSE_TREE_FILE_EXTENSION, SENSE_TREE_FILE_DESCRIPTION)
-	add_child(_file_dialog)
+func _initialize_file_dialogs() -> void:
+	_load_file_dialog = EditorFileDialog.new()
+	_load_file_dialog.access = FILE_DIALOG_ACCESS_MODE
+	_load_file_dialog.file_mode = FILE_DIALOG_LOAD_FILE_MODE
+	_load_file_dialog.add_filter(SENSE_TREE_FILE_EXTENSION, SENSE_TREE_FILE_DESCRIPTION)
+	add_child(_load_file_dialog)
+
+	_save_file_dialog = EditorFileDialog.new()
+	_save_file_dialog.access = FILE_DIALOG_ACCESS_MODE
+	_save_file_dialog.file_mode = FILE_DIALOG_SAVE_FILE_MODE
+	_save_file_dialog.add_filter(SENSE_TREE_FILE_EXTENSION, SENSE_TREE_FILE_DESCRIPTION)
+	add_child(_save_file_dialog)
 
 
 func _validate_tree_structure(root: Node) -> bool:
@@ -110,7 +116,8 @@ func _validate_tree_structure(root: Node) -> bool:
 
 
 func _connect_file_dialog_signals() -> void:
-	_file_dialog.connect("file_selected", _on_file_selected)
+	_load_file_dialog.connect("file_selected", _on_load_file_selected)
+	_save_file_dialog.connect("file_selected", _on_save_file_selected)
 
 
 func _save_tree_to_file() -> void:
@@ -118,8 +125,9 @@ func _save_tree_to_file() -> void:
 	tree_resource.pack(_current_tree)
 	tree_resource.set_path(_resource_path)
 
-	_current_tree.free()
+	#_current_tree.free()
 
+	print(_resource_path)
 	var save_result: Error = ResourceSaver.save(tree_resource)
 	if not save_result == Error.OK:
 		push_error(
@@ -130,6 +138,7 @@ func _save_tree_to_file() -> void:
 
 func _load_tree_from_file() -> void:
 	# Load & validate resource file
+	print("FileManager Log: Loading Tree From File")
 	var loaded_resource = ResourceLoader.load(_resource_path, "PackedScene")
 	if not loaded_resource:
 		push_error("SenseTree Load Error: Could not load resource file %s." % _resource_path)
@@ -142,12 +151,12 @@ func _load_tree_from_file() -> void:
 		)
 		return
 
-	# Cast to Scene and instantiate if this resource and current resource hash differs
-	var scene_resource = loaded_resource as PackedScene
-
-	if not _resource_hash_verifier.is_resource_modified(scene_resource):
+	if not _resource_hash_verifier.is_resource_modified(loaded_resource):
+		print("FileManager Log: Hash is the same, cancelling load")
 		return
 
+	# Cast to Scene and instantiate if this resource and current resource hash differs
+	var scene_resource = loaded_resource as PackedScene
 	var scene_tree = scene_resource.instantiate()
 
 	if not _validate_tree_structure(scene_tree):
@@ -161,11 +170,10 @@ func _load_tree_from_file() -> void:
 		return
 
 	# Clear current tree before re-assignment to avoid memory leaks
-	if _current_tree:
+	if _current_tree and not _current_tree == scene_tree:
 		_current_tree.free()
 
 	# Re-assignment & emit loaded status
-	_resource = scene_resource
 	_current_tree = scene_tree
 
 	tree_loaded.emit(_current_tree)
@@ -175,32 +183,24 @@ func _reset() -> void:
 	_current_tree.queue_free()
 
 	_current_tree = null
-	_resource = null
 	_resource_path = ""
 
 
-func _on_file_selected(path: String) -> void:
+func _on_load_file_selected(path: String) -> void:
 	if not path:
 		return
 
-	if _resource_path == path:
-		return
-	else:
+	if _resource_path != path:
 		_resource_path = path
 
-	if _current_operation == FileOperation.UNSET:
-		push_warning("SenseTree Save/Load Error: Unknown operation mode.")
+	_load_tree_from_file()
+
+
+func _on_save_file_selected(path: String) -> void:
+	if not path:
 		return
 
-	# Optionally Save
-	if _current_operation == FileOperation.SAVE:
-		_save_tree_to_file()
-	else:
-		# Reset file operation mode
-		_current_operation = FileOperation.UNSET
-	_current_operation = FileOperation.LOAD
+	if _resource_path != path:
+		_resource_path = path
 
-	# Load (Optionally Re-Load if Save was successful)
-	if _current_operation == FileOperation.LOAD:
-		_load_tree_from_file()
-	_current_operation = FileOperation.UNSET
+	_save_tree_to_file()
