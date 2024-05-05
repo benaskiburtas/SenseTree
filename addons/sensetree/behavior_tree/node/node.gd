@@ -16,7 +16,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return configuration_warnings
 
 
-func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+func tick(actor: Node, blackboard: SenseTreeBlackboard) -> SenseTreeNode.Status:
 	return Status.SUCCESS
 
 
@@ -24,7 +24,7 @@ func get_sensenode_class() -> String:
 	return "SenseTreeNode"
 
 
-func get_node_group():
+func get_node_group() -> SenseTreeConstants.NodeGroup:
 	return SenseTreeConstants.NodeGroup.UNKNOWN
 
 
