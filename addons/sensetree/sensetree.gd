@@ -58,18 +58,3 @@ func _load_tree_editor() -> void:
 func _remove_tree_editor() -> void:
 	if _tree_editor_instance:
 		_tree_editor_instance.queue_free()
-
-#func _connect_editor_signals() -> void:
-#print("connected")
-#connect("resource_saved", _on_resource_saved)
-#
-#
-#func _disconnect_editor_signals() -> void:
-#if is_connected("resource_saved", _on_resource_saved):
-#print("disconnected")
-#disconnect("resource_saved", _on_resource_saved)
-#
-#
-#func _on_resource_saved(resource: Resource) -> void:
-#print("resource savedddddd")
-#pass

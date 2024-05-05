@@ -182,9 +182,7 @@ func _on_load_tree_requested() -> void:
 
 
 func _on_save_tree_requested(tree: SenseTree) -> void:
-	print("TreeContainer Log: Signal save_tree_requested received")
 	_file_manager.save_tree(tree)
-	print("TreeContainer Log: File Manager save_tree complete")
 
 
 func _on_save_tree_as_requested(tree: SenseTree) -> void:

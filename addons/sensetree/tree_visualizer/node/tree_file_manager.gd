@@ -40,9 +40,7 @@ func load_tree() -> void:
 
 
 func save_tree(tree: SenseTree = null) -> void:
-	print("FileManager Log: save_tree was called")
 	if not _resource_path or not _current_tree:
-		print("FileManager Log: no resource path, exiting save")
 		return
 	else:
 		_save_tree_to_file()
@@ -64,7 +62,6 @@ func save_tree_as(tree: SenseTree = null) -> void:
 
 
 func reload_tree() -> void:
-	print("FileManager Log: Reloading Tree")
 	if not _resource_path or not _current_tree:
 		return
 	else:
@@ -125,7 +122,6 @@ func _save_tree_to_file() -> void:
 	tree_resource.pack(_current_tree)
 	tree_resource.take_over_path(_resource_path)
 
-	print(_resource_path)
 	var save_result: Error = ResourceSaver.save(tree_resource)
 	if not save_result == Error.OK:
 		push_error(
@@ -139,7 +135,6 @@ func _save_tree_to_file() -> void:
 
 func _load_tree_from_file() -> void:
 	# Load & validate resource file
-	print("FileManager Log: Loading Tree From File")
 	var loaded_resource = ResourceLoader.load(_resource_path, "PackedScene")
 	if not loaded_resource:
 		push_error("SenseTree Load Error: Could not load resource file %s." % _resource_path)
@@ -153,7 +148,6 @@ func _load_tree_from_file() -> void:
 		return
 
 	if not _resource_hash_verifier.is_resource_modified(loaded_resource):
-		print("FileManager Log: Hash is the same, cancelling load")
 		return
 
 	# Cast to Scene and instantiate if this resource and current resource hash differs

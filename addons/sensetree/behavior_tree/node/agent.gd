@@ -41,10 +41,8 @@ func _explore_properties(root: Node):
 			return
 
 		# Collect property dependencies
-		print(node)
 		for property in node.get_property_list():
 			if "usage" in property and property["usage"] == PROPERTY_USAGE_SCRIPT_VARIABLE:
-				print(property)
 				var new_dependency = PropertyDependency.new(
 					node.name, node.get_path(), property.name, null
 				)

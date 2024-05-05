@@ -25,6 +25,4 @@ func _initialize_button_functionality() -> void:
 
 
 func _on_button_pressed() -> void:
-	print("SaveTreeButton Log: Button Pressed")
 	save_tree_requested.emit(selected_tree)
-	print("SaveTreeButton Log: Signal save_tree_requested emitted")

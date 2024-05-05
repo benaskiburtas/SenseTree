@@ -33,7 +33,6 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 
 func _pick_random_status() -> Status:
 	var roll = random_generator.randf() * 100
-	print(roll)
 	if roll < success_probability:
 		return Status.SUCCESS
 	else:
