@@ -6,7 +6,7 @@ var selected_node: TreeVisualizerGraphNode = null:
 	set(new_node):
 		if new_node != null:
 			selected_node = new_node
-			_selected_node_group = new_node.scene_node.get_node_group()
+			_selected_node_group = new_node.node.get_node_group()
 		else:
 			selected_node = null
 			_selected_node_group = null

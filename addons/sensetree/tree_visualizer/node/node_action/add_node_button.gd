@@ -25,14 +25,14 @@ func _assign_button_state() -> void:
 		disabled = true
 		return
 
-	var scene_node = self.selected_node.scene_node
+	var node = self.selected_node.node
 	match _selected_node_group:
 		SenseTreeConstants.NodeGroup.TREE:
-			disabled = scene_node.get_child_count() != 0
+			disabled = node.get_child_count() != 0
 		SenseTreeConstants.NodeGroup.COMPOSITE:
 			disabled = false
 		SenseTreeConstants.NodeGroup.DECORATOR:
-			disabled = scene_node.get_child_count() != 0
+			disabled = node.get_child_count() != 0
 		SenseTreeConstants.NodeGroup.LEAF:
 			disabled = true
 		_:

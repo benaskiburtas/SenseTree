@@ -2,7 +2,7 @@
 class_name TreeVisualizeRenameNodeButton
 extends TreeVisualizerNodeActionButton
 
-signal rename_node_requested(node: TreeVisualizerGraphNode)
+signal rename_node_requested(node_to_rename: TreeVisualizerGraphNode)
 
 const BUTTON_TEXT = "Rename Node"
 

@@ -2,7 +2,7 @@
 class_name TreeVisualizerDeleteNodeButton
 extends TreeVisualizerNodeActionButton
 
-signal delete_node_requested(node: TreeVisualizerGraphNode)
+signal delete_node_requested(node_to_delete: TreeVisualizerGraphNode)
 
 const BUTTON_TEXT = "Delete Node"
 const CONFIRM_TEXT = "Confirm"
@@ -17,7 +17,7 @@ func _init() -> void:
 
 
 func _assign_button_state() -> void:
-	if self.selected_node == null or selected_node.scene_node is SenseTree:
+	if self.selected_node == null or selected_node.node is SenseTree:
 		disabled = true
 	else:
 		disabled = false
