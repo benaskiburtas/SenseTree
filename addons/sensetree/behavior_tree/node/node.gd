@@ -33,4 +33,4 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 
 
 func has_children() -> bool:
-	return has_children()
+	return get_child_count() != 0
