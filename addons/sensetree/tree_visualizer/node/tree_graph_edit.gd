@@ -29,9 +29,6 @@ const SaveTreeAsButton: Script = preload(
 const AddNodeButton: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/node_action/add_node_button.gd"
 )
-const RenameNodeButton: Script = preload(
-	"res://addons/sensetree/tree_visualizer/node/node_action/rename_node_button.gd"
-)
 const DeleteNodeButton: Script = preload(
 	"res://addons/sensetree/tree_visualizer/node/node_action/delete_node_button.gd"
 )
@@ -43,7 +40,6 @@ var load_tree_button: TreeVisualizeLoadTreeButton = null
 var save_tree_button: TreeVisualizeSaveTreeButton = null
 var save_tree_as_button: TreeVisualizeSaveTreeAsButton = null
 var add_node_button: TreeVisualizerAddNodeButton = null
-var rename_node_button: TreeVisualizeRenameNodeButton = null
 var delete_node_button: TreeVisualizerDeleteNodeButton = null
 
 var _process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
@@ -101,9 +97,6 @@ func _add_additional_action_buttons() -> void:
 
 	add_node_button = AddNodeButton.new()
 	toolbar.add_child(add_node_button)
-
-	rename_node_button = RenameNodeButton.new()
-	toolbar.add_child(rename_node_button)
 
 	delete_node_button = DeleteNodeButton.new()
 	toolbar.add_child(delete_node_button)
