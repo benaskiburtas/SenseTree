@@ -125,8 +125,6 @@ func _save_tree_to_file() -> void:
 	tree_resource.pack(_current_tree)
 	tree_resource.take_over_path(_resource_path)
 
-	#_current_tree.free()
-
 	print(_resource_path)
 	var save_result: Error = ResourceSaver.save(tree_resource)
 	if not save_result == Error.OK:
@@ -134,6 +132,9 @@ func _save_tree_to_file() -> void:
 			"SenseTree Save Error: Error whilst saving tree structure, error code %s." % save_result
 		)
 		return
+
+	if Engine.is_editor_hint():
+		EditorInterface.save_all_scenes()
 
 
 func _load_tree_from_file() -> void:

@@ -61,8 +61,8 @@ func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
 			else:
 				return
 
-	#if _selected_tree:
-	#_file_manager.reload_tree()
+	if _selected_tree:
+		_file_manager.reload_tree()
 
 
 func _setup_process_mode() -> void:
@@ -134,10 +134,11 @@ func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
 	var inspector_root_node: Node = EditorInterface.get_edited_scene_root()
 
 	var matching_editor_node: Node
-	if inspector_root_node and inspector_root_node.name == node_name:
-		matching_editor_node = inspector_root_node
-	else:
-		matching_editor_node = inspector_root_node.find_child(node_name, true)
+	if inspector_root_node:
+		if inspector_root_node.name == node_name:
+			matching_editor_node = inspector_root_node
+		else:
+			inspector_root_node.find_child(node_name, true)
 
 	if not matching_editor_node:
 		return
@@ -229,7 +230,7 @@ func _on_delete_node_requested(node_to_delete: TreeVisualizerGraphNode) -> void:
 		push_warning("Delete node request is missing target graph node.")
 		return
 
-	var scene_node = node_to_delete.scene_node
+	var scene_node = node_to_delete.node
 	node_to_delete.queue_free()
 	scene_node.queue_free()
 	_selected_node = null
