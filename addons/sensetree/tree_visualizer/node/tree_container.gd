@@ -29,14 +29,6 @@ func _ready() -> void:
 	_connect_file_manager_signals()
 
 
-func _process(delta) -> void:
-	_process_frame(SenseTreeConstants.ProcessMode.IDLE)
-
-
-func _physics_process(delta) -> void:
-	_process_frame(SenseTreeConstants.ProcessMode.PHYSICS)
-
-
 func _initialize_file_manager() -> void:
 	_file_manager = TreeFileManager.new()
 	add_child(_file_manager)
@@ -44,25 +36,6 @@ func _initialize_file_manager() -> void:
 
 func _initiliaze_graph_edit() -> void:
 	_graph_edit = $TreeGraphEditor
-
-
-func _process_frame(mode: SenseTreeConstants.ProcessMode) -> void:
-	match mode:
-		SenseTreeConstants.ProcessMode.IDLE:
-			_current_idle_tick_count += 1
-			if _current_idle_tick_count >= IDLE_POLL_RATE:
-				_current_idle_tick_count = 0
-			else:
-				return
-		SenseTreeConstants.ProcessMode.PHYSICS:
-			_current_physics_tick_count += 1
-			if _current_physics_tick_count >= PHYSICS_POLL_RATE:
-				_current_physics_tick_count = 0
-			else:
-				return
-
-	if _selected_tree:
-		_file_manager.reload_tree()
 
 
 func _setup_process_mode() -> void:
@@ -86,12 +59,6 @@ func _connect_graph_edit_signals() -> void:
 
 func _connect_file_manager_signals() -> void:
 	_file_manager.connect("tree_loaded", _on_tree_loaded)
-
-
-func _force_redraw() -> void:
-	_current_idle_tick_count = IDLE_POLL_RATE + 1
-	_current_physics_tick_count = PHYSICS_POLL_RATE + 1
-	_process_frame(_process_mode)
 
 
 func _reset_elements() -> void:
@@ -220,7 +187,7 @@ func _on_delete_node_requested(node_to_delete: TreeVisualizerGraphNode) -> void:
 		push_warning("Delete node request is missing target graph node.")
 		return
 
-	var sense_node = node_to_delete.node
+	var sense_node = node_to_delete.sensetree_node
 	sense_node.free()
 	node_to_delete.free()
 	_selected_node = null

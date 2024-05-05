@@ -30,6 +30,6 @@ func _generate_resource_hash(resource: Resource) -> PackedByteArray:
 	if not resource:
 		return PackedByteArray()
 	_hashing_context.start(DEFAULT_HASH)
-	_hashing_context.update(var_to_bytes(resource))
+	_hashing_context.update(var_to_bytes_with_objects(resource))
 	var hash = _hashing_context.finish()
 	return hash

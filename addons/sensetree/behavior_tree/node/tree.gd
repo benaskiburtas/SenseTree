@@ -44,8 +44,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _ready() -> void:
-	if not actor:
-		actor = get_parent()
 	if not blackboard:
 		blackboard = SenseTreeBlackboard.new()
 

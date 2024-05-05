@@ -104,10 +104,10 @@ func _validate_tree_structure(root: Node) -> bool:
 			push_error("SenseTree Save/Load Error: All tree nodes must be of type SenseTreeNode.")
 			return false
 
-		var node_children = node.get_children().duplicate(true)
-		node_children.reverse()
+		var node_children = node.get_children()
+
 		for child in node_children:
-			stack.push_back(child)
+			stack.push_front(child)
 
 	return true
 
@@ -130,7 +130,7 @@ func _save_tree_to_file() -> void:
 		return
 
 	if Engine.is_editor_hint():
-		EditorInterface.save_all_scenes()
+		EditorInterface.reload_scene_from_path(_resource_path)
 
 
 func _load_tree_from_file() -> void:
@@ -152,7 +152,9 @@ func _load_tree_from_file() -> void:
 
 	# Cast to Scene and instantiate if this resource and current resource hash differs
 	var scene_resource = loaded_resource as PackedScene
-	var scene_tree = scene_resource.instantiate()
+
+	# Duplicate to prevent signal reference issues
+	var scene_tree = scene_resource.instantiate().duplicate()
 
 	if not _validate_tree_structure(scene_tree):
 		push_error(

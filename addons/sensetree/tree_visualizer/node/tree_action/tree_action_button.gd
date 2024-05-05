@@ -12,7 +12,6 @@ var selected_tree: SenseTree = null:
 
 
 func _init():
-	#add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	disabled = true
 
 
