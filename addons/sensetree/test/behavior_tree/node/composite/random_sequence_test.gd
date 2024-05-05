@@ -8,7 +8,6 @@ const RANDOM_SEQUENCE_COMPOSITE_SOURCE_PATH: String = "res://addons/sensetree/be
 const CONDITION_LEAF_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/leaf/condition.gd"
 const SENSETREE_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/tree.gd"
 
-
 var random_sequence_composite: SenseTreeRandomSequenceComposite
 var sensetree: SenseTree
 var actor: Node
@@ -30,9 +29,11 @@ func before_test() -> void:
 
 	sensetree.add_child(random_sequence_composite)
 
+
 func test_tick_child_randomization() -> void:
 	# Given
 	seed(50)
+	var expected_structure = ".\n@Node@7\n@Node@5\n@Node@6\n@Node@8\n@Node@9\n"
 
 	var child_mock_a = mock(SenseTreeConditionLeaf)
 	var child_mock_b = mock(SenseTreeConditionLeaf)
@@ -52,13 +53,13 @@ func test_tick_child_randomization() -> void:
 	random_sequence_composite.add_child(child_mock_d)
 	random_sequence_composite.add_child(child_mock_e)
 
-	random_sequence_composite.print_tree_pretty()
-
 	# When
-	var randomizedsequence = sensetree.tick(actor, blackboard)
+	sensetree.tick(actor, blackboard)
 
-	random_sequence_composite.print_tree_pretty()
 	# Then
+	var result_structure = random_sequence_composite.get_tree_string()
+	assert_str(result_structure).is_equal(expected_structure)
+
 
 func test_get_sensenode_class() -> void:
 	# Given
