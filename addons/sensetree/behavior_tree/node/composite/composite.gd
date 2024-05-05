@@ -16,9 +16,24 @@ func _get_configuration_warnings() -> PackedStringArray:
 			reconsider if parent composite node is necessary.")
 
 	return configuration_warnings
-	
+
+
 func get_sensenode_class() -> String:
 	return "SenseTreeCompositeNode"
-	
+
+
 func get_node_group() -> SenseTreeConstants.NodeGroup:
 	return SenseTreeConstants.NodeGroup.COMPOSITE
+
+
+func shuffle_children_order() -> void:
+	var order_array = []
+	var children_count = get_child_count()
+
+	for i in range(children_count):
+		order_array.push_back(i)
+	order_array.shuffle()
+
+	for i in range(children_count):
+		var child = get_child(i)
+		move_child(child, order_array[i])

@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func reset() -> void:
 	_last_success_index = 0
-	get_children().shuffle()
+	shuffle_children_order()
 
 
 func get_sensenode_class() -> String:
