@@ -131,6 +131,7 @@ func _save_tree_to_file() -> void:
 
 	if Engine.is_editor_hint():
 		EditorInterface.reload_scene_from_path(_resource_path)
+	reload_tree()
 
 
 func _load_tree_from_file() -> void:
