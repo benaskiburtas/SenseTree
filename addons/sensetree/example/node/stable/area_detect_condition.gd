@@ -1,18 +1,18 @@
 @tool
 @icon("res://addons/sensetree/behavior_tree/icon/Condition.svg")
-class_name SenseTreeAreaDetectCondition3D
+class_name SenseTreeAreaDetectCondition
 extends SenseTreeConditionLeaf
 
-enum DetectionShape { SPHERE, BOX }
+enum DetectionShape { CIRCLE, RECTANGLE }
 
 ## Shape of the detection area
 @export var detection_area_shape: DetectionShape
 ## Detection range - radius for circle shapes, height & size for rectangle shapes
-@export var detection_range: int = 30
+@export var detection_range: int = 50
 ## Groups that should trigger the detection area
 @export var groups_to_detect: Array[String] = []
 
-var _detection_area: Area3D
+var _detection_area: Area2D
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -22,7 +22,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if groups_to_detect.is_empty():
 		configuration_warnings.push_back("Groups to be detected should be set.")
 	return configuration_warnings
-
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if not _detection_area:
@@ -38,7 +37,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 
 
 func get_sensenode_class() -> String:
-	return "SenseTreeAreaDetectCondition3D"
+	return "SenseTreeAreaDetectCondition2D"
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
@@ -55,20 +54,18 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 
 
 func _setup_detection_area(actor: Node) -> void:
-	_detection_area = Area3D.new()
+	_detection_area = Area2D.new()
 	if detection_area_shape == null:
 		push_warning("No detection area shape set for %s." % get_name())
 
 	var collision_shape = CollisionShape2D.new()
 	match detection_area_shape:
-		DetectionShape.SPHERE:
-			collision_shape.shape = SphereShape3D.new()
+		DetectionShape.CIRCLE:
+			collision_shape.shape = CircleShape2D.new()
 			collision_shape.shape.radius = detection_range
-		DetectionShape.BOX:
-			collision_shape.shape = BoxShape3D.new()
-			collision_shape.shape.size = Vector3(
-				detection_range * 2, detection_range * 2, detection_range * 2
-			)
+		DetectionShape.RECTANGLE:
+			collision_shape.shape = RectangleShape2D.new()
+			collision_shape.shape.size = Vector2(detection_range * 2, detection_range * 2)
 
 	_detection_area.add_child(collision_shape)
 	actor.add_child(_detection_area)
