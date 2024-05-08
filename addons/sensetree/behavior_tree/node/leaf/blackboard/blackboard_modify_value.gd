@@ -41,7 +41,8 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		return Status.FAILURE
 
 	var modification_result = _expression.execute()
-	blackboard.set_value(blackboard_key, modification_result)
+	var type = typeof(modification_result)
+	blackboard.set_value(blackboard_key, str(modification_result))
 	return Status.SUCCESS
 
 

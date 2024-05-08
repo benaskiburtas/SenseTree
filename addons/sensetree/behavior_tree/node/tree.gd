@@ -56,9 +56,9 @@ func _physics_process(delta: float) -> void:
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if not actor or not blackboard:
 		return Status.FAILURE
-	if not _child and not _has_children():
+	if not _child and not has_children():
 		return Status.FAILURE
-	if not _child and _has_children():
+	if not _child and has_children():
 		_child = get_child(0)
 	return _child.tick(actor, blackboard)
 
