@@ -96,7 +96,7 @@ func test_get_sensenode_class() -> void:
 	var expected_class_name = "SenseTreeRepeatDecorator"
 
 	# When
-	var result_class_name = repeat_decorator.get_sensenode_class()
+	var result_class_name = repeat_decorator_node.get_sensenode_class()
 
 	# Then
 	assert_that(result_class_name).is_equal(expected_class_name)
