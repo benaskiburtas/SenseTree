@@ -11,7 +11,7 @@ var selected_tree: SenseTree = null:
 		_assign_button_state()
 
 
-func _init():
+func _init() -> void:
 	disabled = true
 
 
