@@ -12,14 +12,11 @@ extends SenseTreeNode
 	set(new_actor):
 		actor = new_actor
 
-@export var blackboard: SenseTreeBlackboard:
-	set(new_blackboard):
-		if blackboard:
-			blackboard.free()
-		blackboard = new_blackboard
+@export var blackboard: SenseTreeBlackboard
 
 @export
 var tick_process_mode: SenseTreeConstants.ProcessMode = SenseTreeConstants.ProcessMode.PHYSICS
+
 @export_range(0, 100) var frames_per_tick: int = 15
 
 var _child: SenseTreeNode
