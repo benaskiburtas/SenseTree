@@ -8,7 +8,7 @@ const SUCCESS_DECORATOR_SOURCE_PATH: String = "res://addons/sensetree/behavior_t
 const CONDITION_LEAF_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/leaf/condition.gd"
 const SENSETREE_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/tree.gd"
 
-var success_decorator: SenseTreeSuccessDecorator
+var success_decorator_node: SenseTreeSuccessDecorator
 var sensetree: SenseTree
 var actor: Node
 var blackboard: SenseTreeBlackboard
@@ -18,7 +18,7 @@ func before_test() -> void:
 	var success_decorator_script = load(SUCCESS_DECORATOR_SOURCE_PATH)
 	var sensetree_script = load(SENSETREE_SOURCE_PATH)
 
-	success_decorator = auto_free(success_decorator_script.new())
+	success_decorator_node = auto_free(success_decorator_script.new())
 	sensetree = auto_free(sensetree_script.new())
 
 	actor = auto_free(Node.new())
@@ -27,7 +27,7 @@ func before_test() -> void:
 	sensetree.actor = actor
 	sensetree.blackboard = blackboard
 
-	sensetree.add_child(success_decorator)
+	sensetree.add_child(success_decorator_node)
 
 
 func test_tick_returns_success_when_no_child_present() -> void:
@@ -46,7 +46,7 @@ func test_tick_returns_success_when_child_returns_success() -> void:
 	var child_success_mock = mock(SenseTreeConditionLeaf)
 	var mocked_child_result = SenseTreeNode.Status.SUCCESS
 	do_return(mocked_child_result).on(child_success_mock).tick(actor, blackboard)
-	success_decorator.add_child(child_success_mock)
+	success_decorator_node.add_child(child_success_mock)
 
 	var expected_status = SenseTreeNode.Status.SUCCESS
 
@@ -63,7 +63,7 @@ func test_tick_returns_success_when_child_returns_failure() -> void:
 	var child_success_mock = mock(SenseTreeConditionLeaf)
 	var mocked_child_result = SenseTreeNode.Status.FAILURE
 	do_return(mocked_child_result).on(child_success_mock).tick(actor, blackboard)
-	success_decorator.add_child(child_success_mock)
+	success_decorator_node.add_child(child_success_mock)
 
 	var expected_status = SenseTreeNode.Status.SUCCESS
 

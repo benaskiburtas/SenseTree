@@ -42,7 +42,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		ComparisonOperator.GREATER_THAN_OR_EQUALS:
 			return Status.SUCCESS if first_key_value >= second_key_value else Status.FAILURE
 		ComparisonOperator.GREATER_THAN:
-			return Status.SUCCESS if first_key_value < second_key_value else Status.FAILURE
+			return Status.SUCCESS if first_key_value > second_key_value else Status.FAILURE
 		_:
 			return Status.FAILURE
 

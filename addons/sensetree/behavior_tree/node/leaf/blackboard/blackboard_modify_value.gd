@@ -34,14 +34,14 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 
 	var blackboard_value: Variant = blackboard.get_value(blackboard_key)
 
-	if modification_value == null or modification_value == null:
+	if blackboard_value == null:
 		return Status.FAILURE
 
 	if _validate_and_parse_expression(blackboard_value) != OK:
 		return Status.FAILURE
 
 	var modification_result = _expression.execute()
-	blackboard[blackboard_key] = modification_result
+	blackboard.set_value(blackboard_key, modification_result)
 	return Status.SUCCESS
 
 
@@ -65,21 +65,32 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 
 
 func _validate_and_parse_expression(blackboard_value: Variant) -> Error:
-	if not _is_number(blackboard_value) or not _is_number(modification_value):
+	if (
+		typeof(blackboard_value) == TYPE_STRING
+		and not blackboard_value.is_valid_float()
+		and not blackboard_value.is_valid_int()
+	):
+		return ERR_INVALID_PARAMETER
+
+	if (
+		typeof(modification_value) == TYPE_STRING
+		and not modification_value.is_valid_float()
+		and not modification_value.is_valid_int()
+	):
 		return ERR_INVALID_PARAMETER
 
 	var expression_string: String
 	match modification_operator:
 		ModificationOperator.ADD:
-			expression_string = "%d + %d" % [blackboard_value, modification_value]
+			expression_string = "%s + %s" % [blackboard_value, modification_value]
 		ModificationOperator.SUBTRACT:
-			expression_string = "%d - %d" % [blackboard_value, modification_value]
+			expression_string = "%s - %s" % [blackboard_value, modification_value]
 		ModificationOperator.MULTIPLY:
-			expression_string = "%d * %d" % [blackboard_value, modification_value]
+			expression_string = "%s * %s" % [blackboard_value, modification_value]
 		ModificationOperator.DIVIDE:
-			expression_string = "%d / %d" % [blackboard_value, modification_value]
+			expression_string = "%s / %s" % [blackboard_value, modification_value]
 		ModificationOperator.EXPONENTIATION:
-			expression_string = "pow(%d, %d)" % [blackboard_value, modification_value]
+			expression_string = "pow(%s, %s)" % [blackboard_value, modification_value]
 
 	var parse_result = _expression.parse(expression_string)
 	return parse_result

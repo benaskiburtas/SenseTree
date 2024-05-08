@@ -8,10 +8,7 @@ const REPEAT_DECORATOR_SOURCE_PATH: String = "res://addons/sensetree/behavior_tr
 const CONDITION_LEAF_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/leaf/condition.gd"
 const SENSETREE_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/tree.gd"
 
-# Decorator exported properties
-const DEFAULT_REPEAT_LIMIT_VALUE: int = 5
-
-var repeat_decorator: SenseTreeRepeatDecorator
+var repeat_decorator_node: SenseTreeRepeatDecorator
 var sensetree: SenseTree
 var actor: Node
 var blackboard: SenseTreeBlackboard
@@ -21,7 +18,7 @@ func before_test() -> void:
 	var repeat_decorator_script = load(REPEAT_DECORATOR_SOURCE_PATH)
 	var sensetree_script = load(SENSETREE_SOURCE_PATH)
 
-	repeat_decorator = auto_free(repeat_decorator_script.new())
+	repeat_decorator_node = auto_free(repeat_decorator_script.new())
 	sensetree = auto_free(sensetree_script.new())
 
 	actor = auto_free(Node.new())
@@ -30,7 +27,7 @@ func before_test() -> void:
 	sensetree.actor = actor
 	sensetree.blackboard = blackboard
 
-	sensetree.add_child(repeat_decorator)
+	sensetree.add_child(repeat_decorator_node)
 
 
 func test_tick_returns_failure_when_no_child_present() -> void:
@@ -46,9 +43,9 @@ func test_tick_returns_failure_when_no_child_present() -> void:
 
 func test_tick_statuses_when_repeat_limit_is_three() -> void:
 	# Given
-	repeat_decorator.repeat_limit = 3
+	repeat_decorator_node.repeat_limit = 3
 	var child_mock = mock(SenseTreeConditionLeaf)
-	repeat_decorator.add_child(child_mock)
+	repeat_decorator_node.add_child(child_mock)
 
 	# Mock Failure
 	do_return(SenseTreeNode.Status.FAILURE).on(child_mock).tick(actor, blackboard)
@@ -82,7 +79,7 @@ func test_tick_returns_running_when_child_returns_running() -> void:
 	var child_running_mock = mock(SenseTreeConditionLeaf)
 	var mocked_child_result = SenseTreeNode.Status.RUNNING
 	do_return(mocked_child_result).on(child_running_mock).tick(actor, blackboard)
-	repeat_decorator.add_child(child_running_mock)
+	repeat_decorator_node.add_child(child_running_mock)
 
 	var expected_status = SenseTreeNode.Status.RUNNING
 
@@ -107,12 +104,22 @@ func test_get_sensenode_class() -> void:
 
 func test_get_exported_properties() -> void:
 	# Given
-	var expected_properties = SenseTreeExportedProperty.new(
-		"repeat_limit", "Repeat Limit", DEFAULT_REPEAT_LIMIT_VALUE
+	var initial_repeat_limit_value: int = 5
+	var final_repeat_limit_value: int = 15
+
+	var expected_initial_repeat_limit = SenseTreeExportedProperty.new(
+		"repeat_limit", "Repeat Limit", initial_repeat_limit_value
+	)
+
+	var expected_final_repeat_limit = SenseTreeExportedProperty.new(
+		"repeat_limit", "Repeat Limit", final_repeat_limit_value
 	)
 
 	# When
-	var result_properties = repeat_decorator.get_exported_properties()
+	var initial_properties = repeat_decorator_node.get_exported_properties()
+	repeat_decorator_node.repeat_limit = final_repeat_limit_value
+	var final_properties = repeat_decorator_node.get_exported_properties()
 
 	# Then
-	assert_array(result_properties).contains_exactly([expected_properties])
+	assert_array(initial_properties).contains([expected_initial_repeat_limit])
+	assert_array(final_properties).contains([expected_final_repeat_limit])

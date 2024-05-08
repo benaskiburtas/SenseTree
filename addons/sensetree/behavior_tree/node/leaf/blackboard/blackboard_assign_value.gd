@@ -29,5 +29,6 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 	var blackboard_key_property = SenseTreeExportedProperty.new(
 		"blackboard_key", "Blackboard key", blackboard_key
 	)
-	var key_value_property = SenseTreeExportedProperty.new("key_value", "Key value", key_value)
+	var key_value_property = SenseTreeExportedProperty.new(
+		"key_value", "Key value", key_value)
 	return [blackboard_key_property, key_value_property]

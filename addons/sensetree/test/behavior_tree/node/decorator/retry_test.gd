@@ -8,10 +8,7 @@ const RETRY_DECORATOR_SOURCE_PATH: String = "res://addons/sensetree/behavior_tre
 const CONDITION_LEAF_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/leaf/condition.gd"
 const SENSETREE_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/tree.gd"
 
-# Decorator exported properties
-const DEFAULT_RETRY_LIMIT_VALUE: int = 5
-
-var retry_decorator: SenseTreeRetryDecorator
+var retry_decorator_node: SenseTreeRetryDecorator
 var sensetree: SenseTree
 var actor: Node
 var blackboard: SenseTreeBlackboard
@@ -21,7 +18,7 @@ func before_test() -> void:
 	var retry_decorator_script = load(RETRY_DECORATOR_SOURCE_PATH)
 	var sensetree_script = load(SENSETREE_SOURCE_PATH)
 
-	retry_decorator = auto_free(retry_decorator_script.new())
+	retry_decorator_node = auto_free(retry_decorator_script.new())
 	sensetree = auto_free(sensetree_script.new())
 
 	actor = auto_free(Node.new())
@@ -30,7 +27,7 @@ func before_test() -> void:
 	sensetree.actor = actor
 	sensetree.blackboard = blackboard
 
-	sensetree.add_child(retry_decorator)
+	sensetree.add_child(retry_decorator_node)
 
 
 func test_tick_returns_failure_when_no_child_present() -> void:
@@ -46,9 +43,9 @@ func test_tick_returns_failure_when_no_child_present() -> void:
 
 func test_tick_statuses_when_repeat_limit_is_three() -> void:
 	# Given
-	retry_decorator.retry_limit = 5
+	retry_decorator_node.retry_limit = 5
 	var child_mock = mock(SenseTreeConditionLeaf)
-	retry_decorator.add_child(child_mock)
+	retry_decorator_node.add_child(child_mock)
 
 	# Mock Failure
 	do_return(SenseTreeNode.Status.SUCCESS).on(child_mock).tick(actor, blackboard)
@@ -82,7 +79,7 @@ func test_tick_returns_running_when_child_returns_running() -> void:
 	var child_running_mock = mock(SenseTreeConditionLeaf)
 	var mocked_child_result = SenseTreeNode.Status.RUNNING
 	do_return(mocked_child_result).on(child_running_mock).tick(actor, blackboard)
-	retry_decorator.add_child(child_running_mock)
+	retry_decorator_node.add_child(child_running_mock)
 
 	var expected_status = SenseTreeNode.Status.RUNNING
 
@@ -99,7 +96,7 @@ func test_get_sensenode_class() -> void:
 	var expected_class_name = "SenseTreeRetryDecorator"
 
 	# When
-	var result_class_name = retry_decorator.get_sensenode_class()
+	var result_class_name = retry_decorator_node.get_sensenode_class()
 
 	# Then
 	assert_that(result_class_name).is_equal(expected_class_name)
@@ -107,12 +104,22 @@ func test_get_sensenode_class() -> void:
 
 func test_get_exported_properties() -> void:
 	# Given
-	var expected_properties = SenseTreeExportedProperty.new(
-		"retry_limit", "Retry Limit", DEFAULT_RETRY_LIMIT_VALUE
+	var initial_retry_limit_value: int = 5
+	var final_retry_limit_value: int = 15
+
+	var expected_initial_retry_limit = SenseTreeExportedProperty.new(
+		"retry_limit", "Retry Limit", initial_retry_limit_value
+	)
+
+	var expected_final_retry_limit = SenseTreeExportedProperty.new(
+		"retry_limit", "Retry Limit", final_retry_limit_value
 	)
 
 	# When
-	var result_properties = retry_decorator.get_exported_properties()
+	var initial_properties = retry_decorator_node.get_exported_properties()
+	retry_decorator_node.retry_limit = final_retry_limit_value
+	var final_properties = retry_decorator_node.get_exported_properties()
 
 	# Then
-	assert_array(result_properties).contains_exactly([expected_properties])
+	assert_array(initial_properties).contains([expected_initial_retry_limit])
+	assert_array(final_properties).contains([expected_final_retry_limit])

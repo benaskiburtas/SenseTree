@@ -2,8 +2,8 @@
 extends Node
 
 const PLUGIN_BASE_CLASS_PATTERN: String = "SenseTree"
-const BEHAVIOR_TREE_NODE_PATH_PATTERN: String = "behavior_tree/node"
-const DETECT_NODE_PATH_PATTERN: String = "example/node"
+const BEHAVIOR_TREE_NODE_PATH_PATTERN: String = "sensetree/behavior_tree/node"
+const DETECT_NODE_PATH_PATTERN: String = "sensetree/example/node"
 
 var _sense_tree_class_regex: RegEx = RegEx.create_from_string(PLUGIN_BASE_CLASS_PATTERN)
 var _tree_nodes_path_regex: RegEx = RegEx.create_from_string(BEHAVIOR_TREE_NODE_PATH_PATTERN)
