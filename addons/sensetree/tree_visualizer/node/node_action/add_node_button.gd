@@ -128,19 +128,19 @@ func _add_submenu(
 	popup_container.add_submenu_item(submenu_name, submenu_name)
 
 
-func _on_add_composite_node_pressed(menu_item_index: int):
+func _on_add_composite_node_pressed(menu_item_index: int) -> void:
 	if menu_item_index < _composite_submenu_items.size():
 		create_node_requested.emit(_composite_submenu_items[menu_item_index])
 		disabled = true
 
 
-func _on_add_decorator_node_pressed(menu_item_index: int):
+func _on_add_decorator_node_pressed(menu_item_index: int) -> void:
 	if menu_item_index < _decorator_submenu_items.size():
 		create_node_requested.emit(_decorator_submenu_items[menu_item_index])
 		disabled = true
 
 
-func _on_add_leaf_node_pressed(menu_item_index: int):
+func _on_add_leaf_node_pressed(menu_item_index: int) -> void:
 	if menu_item_index < _leaf_submenu_items.size():
 		create_node_requested.emit(_leaf_submenu_items[menu_item_index])
 		disabled = true
