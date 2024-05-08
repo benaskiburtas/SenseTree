@@ -20,6 +20,8 @@ var _current_physics_tick_count: int = 0
 var _file_manager: TreeVisualizerFileManager
 var _graph_edit: TreeVisualizerGraphEdit
 
+var _is_edit_mode: bool = false
+
 
 func _ready() -> void:
 	_initialize_file_manager()
@@ -54,6 +56,7 @@ func _connect_graph_edit_signals() -> void:
 			"save_tree_as_requested", _on_save_tree_as_requested
 		)
 		_graph_edit.add_node_button.connect("create_node_requested", _on_create_node_requested)
+		_graph_edit.move_node_button.connect("move_node_requested", _on_move_node_requested)
 		_graph_edit.delete_node_button.connect("delete_node_requested", _on_delete_node_requested)
 
 
@@ -62,6 +65,7 @@ func _connect_file_manager_signals() -> void:
 
 
 func _reset_elements() -> void:
+	_is_edit_mode = false
 	_disable_graph_edit_action_buttons()
 	if _selected_tree:
 		_graph_edit.assign_tree(_selected_tree)
@@ -116,7 +120,14 @@ func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
 
 func _disable_graph_edit_action_buttons() -> void:
 	_graph_edit.add_node_button.selected_node = null
+	_graph_edit.move_node_button.selected_node = null
 	_graph_edit.delete_node_button.selected_node = null
+
+
+func _assign_node_to_action_buttons(selected_node: TreeVisualizerGraphNode) -> void:
+	_graph_edit.add_node_button.selected_node = selected_node
+	_graph_edit.move_node_button.selected_node = selected_node
+	_graph_edit.delete_node_button.selected_node = selected_node
 
 
 func _on_node_selected(selected_node: TreeVisualizerGraphNode) -> void:
@@ -127,10 +138,14 @@ func _on_node_selected(selected_node: TreeVisualizerGraphNode) -> void:
 	if not selected_node is TreeVisualizerGraphNode:
 		return
 
+	if _selected_node != selected_node and _is_edit_mode:
+		selected_node.add_child(_selected_node)
+		_is_edit_mode = false
+		_file_manager.resave_tree()
+
 	_selected_node = selected_node
 	_select_node_in_editor(selected_node)
-	_graph_edit.add_node_button.selected_node = selected_node
-	_graph_edit.delete_node_button.selected_node = selected_node
+	_assign_node_to_action_buttons(selected_node)
 
 
 func _on_node_deselected(deselected_node: Node) -> void:
@@ -174,6 +189,10 @@ func _on_create_node_requested(node_class: String) -> void:
 	new_node_instance.set_owner(_selected_tree)
 
 	_file_manager.resave_tree()
+
+
+func _on_move_node_requested() -> void:
+	_is_edit_mode = true
 
 
 func _on_delete_node_requested(node_to_delete: TreeVisualizerGraphNode) -> void:
