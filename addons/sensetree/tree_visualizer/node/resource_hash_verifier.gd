@@ -9,7 +9,7 @@ var _previous_resource: Resource
 var _previous_resource_hash: PackedByteArray
 
 
-func _init():
+func _init() -> void:
 	_hashing_context = HashingContext.new()
 
 

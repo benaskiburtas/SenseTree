@@ -9,14 +9,13 @@ var selected_node: TreeVisualizerGraphNode = null:
 			_selected_node_group = new_node.sensetree_node.get_node_group()
 		else:
 			selected_node = null
-			_selected_node_group = null
 		_assign_button_state()
 		_assign_button_options()
 
-var _selected_node_group
+var _selected_node_group: SenseTreeConstants.NodeGroup = SenseTreeConstants.NodeGroup.UNKNOWN
 
 
-func _init():
+func _init() -> void:
 	add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	disabled = true
 

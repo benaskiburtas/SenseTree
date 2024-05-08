@@ -24,7 +24,7 @@ const SLOT_LIGHTEN_FACTOR: float = 0.3
 const CONTENT_MARGIN: float = 5
 const CORNER_RADIUS: float = 5
 
-var group_styleboxes = {
+var group_styleboxes: Dictionary = {
 	SenseTreeConstants.NodeGroup.TREE: {},
 	SenseTreeConstants.NodeGroup.COMPOSITE: {},
 	SenseTreeConstants.NodeGroup.DECORATOR: {},
@@ -61,7 +61,7 @@ func _build_styleboxes() -> void:
 		}
 
 
-func get_group_color(group: SenseTreeConstants.NodeGroup) -> Color:
+func _get_group_color(group: SenseTreeConstants.NodeGroup) -> Color:
 	match group:
 		SenseTreeConstants.NodeGroup.TREE:
 			return SenseTreeConstants.TREE_GROUP_BASE_COLOR

@@ -47,12 +47,12 @@ var _ticks_since_redraw: int = 0
 var _is_graph_being_updated: bool = false
 
 
-func _init():
+func _init() -> void:
 	minimap_enabled = false
 	style_boxes = GraphNodeStyleBoxes.new()
 
 
-func _ready():
+func _ready() -> void:
 	_set_process_modes()
 	# Scene editing is only allowed while scene is not running
 	if Engine.is_editor_hint():

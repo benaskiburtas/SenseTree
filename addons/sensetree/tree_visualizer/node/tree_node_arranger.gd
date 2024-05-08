@@ -29,7 +29,7 @@ func _init(
 	parent: ArrangedVisualizerNode = null,
 	depth: int = 0,
 	sibling_order_number: int = 1
-):
+) -> void:
 	self.y = depth
 	self.tree = tree
 	self.parent = parent

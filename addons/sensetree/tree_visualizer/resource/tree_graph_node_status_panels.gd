@@ -20,7 +20,7 @@ var failure_panel: Panel
 var running_panel: Panel
 
 
-func _init():
+func _init() -> void:
 	_initialize_status_panels()
 
 
