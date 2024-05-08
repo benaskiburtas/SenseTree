@@ -33,6 +33,6 @@ func _populate_confirm_submenu() -> void:
 	popup_container.connect("index_pressed", _on_delete_node_pressed)
 
 
-func _on_delete_node_pressed(index: int):
+func _on_delete_node_pressed(index: int) -> void:
 	delete_node_requested.emit(self.selected_node)
 	disabled = true
