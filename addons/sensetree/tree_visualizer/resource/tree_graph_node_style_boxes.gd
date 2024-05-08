@@ -45,7 +45,7 @@ func get_stylebox(group: SenseTreeConstants.NodeGroup, box_type: StyleBoxType) -
 
 func _build_styleboxes() -> void:
 	for group in SenseTreeConstants.NodeGroup.values():
-		var group_color: Color = get_group_color(group)
+		var group_color: Color = _get_group_color(group)
 		group_styleboxes[group] = {
 			StyleBoxType.PANEL_STYLE_BOX: _build_panel_stylebox(group_color, PANEL_STYLE_BOX_ALPHA),
 			StyleBoxType.PANEL_SELECTED_STYLE_BOX:
