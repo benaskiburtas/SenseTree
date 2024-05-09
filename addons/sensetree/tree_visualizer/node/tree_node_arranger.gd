@@ -101,7 +101,7 @@ func buchheim(tree: ArrangedVisualizerNode) -> Array:
 	return tree.boundaries()
 
 
-func first_walk(node: ArrangedVisualizerNode):
+func first_walk(node: ArrangedVisualizerNode) -> void:
 	if node.is_leaf():
 		if node.is_leftmost_sibling():
 			node.x = 0.0
@@ -180,7 +180,7 @@ func apportion(
 
 func move_subtree(
 	left_node: ArrangedVisualizerNode, right_node: ArrangedVisualizerNode, shift_amount: float
-):
+) -> void:
 	var subtree_count: int = right_node.sibling_order_number - left_node.sibling_order_number
 	var shift_per_subtree: float = shift_amount / subtree_count
 	right_node.change -= shift_per_subtree
@@ -190,7 +190,7 @@ func move_subtree(
 	right_node.offset_modifier += shift_amount
 
 
-func execute_shifts(node: ArrangedVisualizerNode):
+func execute_shifts(node: ArrangedVisualizerNode) -> void:
 	var shift: float = 0.0
 	var change: float = 0.0
 	for child in node.children:
@@ -211,7 +211,7 @@ func get_ancestor(
 		return default_ancestor
 
 
-func second_walk(node: ArrangedVisualizerNode, modifier: float = 0.0):
+func second_walk(node: ArrangedVisualizerNode, modifier: float = 0.0) -> void:
 	for child in node.children:
 		second_walk(child, modifier + node.offset_modifier)
 	node.x += modifier
