@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bq6a0fnc7ncim"]
+[gd_scene load_steps=63 format=3 uid="uid://bq6a0fnc7ncim"]
 
 [ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/2d/features/assets/TX/TX Tileset Grass.png" id="1_u6l10"]
 [ext_resource type="Texture2D" uid="uid://rivn6jvi2eas" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/dirtpath_tiles.png" id="2_bctuc"]
@@ -22,6 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://cm0eub00rxiom" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/tileset-grassland-water.png" id="20_4l6ro"]
 [ext_resource type="PackedScene" uid="uid://dp13wffy60733" path="res://addons/sensetree/demo/2d/autonomic_tree/prefab/guard.tscn" id="21_2qnbw"]
 [ext_resource type="Script" path="res://addons/sensetree/demo/2d/autonomic_tree/script/actor.gd" id="22_hvdaj"]
+[ext_resource type="Script" path="res://addons/sensetree/demo/2d/autonomic_tree/script/harvestable/carrot_patch.gd" id="23_k4dcp"]
+[ext_resource type="Script" path="res://addons/sensetree/example/node/experimental/action/harvest_node_action.gd" id="23_x8up2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsy5c"]
 texture = ExtResource("1_u6l10")
@@ -6771,3 +6773,37 @@ script = ExtResource("22_hvdaj")
 [node name="Guard8" parent="Actor" instance=ExtResource("21_2qnbw")]
 position = Vector2(673, -661)
 script = ExtResource("22_hvdaj")
+
+[node name="SensetreeHarvestNodeAction" type="Node" parent="Actor/Guard8" node_paths=PackedStringArray("harvestable_nodes")]
+script = ExtResource("23_x8up2")
+harvestable_nodes = [NodePath(""), NodePath(""), NodePath(""), NodePath(""), NodePath(""), NodePath(""), NodePath(""), null, null, null]
+
+[node name="CarrotPatch" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch2" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch3" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch4" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch5" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch6" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch7" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch8" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch9" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
+
+[node name="CarrotPatch10" type="Node2D" parent="."]
+script = ExtResource("23_k4dcp")
