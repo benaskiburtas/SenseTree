@@ -65,12 +65,17 @@ func _connect_file_manager_signals() -> void:
 
 
 func _reset_elements() -> void:
-	_is_edit_mode = false
+	_reset_edit_mode()
 	_disable_graph_edit_action_buttons()
 	if _selected_tree:
 		_graph_edit.assign_tree(_selected_tree)
 	else:
 		_graph_edit.reset()
+
+
+func _reset_edit_mode() -> void:
+	_is_edit_mode = false
+	_graph_edit.move_node_button.is_edit_state = false
 
 
 func _get_tree_sense_nodes(root: Node) -> Array:
@@ -130,22 +135,42 @@ func _assign_node_to_action_buttons(selected_node: TreeVisualizerGraphNode) -> v
 	_graph_edit.delete_node_button.selected_node = selected_node
 
 
-func _on_node_selected(selected_node: TreeVisualizerGraphNode) -> void:
+func _resolve_move_node(destination_node: TreeVisualizerGraphNode) -> void:
+	if _selected_node.sensetree_node.get_parent() == destination_node.sensetree_node:
+		_reset_edit_mode()
+		return
+
+	if _selected_node.sensetree_node.is_ancestor_of(destination_node.sensetree_node):
+		push_warning("Cannot move a parent to be under one of its children nodes.")
+		return
+
+	if destination_node.sensetree_node is SenseTree:
+		push_warning("SenseTree instances should only have one child.")
+		return
+
+	if destination_node.sensetree_node is SenseTreeLeafNode:
+		push_warning("SenseTreeLeafNode instances cannot have children nodes.")
+		return
+
+	_selected_node.sensetree_node.reparent(destination_node.sensetree_node)
+	_reset_edit_mode()
+	_file_manager.resave_tree()
+
+
+func _on_node_selected(new_selected_node: TreeVisualizerGraphNode) -> void:
 	# Exit early if running not in-editor
 	if not Engine.is_editor_hint():
 		return
 
-	if not selected_node is TreeVisualizerGraphNode:
+	if not new_selected_node is TreeVisualizerGraphNode:
 		return
 
-	if _selected_node != selected_node and _is_edit_mode:
-		selected_node.add_child(_selected_node)
-		_is_edit_mode = false
-		_file_manager.resave_tree()
-
-	_selected_node = selected_node
-	_select_node_in_editor(selected_node)
-	_assign_node_to_action_buttons(selected_node)
+	if _selected_node != new_selected_node and _is_edit_mode:
+		_resolve_move_node(new_selected_node)
+	else:
+		_select_node_in_editor(new_selected_node)
+		_assign_node_to_action_buttons(new_selected_node)
+	_selected_node = new_selected_node
 
 
 func _on_node_deselected(deselected_node: Node) -> void:
