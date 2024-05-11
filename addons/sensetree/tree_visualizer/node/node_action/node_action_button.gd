@@ -16,7 +16,7 @@ var _selected_node_group: SenseTreeConstants.NodeGroup = SenseTreeConstants.Node
 
 
 func _init() -> void:
-	add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	flat = false
 	disabled = true
 
 
