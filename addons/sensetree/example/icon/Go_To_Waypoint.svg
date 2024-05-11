@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.01 31.22">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke-width: .75px;
+      }
+
+      .cls-1, .cls-2, .cls-5 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-1, .cls-5 {
+        stroke: #23636b;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        stroke: #29656e;
+      }
+
+      .cls-3 {
+        fill: #209983;
+      }
+
+      .cls-3, .cls-4 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-6 {
+        stroke-width: 0px;
+      }
+
+      .cls-6, .cls-4 {
+        fill: #29656e;
+      }
+
+      .cls-5 {
+        fill: #1e9983;
+      }
+    </style>
+  </defs>
+  <g>
+    <ellipse class="cls-5" cx="24.64" cy="29.35" rx="6" ry="1.5"/>
+    <g>
+      <polygon class="cls-5" points="28.64 25.04 28.64 17.04 24.64 13.04 20.64 17.04 20.64 25.04 24.64 29.04 28.64 25.04"/>
+      <path class="cls-1" d="M24.64,13.04v8l-4-4c1.33,4,2.67,8,4,12"/>
+      <polyline class="cls-1" points="24.64 29.04 24.64 21.04 28.64 25.04 24.64 13.04"/>
+    </g>
+  </g>
+  <g>
+    <g>
+      <path class="cls-3" d="M.39,13.57c.2-2,2.97-4.5,6.75-4.5s6.55,2.5,6.75,4.5c.2,1.6-1.43,2-3.79,5.2-2.46,3.4-2.66,5.6-3.58,5.6s-.61-2.2-2.56-5.5C2.03,15.77.19,15.37.39,13.57H.39Z"/>
+      <ellipse class="cls-3" cx="7.14" cy="4.17" rx="3.89" ry="3.8"/>
+    </g>
+    <ellipse class="cls-4" cx="5.3" cy="3.27" rx=".2" ry=".2"/>
+    <ellipse class="cls-4" cx="9.39" cy="3.67" rx=".2" ry=".2"/>
+  </g>
+  <g>
+    <line class="cls-2" x1="11.27" y1="19.99" x2="17.61" y2="23.82"/>
+    <path class="cls-6" d="M19.55,24.99c-1.12-.21-2.6-.32-3.67-.13l1.47-1.19.37-1.86c.33,1.03,1.11,2.29,1.82,3.18Z"/>
+  </g>
+</svg>
