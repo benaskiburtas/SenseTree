@@ -8,7 +8,7 @@ const BLACKBOARD_COMPARE_VALUE_SOURCE_PATH: String = "res://addons/sensetree/beh
 const CONDITION_LEAF_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/leaf/condition.gd"
 const SENSETREE_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/tree.gd"
 
-var blackboard_compare_value_node: SenseTreeBlackboardCompareValueAction
+var blackboard_compare_value_node: SenseTreeBlackboardCompareValueCondition
 var sensetree: SenseTree
 var actor: Node
 var blackboard: SenseTreeBlackboard
@@ -60,7 +60,7 @@ func test_tick_function_when_blackboard_or_comparison_value_null() -> void:
 func test_parameterized_tick_fuction(
 	blackboard_value: int,
 	comparison_value: int,
-	comparison_operator: SenseTreeBlackboardCompareValueAction.ComparisonOperator,
+	comparison_operator: SenseTreeBlackboardCompareValueCondition.ComparisonOperator,
 	expected_status: SenseTreeNode.Status,
 	test_parameters := [
 		[

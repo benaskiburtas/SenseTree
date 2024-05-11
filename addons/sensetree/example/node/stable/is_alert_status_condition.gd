@@ -1,7 +1,7 @@
 @tool
 @icon("res://addons/sensetree/behavior_tree/icon/Condition.svg")
 class_name SenseTreeIsAlertStatusCondition
-extends SenseTreeBlackboardCompareValueAction
+extends SenseTreeBlackboardCompareValueCondition
 
 enum AlertStatus { IDLE, SUSPICIOUS, ALERTED, INVESTIGATING, CHASING, SEARCHING, FLEEING }
 

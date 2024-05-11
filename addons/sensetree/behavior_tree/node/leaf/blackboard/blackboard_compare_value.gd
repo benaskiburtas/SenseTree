@@ -1,6 +1,6 @@
 @tool
 @icon("res://addons/sensetree/behavior_tree/icon/Blackboard_Compare_Value.svg")
-class_name SenseTreeBlackboardCompareValueAction
+class_name SenseTreeBlackboardCompareValueCondition
 extends SenseTreeConditionLeaf
 
 enum ComparisonOperator {
