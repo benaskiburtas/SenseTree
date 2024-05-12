@@ -7,7 +7,7 @@ enum ModificationOperator { ADD, SUBTRACT, MULTIPLY, DIVIDE, EXPONENTIATION }
 
 @export_placeholder("Blackboard key") var blackboard_key: String
 @export_placeholder("Modification value") var modification_value: String
-@export var modification_operator: ModificationOperator
+@export var modification_operator: ModificationOperator = ModificationOperator.ADD
 
 var _expression: Expression = Expression.new()
 
@@ -20,8 +20,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 		configuration_warnings.push_back("Value used in modification should be set.")
 	if modification_value != null and not _is_number(modification_value):
 		configuration_warnings.push_back("Value used in modification should be a number.")
-	if not modification_operator:
-		configuration_warnings.push_back("Modification operator should be selected.")
 	return configuration_warnings
 
 
@@ -97,5 +95,5 @@ func _validate_and_parse_expression(blackboard_value: Variant) -> Error:
 	return parse_result
 
 
-func _is_number(input: Variant) -> bool:
-	return true if typeof(input) == TYPE_INT or typeof(input) == TYPE_FLOAT else false
+func _is_number(input: String) -> bool:
+	return true if input.is_valid_int() or input.is_valid_float() else false
