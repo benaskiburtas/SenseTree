@@ -1,17 +1,17 @@
 [gd_scene load_steps=48 format=3 uid="uid://i0pp23s5we14"]
 
-[ext_resource type="Texture2D" uid="uid://dv7ahvy8hkqjj" path="res://addons/sensetree/demo/autonomic_tree/asset/sprites/knight/ATTACK flipped.png" id="1_fwqv3"]
+[ext_resource type="Texture2D" uid="uid://dv7ahvy8hkqjj" path="res://addons/sensetree/demo/features/assets/Characters/Knight/ATTACK flipped.png" id="1_fwqv3"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/actor.gd" id="1_lokqt"]
 [ext_resource type="Texture2D" uid="uid://bisucanmbrfpe" path="res://addons/sensetree/demo/features/assets/Characters/Knight/IDLE.png" id="1_u2kq3"]
 [ext_resource type="Texture2D" uid="uid://v57he840x0ep" path="res://addons/sensetree/demo/features/assets/Characters/Knight/WALK flipped.png" id="2_5b41t"]
 [ext_resource type="Texture2D" uid="uid://bagy6jig5w48d" path="res://addons/sensetree/demo/features/assets/Characters/Knight/WALK.png" id="2_adoc3"]
-[ext_resource type="Texture2D" uid="uid://br1fp625qjpff" path="res://addons/sensetree/demo/autonomic_tree/asset/sprites/knight/ATTACK.png" id="2_licwj"]
+[ext_resource type="Texture2D" uid="uid://br1fp625qjpff" path="res://addons/sensetree/demo/features/assets/Characters/Knight/ATTACK.png" id="2_licwj"]
 [ext_resource type="Script" path="res://addons/sensetree/behavior_tree/node/tree.gd" id="6_rr05j"]
 [ext_resource type="Script" path="res://addons/sensetree/behavior_tree/node/composite/sequence.gd" id="7_ppa1y"]
-[ext_resource type="Script" path="res://addons/sensetree/example/node/behavior/stable/area_detect_condition.gd" id="8_esb4y"]
+[ext_resource type="Script" path="res://addons/sensetree/example/node/behavior/condition/area_detect_condition.gd" id="8_esb4y"]
 [ext_resource type="Script" path="res://addons/sensetree/behavior_tree/node/composite/selector.gd" id="8_nxcb7"]
-[ext_resource type="Script" path="res://addons/sensetree/example/node/behavior/stable/target_chase_action.gd" id="9_tot0e"]
-[ext_resource type="Script" path="res://addons/sensetree/example/node/behavior/stable/investigate_area_action.gd" id="11_4p6yk"]
+[ext_resource type="Script" path="res://addons/sensetree/example/node/behavior/condition/target_chase_action.gd" id="9_tot0e"]
+[ext_resource type="Script" path="res://addons/sensetree/example/node/behavior/action/investigate_area_action.gd" id="11_4p6yk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_et185"]
 height = 33.0

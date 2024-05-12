@@ -1,14 +1,14 @@
-[gd_scene load_steps=65 format=3 uid="uid://bq6a0fnc7ncim"]
+[gd_scene load_steps=66 format=3 uid="uid://bq6a0fnc7ncim"]
 
 [ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Grass.png" id="1_u6l10"]
 [ext_resource type="Texture2D" uid="uid://rivn6jvi2eas" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/dirtpath_tiles.png" id="2_bctuc"]
 [ext_resource type="Texture2D" uid="uid://cqqe85e8al0xl" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/fence_tiles.png" id="3_qqtus"]
-[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/TX Tileset Wall.png" id="4_2ttq0"]
+[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Wall.png" id="4_2ttq0"]
 [ext_resource type="Texture2D" uid="uid://dgc1fbuwrtpya" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/collection_1.png" id="5_6ak0b"]
 [ext_resource type="Texture2D" uid="uid://cbhyjiv2b31w2" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/collection_2.png" id="6_pjt21"]
 [ext_resource type="Texture2D" uid="uid://pbbcsqq3hhna" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/collection_3.png" id="7_kjq3u"]
 [ext_resource type="Texture2D" uid="uid://ccmovj5y1gkbp" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/emotes.png" id="8_2b8nd"]
-[ext_resource type="Texture2D" uid="uid://8n07c0c3ngoo" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/TX Tileset Stone Ground.png" id="9_tmyiu"]
+[ext_resource type="Texture2D" uid="uid://8n07c0c3ngoo" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Stone Ground.png" id="9_tmyiu"]
 [ext_resource type="Texture2D" uid="uid://cgdigj48bo7w6" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/other.png" id="11_s5fm5"]
 [ext_resource type="Texture2D" uid="uid://ddaflpk08wonk" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/L shape houses.png" id="12_fcrck"]
 [ext_resource type="Texture2D" uid="uid://5qpn6x557p6g" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/long houses.png" id="13_l5ceh"]
@@ -26,6 +26,7 @@
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/attackable_actor.gd" id="23_suey8"]
 [ext_resource type="PackedScene" uid="uid://bxdvvoa53a177" path="res://addons/sensetree/demo/autonomic_tree/prefab/wolf.tscn" id="24_4m661"]
 [ext_resource type="PackedScene" uid="uid://ccop88f5h73p8" path="res://addons/sensetree/demo/autonomic_tree/resource/wolf.res" id="25_glcya"]
+[ext_resource type="Script" path="res://addons/sensetree/example/node/scene/actor.gd" id="26_oq8pg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsy5c"]
 texture = ExtResource("1_u6l10")
@@ -6814,9 +6815,9 @@ storage_locations = [NodePath("../../../../../Locations/Meal Storage Node 1"), N
 
 [node name="Wolf" parent="Actors" instance=ExtResource("24_4m661")]
 position = Vector2(2119, -78)
+script = ExtResource("26_oq8pg")
 
 [node name="SenseTree" parent="Actors/Wolf" node_paths=PackedStringArray("actor") instance=ExtResource("25_glcya")]
-is_enabled = false
 actor = NodePath("..")
 
 [node name="SenseTreeRoamAreaAction" parent="Actors/Wolf/SenseTree" index="0" node_paths=PackedStringArray("navigation_agent", "roaming_point")]
