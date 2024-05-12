@@ -28,6 +28,4 @@ func _physics_process(_delta):
 
 func _on_velocity_computed(safe_velocity: Vector2):
 	velocity = safe_velocity
-	print("actor %s" % name)
-	print(safe_velocity)
 	move_and_slide()
