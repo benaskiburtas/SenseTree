@@ -8,7 +8,7 @@ const BLACKBOARD_COMPARE_KEYS_SOURCE_PATH: String = "res://addons/sensetree/beha
 const CONDITION_LEAF_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/leaf/condition.gd"
 const SENSETREE_SOURCE_PATH: String = "res://addons/sensetree/behavior_tree/node/tree.gd"
 
-var blackboard_compare_keys_node: SenseTreeBlackboardCompareKeysAction
+var blackboard_compare_keys_node: SenseTreeBlackboardCompareKeysCondition
 var sensetree: SenseTree
 var actor: Node
 var blackboard: SenseTreeBlackboard
