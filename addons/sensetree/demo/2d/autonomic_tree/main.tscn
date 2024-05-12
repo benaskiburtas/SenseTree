@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bq6a0fnc7ncim"]
+[gd_scene load_steps=62 format=3 uid="uid://bq6a0fnc7ncim"]
 
 [ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/2d/features/assets/TX/TX Tileset Grass.png" id="1_u6l10"]
 [ext_resource type="Texture2D" uid="uid://rivn6jvi2eas" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/dirtpath_tiles.png" id="2_bctuc"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cm0eub00rxiom" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/tileset-grassland-water.png" id="20_4l6ro"]
 [ext_resource type="PackedScene" uid="uid://dp13wffy60733" path="res://addons/sensetree/demo/2d/autonomic_tree/prefab/guard.tscn" id="21_2qnbw"]
 [ext_resource type="Script" path="res://addons/sensetree/demo/2d/autonomic_tree/node/actor.gd" id="22_hvdaj"]
+[ext_resource type="Script" path="res://addons/sensetree/behavior_tree/node/agent.gd" id="23_3exjy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsy5c"]
 texture = ExtResource("1_u6l10")
@@ -6771,3 +6772,10 @@ script = ExtResource("22_hvdaj")
 [node name="Guard8" parent="Actor" instance=ExtResource("21_2qnbw")]
 position = Vector2(673, -661)
 script = ExtResource("22_hvdaj")
+
+[node name="AgentGuardTest" parent="." instance=ExtResource("21_2qnbw")]
+position = Vector2(673, -661)
+script = ExtResource("22_hvdaj")
+
+[node name="SenseTreeAgent" type="Node" parent="AgentGuardTest"]
+script = ExtResource("23_3exjy")

@@ -70,12 +70,12 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 
 
 func _validate_and_parse_expression(blackboard_value: Variant) -> Error:
-	push_warning("Incompatible types for blackboard value comparison.")
 	if _is_number(blackboard_value) and _is_number(comparison_value):
 		return OK
 	if _is_string(blackboard_value) and _is_string(comparison_value):
 		return OK
 	else:
+		push_warning("Incompatible types for blackboard value comparison.")
 		return ERR_INVALID_PARAMETER
 
 

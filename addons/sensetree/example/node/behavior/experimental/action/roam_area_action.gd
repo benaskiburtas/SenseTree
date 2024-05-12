@@ -6,7 +6,6 @@ extends SenseTreeActionLeaf
 ##stuff to do
 ##assign marker somewhere in the code(???)
 
-
 ## Navigation agent to update and modify.
 @export var navigation_agent: NavigationAgent2D
 ## Marker2D to set roaming point
@@ -74,10 +73,12 @@ func get_sensenode_class() -> String:
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 	var navigation_agent_property = SenseTreeExportedProperty.new(
-		"navigation_agent", "Navigation Agent", navigation_agent.name
+		"navigation_agent",
+		"Navigation Agent",
+		navigation_agent.name if navigation_agent else "[None]"
 	)
 	var roaming_point_property = SenseTreeExportedProperty.new(
-		"roaming_point", "Roaming Point", roaming_point
+		"roaming_point", "Roaming Point", roaming_point.name if roaming_point else "[None]"
 	)
 	var max_speed_property = SenseTreeExportedProperty.new("max_speed", "Max Speed", max_speed)
 	var roaming_radius_property = SenseTreeExportedProperty.new(

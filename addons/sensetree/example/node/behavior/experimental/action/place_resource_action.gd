@@ -24,6 +24,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 			continue
 		else:
 			var is_place_success = storage.store_resource()
+			print("Placed resource at %s" % storage.name)
 			if is_place_success:
 				super.tick(actor, blackboard)
 				return Status.SUCCESS

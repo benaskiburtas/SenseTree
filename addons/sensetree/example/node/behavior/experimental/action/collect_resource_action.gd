@@ -24,11 +24,12 @@ func _get_configuration_warnings() -> PackedStringArray:
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var is_any_harvest_success: bool = false
 	for resource in harvest_targets:
-		if not resource.is_ready_for_harvest():
+		if resource.is_ready_for_harvest():
 			continue
 		else:
 			var is_harvest_success = resource.harvest_resource()
 			if is_harvest_success:
+				print("Harvested %s" % resource.name)
 				is_any_harvest_success = true
 				super.tick(actor, blackboard)
 	return Status.SUCCESS if is_any_harvest_success else Status.FAILURE

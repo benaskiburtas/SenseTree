@@ -11,6 +11,33 @@ extends Node
 var _tree_instance: Node
 var _property_dependencies: Array[PropertyDependency]
 
+func _get(property: StringName) -> Variant:
+	print(property)
+	var path = property.split("_")
+	if path.size() == 2:
+		var node_name = path[0]
+		var property_name = path[1]
+		for dependency in _property_dependencies:
+			if dependency.node_name == node_name and dependency.property["name"] == property_name:
+				var target_node = get_node(dependency.node_path)
+				if target_node:
+					return target_node.get(property_name)
+	return null
+
+
+func _set(property: StringName, value: Variant) -> bool:
+	var path = property.split("_")
+	if path.size() == 2:
+		var node_name = path[0]
+		var property_name = path[1]
+		for dependency in _property_dependencies:
+			if dependency.node_name == node_name and dependency.property["name"] == property_name:
+				var target_node = get_node(dependency.node_path)
+				if target_node:
+					target_node.set(property_name, value)
+					return true
+		return false
+	return false
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings: PackedStringArray = []
@@ -41,8 +68,10 @@ func _explore_properties(root: Node):
 			return
 
 		# Collect property dependencies
+		print(node)
 		for property in node.get_property_list():
 			if "usage" in property and property["usage"] == PROPERTY_USAGE_SCRIPT_VARIABLE:
+				print(property)
 				var new_dependency = PropertyDependency.new(
 					node.name, node.get_path(), property.name, null
 				)
@@ -53,20 +82,6 @@ func _explore_properties(root: Node):
 		node_children.reverse()
 		for child in node_children:
 			stack.push_back(child)
-
-
-#func _set(property, value):
-#var path = property.split("_")
-#var target_node = _tree_instance.get_node(path[0])
-#if target_node:
-#target_node.set(path[1], value)
-#
-#
-#func _get(property):
-#var path = property.split("_")
-#var target_node = _tree_instance.get_node(path[0])
-#if target_node:
-#return target_node.get(path[1])
 
 
 class PropertyDependency:
