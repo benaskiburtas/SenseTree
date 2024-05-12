@@ -4,18 +4,18 @@
 class_name ArrangedVisualizerNode
 extends Node
 
-const DEFAULT_DISTANCE: float = 1.0
+const DEFAULT_DISTANCE: float = 1
 
-var x: float = -1.
+var x: float = 1
 var y: int = 0
 var tree: SenseTreeNode
 var children: Array = []
 var parent: ArrangedVisualizerNode
 var ancestor: ArrangedVisualizerNode
 var thread: ArrangedVisualizerNode
-var offset_modifier: float = 0.0
-var change: float = 0.0
-var shift: float = 0.0
+var offset_modifier: float = 0
+var change: float = 0.001
+var shift: float = 0.001
 var sibling_order_number: int = 1
 var leftmost_sibling: ArrangedVisualizerNode:
 	get:

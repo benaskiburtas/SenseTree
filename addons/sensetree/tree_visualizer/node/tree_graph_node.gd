@@ -16,7 +16,7 @@ const MINIMUM_HEIGHT: int = 50
 const CONTENT_AREA_MARGIN: int = 5
 const PROPERTY_ITEM_MARGIN: int = 5
 
-const HORIZONTAL_SPACING_OFFSET: float = 400
+const HORIZONTAL_SPACING_OFFSET: float = 300
 const VERTICAL_SPACING_OFFSET: float = 300
 
 var sensetree_node: SenseTreeNode
@@ -144,7 +144,9 @@ func _configure_ports() -> void:
 func _load_node_icon() -> void:
 	var sense_node_class: String = self.sensetree_node.get_sensenode_class()
 	if not sense_node_class or sense_node_class.is_empty():
-		push_warning("Could not resolve class name from SenseTree node %s." % self.sensetree_node.name)
+		push_warning(
+			"Could not resolve class name from SenseTree node %s." % self.sensetree_node.name
+		)
 		return
 
 	var icon_path: String = SenseTreeHelpers.try_acquire_icon_path(sense_node_class)
@@ -209,6 +211,9 @@ func _assign_styleboxes_by_group(style_boxes: TreeVisualizerGraphNodeStyleBoxes)
 
 
 func _set_node_position(arranged_node: ArrangedVisualizerNode) -> void:
+	print("")
+	print("PLACING NODE %s" % arranged_node.tree.name)
+	print("_____________________________________________")
 	var node_x_offset_units: int
 	var node_y_offset_units: int
 
@@ -220,14 +225,20 @@ func _set_node_position(arranged_node: ArrangedVisualizerNode) -> void:
 		node_y_offset_units = arranged_node.x
 	else:
 		push_error("Unsupported tree graph alignment type: %s" % _alignment_mode)
-
+	print("X UNITS %d" % node_x_offset_units)
+	print("Y UNITS %d" % node_y_offset_units)
 	var _property_entry_offset: float = 0
 	if _property_container:
 		_property_entry_offset = _property_container.get_child_count() * PROPERTY_ITEM_MARGIN
 
-	var x_position = (node_x_offset_units + 1) * HORIZONTAL_SPACING_OFFSET
+	var x_position = (node_x_offset_units) * HORIZONTAL_SPACING_OFFSET
 	var y_position = (node_y_offset_units) * VERTICAL_SPACING_OFFSET + _property_entry_offset
+
+	print("X POSITION %d" % x_position)
+	print("Y POSITION %d" % y_position)
+
 	position_offset = Vector2(x_position, y_position)
+	print("_____________________________________________")
 
 
 func _set_interaction_signal() -> void:
