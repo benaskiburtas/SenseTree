@@ -1,0 +1,12 @@
+diff a/addons/sensetree/example/node/experimental/action/harvest_node_action.gd b/addons/sensetree/example/node/experimental/action/harvest_node_action.gd	(rejected hunks)
+@@ -11,8 +11,8 @@ extends SenseTreeActionLeaf
+ 
+ func tick(actor, blackboard):
+ 	for harvestable in harvestable_nodes:
+-		if not harvestable.is_ready_for_harvest():
+-			var harvest_result = harvestable.harvest()
++		if harvestable.is_ready_for_harvest():
++			var harvest_result = harvestable.harvest_resource()
+ 			if harvest_result:
+ 				return Status.SUCCESS
+ 	return Status.FAILURE
