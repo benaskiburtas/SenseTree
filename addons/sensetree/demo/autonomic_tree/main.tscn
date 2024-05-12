@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://bq6a0fnc7ncim"]
+[gd_scene load_steps=67 format=3 uid="uid://bq6a0fnc7ncim"]
 
 [ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Grass.png" id="1_u6l10"]
 [ext_resource type="Texture2D" uid="uid://rivn6jvi2eas" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/dirtpath_tiles.png" id="2_bctuc"]
@@ -22,10 +22,11 @@
 [ext_resource type="Texture2D" uid="uid://cm0eub00rxiom" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/tileset-grassland-water.png" id="20_4l6ro"]
 [ext_resource type="PackedScene" uid="uid://sf34vveoj2sx" path="res://addons/sensetree/demo/autonomic_tree/prefab/cook.tscn" id="21_jyade"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/storage_node.gd" id="21_t1eel"]
-[ext_resource type="PackedScene" uid="uid://6ijugk7k1fqm" path="res://addons/sensetree/demo/autonomic_tree/resource/cook.res" id="23_3ifgc"]
+[ext_resource type="PackedScene" uid="uid://ci8vutooqf7ic" path="res://addons/sensetree/demo/autonomic_tree/prefab/villager.tscn" id="22_gpuce"]
+[ext_resource type="PackedScene" uid="uid://6ijugk7k1fqm" path="res://addons/sensetree/demo/autonomic_tree/resource/actor/cook.res" id="23_3ifgc"]
+[ext_resource type="PackedScene" uid="uid://w6sc1wlh12fw" path="res://addons/sensetree/demo/autonomic_tree/resource/flow/increase_needs.res" id="23_oebr1"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/attackable_actor.gd" id="23_suey8"]
 [ext_resource type="PackedScene" uid="uid://bxdvvoa53a177" path="res://addons/sensetree/demo/autonomic_tree/prefab/wolf.tscn" id="24_4m661"]
-[ext_resource type="PackedScene" uid="uid://ccop88f5h73p8" path="res://addons/sensetree/demo/autonomic_tree/resource/wolf.res" id="25_glcya"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/actor.gd" id="26_oq8pg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsy5c"]
@@ -6788,11 +6789,17 @@ position = Vector2(2250, -20)
 
 [node name="Actors" type="Node2D" parent="."]
 
+[node name="Needy Villager" parent="Actors" instance=ExtResource("22_gpuce")]
+
+[node name="SenseTree" parent="Actors/Needy Villager" node_paths=PackedStringArray("actor") instance=ExtResource("23_oebr1")]
+actor = NodePath("..")
+
 [node name="Cook" parent="Actors" instance=ExtResource("21_jyade")]
 position = Vector2(1313, 80)
 script = ExtResource("23_suey8")
 
 [node name="SenseTree" parent="Actors/Cook" node_paths=PackedStringArray("actor") instance=ExtResource("23_3ifgc")]
+is_enabled = false
 actor = NodePath("..")
 
 [node name="Go to Waypoint to Take Resource Action" parent="Actors/Cook/SenseTree/Perform Tasks Sequence Composiite Node" index="2" node_paths=PackedStringArray("navigation_agent", "waypoint")]
@@ -6817,16 +6824,4 @@ storage_locations = [NodePath("../../../../../Locations/Meal Storage Node 1"), N
 position = Vector2(2119, -78)
 script = ExtResource("26_oq8pg")
 
-[node name="SenseTree" parent="Actors/Wolf" node_paths=PackedStringArray("actor") instance=ExtResource("25_glcya")]
-actor = NodePath("..")
-
-[node name="SenseTreeRoamAreaAction" parent="Actors/Wolf/SenseTree" index="0" node_paths=PackedStringArray("navigation_agent", "roaming_point")]
-navigation_agent = NodePath("../../NavigationAgent2D")
-roaming_point = NodePath("../../../../Markers/Wolf Forest Roam Marker")
-max_speed = 80.0
-roaming_radius = 300.0
-
-[editable path="Actors/Cook"]
 [editable path="Actors/Cook/SenseTree"]
-[editable path="Actors/Wolf"]
-[editable path="Actors/Wolf/SenseTree"]
