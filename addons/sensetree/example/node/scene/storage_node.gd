@@ -52,5 +52,3 @@ func _assign_sprite_by_state() -> void:
 			_current_sprite = sprite_partial
 		StorageState.FULL:
 			_current_sprite = sprite_full
-
-	# Todo assign sprite properly

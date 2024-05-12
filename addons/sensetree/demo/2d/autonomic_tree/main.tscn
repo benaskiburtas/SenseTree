@@ -16,12 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://htanq5lo5r02" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/special houses.png" id="15_o02rx"]
 [ext_resource type="Texture2D" uid="uid://c3d335jlb44mi" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/wooden fence.png" id="16_g2xgn"]
 [ext_resource type="Texture2D" uid="uid://bnm5vavtk667u" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/barrels.png" id="17_1cegf"]
-[ext_resource type="Script" path="res://addons/sensetree/demo/2d/autonomic_tree/script/camera.gd" id="17_iwloc"]
+[ext_resource type="Script" path="res://addons/sensetree/demo/2d/autonomic_tree/node/camera.gd" id="17_iwloc"]
 [ext_resource type="Texture2D" uid="uid://gagg71bc8amn" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/flower pots.png" id="18_h0x8h"]
 [ext_resource type="Texture2D" uid="uid://pdqybrqfmae1" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/tileset-grassland-grass.png" id="18_k67ab"]
 [ext_resource type="Texture2D" uid="uid://cm0eub00rxiom" path="res://addons/sensetree/demo/2d/autonomic_tree/asset/environment/tileset-grassland-water.png" id="20_4l6ro"]
 [ext_resource type="PackedScene" uid="uid://dp13wffy60733" path="res://addons/sensetree/demo/2d/autonomic_tree/prefab/guard.tscn" id="21_2qnbw"]
-[ext_resource type="Script" path="res://addons/sensetree/demo/2d/autonomic_tree/script/actor.gd" id="22_hvdaj"]
+[ext_resource type="Script" path="res://addons/sensetree/demo/2d/autonomic_tree/node/actor.gd" id="22_hvdaj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vsy5c"]
 texture = ExtResource("1_u6l10")

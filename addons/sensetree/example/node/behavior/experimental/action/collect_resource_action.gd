@@ -8,15 +8,18 @@ extends SenseTreeBlackboardModifyValueAction
 const INCREMENT_RESOURCE_VALUE_OPERATOR = ModificationOperator.ADD
 const INCREMENT_VALUE: String = "1"
 
+
 func _init() -> void:
 	self.modification_value = INCREMENT_VALUE
 	self.modification_operator = INCREMENT_RESOURCE_VALUE_OPERATOR
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings: PackedStringArray = []
 	if not harvest_targets or harvest_targets.is_empty():
 		configuration_warnings.push_back("Harvest targets should be set.")
 	return configuration_warnings
+
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var is_any_harvest_success: bool = false
@@ -30,8 +33,10 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 				super.tick(actor, blackboard)
 	return Status.SUCCESS if is_any_harvest_success else Status.FAILURE
 
+
 func get_sensenode_class() -> String:
-	return "SenseTreeBlackboardCompareValueAction"
+	return "SenseTreeCollectResourceAction"
+
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 	var blackboard_key_property = SenseTreeExportedProperty.new(
@@ -41,6 +46,7 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 		"harvest_targets", "Harvest Target Count", harvest_targets.size()
 	)
 	return [blackboard_key_property, harvest_targets_property]
+
 
 func _validate_property(property: Dictionary) -> void:
 	if property.name in ["modification_value", "modification_operator"]:
