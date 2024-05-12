@@ -22,7 +22,6 @@ const MAX_FLOAT = 1.79769e308
 @export var debug_path_custom_line_width: float = 3
 ## Path waypoint size when navigation agent is set to 'debug' mode.
 @export var debug_path_custom_point_size: float = 6
-
 var _has_chase_target: bool = false
 
 

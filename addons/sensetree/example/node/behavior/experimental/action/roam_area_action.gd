@@ -134,6 +134,6 @@ func _generate_roaming_point(actor: Node) -> Vector2:
 	var new_point_x = new_point_distance * cos(random_angle)
 	var new_point_y = new_point_distance * sin(random_angle)
 
-	var actor_position = actor.get_global_position()
+	var actor_position = roaming_point
 
 	return Vector2(actor_position.x + new_point_x, actor_position.y + new_point_y)

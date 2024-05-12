@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://u7q816wipv6w"]
 
-[ext_resource type="PackedScene" uid="uid://dp13wffy60733" path="res://addons/sensetree/demo/2d/autonomic_tree/prefab/guard.tscn" id="1_aak5b"]
+[ext_resource type="PackedScene" uid="uid://dp13wffy60733" path="res://addons/sensetree/demo/autonomic_tree/prefab/guard.tscn" id="1_aak5b"]
 [ext_resource type="PackedScene" uid="uid://cjxqhirxl1ffd" path="res://test/resource/action.res" id="2_t4yvb"]
-[ext_resource type="Script" path="res://addons/sensetree/demo/2d/autonomic_tree/node/carrot_patch.gd" id="3_uxal1"]
+[ext_resource type="Script" path="res://addons/sensetree/demo/autonomic_tree/node/carrot_patch.gd" id="3_uxal1"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/storage_node.gd" id="4_smail"]
 
 [node name="CollectDeliverResourcce" type="Node2D"]

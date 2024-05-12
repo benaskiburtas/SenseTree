@@ -11,9 +11,9 @@ enum DetectionShape { CIRCLE, RECTANGLE }
 @export var detection_range: int = 50
 ## Groups that should trigger the detection area
 @export var groups_to_detect: Array[String] = []
+@export var detected_target_key: String
 
 var _detection_area: Area2D
-
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings: PackedStringArray = []
@@ -31,6 +31,8 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	for body in colliding_bodies:
 		for group in groups_to_detect:
 			if body.is_in_group(group):
+				if detected_target_key:
+					blackboard.set_value(detected_target_key, body.get_parent())
 				return Status.SUCCESS
 
 	return Status.FAILURE

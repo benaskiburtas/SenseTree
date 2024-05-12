@@ -37,13 +37,16 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	else:
 		return Status.RUNNING
 
+
 func get_sensenode_class() -> String:
 	return "SenseTreeGoToWaypointAction"
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 	var navigation_agent_property = SenseTreeExportedProperty.new(
-		"navigation_agent", "Navigation Agent", navigation_agent.name
+		"navigation_agent",
+		"Navigation Agent",
+		navigation_agent.name if navigation_agent else "[None]"
 	)
 	var waypoint_property = SenseTreeExportedProperty.new("waypoint", "Waypoint", waypoint)
 	var max_speed_property = SenseTreeExportedProperty.new("max_speed", "Max Speed", max_speed)

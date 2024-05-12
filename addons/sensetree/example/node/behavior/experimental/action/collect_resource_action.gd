@@ -1,6 +1,6 @@
 @tool
 @icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
-class_name SenseTreeCollectResourceAction
+class_name SenseTreeHarvestResourceAction
 extends SenseTreeBlackboardModifyValueAction
 
 @export var harvest_targets: Array[HarvestableNode] = []

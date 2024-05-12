@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://drcytnkcmoyqd"]
+
+[ext_resource type="Texture2D" uid="uid://wgq5krdidufh" path="res://addons/sensetree/demo/autonomic_tree/asset/sprites/animals/carrot.png" id="1_ony02"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x7ewx"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bk2mt"]
+atlas = ExtResource("1_ony02")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hbyb"]
+atlas = ExtResource("1_ony02")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ileg0"]
+atlas = ExtResource("1_ony02")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2b4x6"]
+atlas = ExtResource("1_ony02")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6sg3a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bk2mt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hbyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ileg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2b4x6")
+}],
+"loop": true,
+"name": &"growth",
+"speed": 0.5
+}]
+
+[node name="Carrot" type="Node"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_x7ewx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D/CollisionShape2D"]
+sprite_frames = SubResource("SpriteFrames_6sg3a")
+animation = &"growth"
+frame_progress = 0.512167
