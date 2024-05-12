@@ -7,7 +7,8 @@ extends SenseTreeDecorator
 
 var random_generator: RandomNumberGenerator
 
-func _init():
+
+func _init() -> void:
 	random_generator = RandomNumberGenerator.new()
 	random_generator.randomize()
 
@@ -19,6 +20,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	child = get_child(0)
 	var status = child.tick(actor, blackboard)
 	return Status.RUNNING if status == Status.RUNNING else _pick_random_status()
+
 
 func get_sensenode_class() -> String:
 	return "SenseTreeRandomizeDecorator"

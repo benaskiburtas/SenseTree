@@ -32,7 +32,7 @@ var group_styleboxes: Dictionary = {
 }
 
 
-func _init():
+func _init() -> void:
 	_build_styleboxes()
 
 
