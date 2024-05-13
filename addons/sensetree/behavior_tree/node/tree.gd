@@ -40,7 +40,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func _ready() -> void:
 	if not blackboard:
-		blackboard = SenseTreeBlackboard.new()
+		_initialize_default_blackboard()
 	_setup_process_modes()
 	_frames_since_last_tick = frames_per_tick - randi_range(0, frames_per_tick)
 
@@ -112,3 +112,8 @@ func _setup_process_modes() -> void:
 	else:
 		set_process(false)
 		set_physics_process(false)
+
+
+func _initialize_default_blackboard() -> void:
+	blackboard = SenseTreeBlackboard.new()
+	add_child(blackboard, false, Node.INTERNAL_MODE_BACK)
