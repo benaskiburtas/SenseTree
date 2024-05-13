@@ -68,7 +68,7 @@ func get_sensenode_class() -> String:
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 	var navigation_agent_property = SenseTreeExportedProperty.new(
-		"navigation_agent", "Navigation Agent", navigation_agent.name
+		"navigation_agent", "Navigation Agent", navigation_agent.name if navigation_agent else ""
 	)
 	var chase_group_property = SenseTreeExportedProperty.new(
 		"chase_group", "Chase Group", chase_group
