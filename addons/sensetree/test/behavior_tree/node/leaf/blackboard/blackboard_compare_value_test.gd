@@ -66,73 +66,73 @@ func test_parameterized_tick_fuction(
 		[
 			5,
 			10,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.LESS_THAN,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.LESS_THAN,
 			SenseTreeNode.Status.SUCCESS
 		],
 		[
 			10,
 			5,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.LESS_THAN,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.LESS_THAN,
 			SenseTreeNode.Status.FAILURE
 		],
 		[
 			5,
 			5,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.LESS_THAN_OR_EQUALS,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.LESS_THAN_OR_EQUALS,
 			SenseTreeNode.Status.SUCCESS
 		],
 		[
 			8,
 			5,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.LESS_THAN_OR_EQUALS,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.LESS_THAN_OR_EQUALS,
 			SenseTreeNode.Status.FAILURE
 		],
 		[
 			5,
 			5,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.EQUALS,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.EQUALS,
 			SenseTreeNode.Status.SUCCESS
 		],
 		[
 			12,
 			7,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.EQUALS,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.EQUALS,
 			SenseTreeNode.Status.FAILURE
 		],
 		[
 			12,
 			7,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.NOT_EQUALS,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.NOT_EQUALS,
 			SenseTreeNode.Status.SUCCESS
 		],
 		[
 			5,
 			5,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.NOT_EQUALS,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.NOT_EQUALS,
 			SenseTreeNode.Status.FAILURE
 		],
 		[
 			8,
 			8,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.GREATER_THAN_OR_EQUALS,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.GREATER_THAN_OR_EQUALS,
 			SenseTreeNode.Status.SUCCESS
 		],
 		[
 			6,
 			8,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.GREATER_THAN_OR_EQUALS,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.GREATER_THAN_OR_EQUALS,
 			SenseTreeNode.Status.FAILURE
 		],
 		[
 			15,
 			5,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.GREATER_THAN,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.GREATER_THAN,
 			SenseTreeNode.Status.SUCCESS
 		],
 		[
 			5,
 			15,
-			SenseTreeBlackboardCompareKeysAction.ComparisonOperator.GREATER_THAN,
+			SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.GREATER_THAN,
 			SenseTreeNode.Status.FAILURE
 		]
 	]
@@ -167,9 +167,9 @@ func test_get_sensenode_class() -> void:
 func test_get_exported_properties() -> void:
 	# Given
 	var greater_than_or_equals_operator = (
-		SenseTreeBlackboardCompareKeysAction.ComparisonOperator.GREATER_THAN_OR_EQUALS
+		SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.GREATER_THAN_OR_EQUALS
 	)
-	var not_equals_operator = SenseTreeBlackboardCompareKeysAction.ComparisonOperator.NOT_EQUALS
+	var not_equals_operator = SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.NOT_EQUALS
 
 	var initial_blackboard_key: String = "blackboard-key-test"
 	var initial_comparison_value: String = "comparison-value-test"
@@ -192,13 +192,13 @@ func test_get_exported_properties() -> void:
 	var expected_initial_comparison_operator_property = SenseTreeExportedProperty.new(
 		"comparison_operator",
 		"Comparison Operator",
-		SenseTreeBlackboardCompareKeysAction.ComparisonOperator.keys()[not_equals_operator]
+		SenseTreeBlackboardCompareKeysCondition.ComparisonOperator.keys()[not_equals_operator]
 	)
 	var expected_final_comparison_operator_property = SenseTreeExportedProperty.new(
 		"comparison_operator",
 		"Comparison Operator",
 		(
-			SenseTreeBlackboardCompareKeysAction
+			SenseTreeBlackboardCompareKeysCondition
 			. ComparisonOperator
 			. keys()[greater_than_or_equals_operator]
 		)
