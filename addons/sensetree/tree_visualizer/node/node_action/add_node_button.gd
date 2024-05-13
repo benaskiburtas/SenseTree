@@ -4,15 +4,27 @@ extends TreeVisualizerNodeActionButton
 
 signal create_node_requested(node_class: String)
 
+enum IncludeTypes { ALL, NATIVE, EXAMPLE, CUSTOM }
+
 const BUTTON_TEXT = "Add Node"
 
 const COMPOSITE_SUBMENU_NAME = "Composite"
 const DECORATOR_SUBMENU_NAME = "Decorator"
 const LEAF_SUBMENU_NAME = "Leaf"
 
+const NATIVE_LEAF_SUBMENU_NAME = "Native"
+const EXAMPLE_LEAF_SUBMENU_NAME = "Example"
+const CUSTOM_LEAF_SUBMENU_NAME = "Custom"
+
+# Node Categories
 var _composite_submenu_items: Array = []
 var _decorator_submenu_items: Array = []
 var _leaf_submenu_items: Array = []
+
+# Leaf Sub-categories
+var _native_leaf_submenu_items: Array = []
+var _example_leaf_submenu_items: Array = []
+var _custom_leaf_submenu_items: Array = []
 
 
 func _init() -> void:
@@ -66,48 +78,125 @@ func _clear_submenu_links() -> void:
 	_decorator_submenu_items.clear()
 	_leaf_submenu_items.clear()
 
+	_native_leaf_submenu_items.clear()
+	_example_leaf_submenu_items.clear()
+	_custom_leaf_submenu_items.clear()
+
 
 func _add_composite_submenu() -> void:
-	_add_submenu(
+	var popup_menu = get_popup()
+
+	var composite_submenu = _form_submenu(
+		SenseTreeHelpers.get_class_definitions_by_group(SenseTreeConstants.NodeGroup.COMPOSITE),
 		COMPOSITE_SUBMENU_NAME,
-		SenseTreeConstants.NodeGroup.COMPOSITE,
 		_composite_submenu_items,
-		_on_add_composite_node_pressed
+		_on_add_composite_node_pressed,
 	)
+
+	popup_menu.add_child(composite_submenu)
+	popup_menu.add_submenu_item(COMPOSITE_SUBMENU_NAME, COMPOSITE_SUBMENU_NAME)
 
 
 func _add_decorator_submenu() -> void:
-	_add_submenu(
+	var popup_menu = get_popup()
+
+	var decorator_submenu = _form_submenu(
+		SenseTreeHelpers.get_class_definitions_by_group(SenseTreeConstants.NodeGroup.DECORATOR),
 		DECORATOR_SUBMENU_NAME,
-		SenseTreeConstants.NodeGroup.DECORATOR,
 		_decorator_submenu_items,
-		_on_add_decorator_node_pressed
+		_on_add_decorator_node_pressed,
 	)
+
+	popup_menu.add_child(decorator_submenu)
+	popup_menu.add_submenu_item(DECORATOR_SUBMENU_NAME, DECORATOR_SUBMENU_NAME)
 
 
 func _add_leaf_submenu() -> void:
-	_add_submenu(
-		LEAF_SUBMENU_NAME,
-		SenseTreeConstants.NodeGroup.LEAF,
-		_leaf_submenu_items,
-		_on_add_leaf_node_pressed
+	var popup_menu = get_popup()
+	var current_submenu_index = 0
+
+	var leaf_submenu = PopupMenu.new()
+	leaf_submenu.name = LEAF_SUBMENU_NAME
+
+	# Add Native Leaf Nodes
+	var native_leaf_node_definitions = SenseTreeHelpers.get_leaf_definitions_by_source_type(
+		SenseTreeConstants.NodeSourceType.NATIVE
+	)
+	var native_leaf_submenu = _form_submenu(
+		SenseTreeHelpers.get_leaf_definitions_by_source_type(
+			SenseTreeConstants.NodeSourceType.NATIVE
+		),
+		NATIVE_LEAF_SUBMENU_NAME,
+		_native_leaf_submenu_items,
+		_on_add_native_leaf_node_pressed
 	)
 
+	if native_leaf_submenu.item_count != 0:
+		leaf_submenu.add_child(native_leaf_submenu)
+		leaf_submenu.add_submenu_item(NATIVE_LEAF_SUBMENU_NAME, NATIVE_LEAF_SUBMENU_NAME)
+	else:
+		leaf_submenu.add_item(NATIVE_LEAF_SUBMENU_NAME)
+		leaf_submenu.set_item_disabled(current_submenu_index, true)
+	current_submenu_index = current_submenu_index + 1
 
-func _add_submenu(
+	# Add Example Leaf Nodes
+	var example_leaf_node_definitions = SenseTreeHelpers.get_leaf_definitions_by_source_type(
+		SenseTreeConstants.NodeSourceType.EXAMPLE
+	)
+	var example_leaf_submenu = _form_submenu(
+		SenseTreeHelpers.get_leaf_definitions_by_source_type(
+			SenseTreeConstants.NodeSourceType.EXAMPLE
+		),
+		EXAMPLE_LEAF_SUBMENU_NAME,
+		_example_leaf_submenu_items,
+		_on_add_example_leaf_node_pressed
+	)
+
+	if example_leaf_submenu.item_count != 0:
+		leaf_submenu.add_child(example_leaf_submenu)
+		leaf_submenu.add_submenu_item(EXAMPLE_LEAF_SUBMENU_NAME, EXAMPLE_LEAF_SUBMENU_NAME)
+	else:
+		leaf_submenu.add_item(EXAMPLE_LEAF_SUBMENU_NAME)
+		leaf_submenu.set_item_disabled(current_submenu_index, true)
+	current_submenu_index = current_submenu_index + 1
+
+	# Add Custom Leaf Nodes
+	var custom_leaf_node_definitions = SenseTreeHelpers.get_leaf_definitions_by_source_type(
+		SenseTreeConstants.NodeSourceType.CUSTOM
+	)
+	var custom_leaf_submenu = _form_submenu(
+		SenseTreeHelpers.get_leaf_definitions_by_source_type(
+			SenseTreeConstants.NodeSourceType.CUSTOM
+		),
+		CUSTOM_LEAF_SUBMENU_NAME,
+		_custom_leaf_submenu_items,
+		_on_add_custom_leaf_node_pressed
+	)
+	if custom_leaf_submenu.item_count != 0:
+		leaf_submenu.add_child(custom_leaf_submenu)
+		leaf_submenu.add_submenu_item(CUSTOM_LEAF_SUBMENU_NAME, CUSTOM_LEAF_SUBMENU_NAME)
+	else:
+		leaf_submenu.add_item(CUSTOM_LEAF_SUBMENU_NAME)
+		leaf_submenu.set_item_disabled(current_submenu_index, true)
+	current_submenu_index = current_submenu_index + 1
+
+	# Include Leaf Node submenu into main add node menu
+	popup_menu.add_child(leaf_submenu)
+	popup_menu.add_submenu_item(LEAF_SUBMENU_NAME, LEAF_SUBMENU_NAME)
+
+
+func _form_submenu(
+	class_definitions: Array[Dictionary],
 	submenu_name: String,
-	node_group: SenseTreeConstants.NodeGroup,
 	submenu_links: Array,
-	submenu_item_click_handler: Callable
-) -> void:
-	var popup_container = get_popup()
+	submenu_item_click_handler: Callable,
+) -> PopupMenu:
+	var submenu = PopupMenu.new()
+	submenu.allow_search = true
+	submenu.name = submenu_name
 
-	var group_submenu = PopupMenu.new()
-	group_submenu.name = submenu_name
-
-	var group_class_definitions = SenseTreeHelpers.get_class_definitions_by_group(node_group)
-	for i in range(group_class_definitions.size()):
-		var full_node_class_name: String = group_class_definitions[i]["class"]
+	for i in range(class_definitions.size()):
+		var full_node_class_name: String = class_definitions[i]["class"]
 		var node_class_name: String = full_node_class_name.replace(
 			SenseTreeConstants.PLUGIN_NODE_CLASS_PREFIX, ""
 		)
@@ -116,16 +205,15 @@ func _add_submenu(
 		if node_icon_path:
 			var node_icon: Texture2D = load(node_icon_path)
 			if node_icon:
-				group_submenu.add_icon_item(node_icon, node_class_name)
+				submenu.add_icon_item(node_icon, node_class_name)
 		else:
-			group_submenu.add_item(node_class_name)
+			submenu.add_item(node_class_name)
 
 		submenu_links.push_back(full_node_class_name)
 
-	group_submenu.connect("index_pressed", submenu_item_click_handler)
+	submenu.connect("index_pressed", submenu_item_click_handler)
 
-	popup_container.add_child(group_submenu)
-	popup_container.add_submenu_item(submenu_name, submenu_name)
+	return submenu
 
 
 func _on_add_composite_node_pressed(menu_item_index: int) -> void:
@@ -140,7 +228,19 @@ func _on_add_decorator_node_pressed(menu_item_index: int) -> void:
 		disabled = true
 
 
-func _on_add_leaf_node_pressed(menu_item_index: int) -> void:
-	if menu_item_index < _leaf_submenu_items.size():
-		create_node_requested.emit(_leaf_submenu_items[menu_item_index])
+func _on_add_native_leaf_node_pressed(menu_item_index: int) -> void:
+	if menu_item_index < _native_leaf_submenu_items.size():
+		create_node_requested.emit(_native_leaf_submenu_items[menu_item_index])
+		disabled = true
+
+
+func _on_add_example_leaf_node_pressed(menu_item_index: int) -> void:
+	if menu_item_index < _example_leaf_submenu_items.size():
+		create_node_requested.emit(_example_leaf_submenu_items[menu_item_index])
+		disabled = true
+
+
+func _on_add_custom_leaf_node_pressed(menu_item_index: int) -> void:
+	if menu_item_index < _custom_leaf_submenu_items.size():
+		create_node_requested.emit(_custom_leaf_submenu_items[menu_item_index])
 		disabled = true
