@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dxoe4c5iqtvjn"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://dxoe4c5iqtvjn"]
 
 [ext_resource type="FontFile" uid="uid://dfwfllr50ofto" path="res://addons/sensetree/tree_visualizer/font/Code New Roman.woff" id="1_tr10m"]
 
@@ -139,6 +139,66 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qakh"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nl4n6"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrtsc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htwcp"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xn2t"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [resource]
 default_font = ExtResource("1_tr10m")
 default_font_size = 14
@@ -178,3 +238,9 @@ MenuButton/colors/font_hover_color = Color(0.741176, 0.6, 0.423529, 1)
 MenuButton/colors/font_outline_color = Color(1, 1, 1, 1)
 MenuButton/colors/font_pressed_color = Color(0.741176, 0.6, 0.423529, 1)
 MenuButton/font_sizes/font_size = 16
+PopupMenu/fonts/font = ExtResource("1_tr10m")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_1qakh")
+PopupMenu/styles/labeled_separator_left = SubResource("StyleBoxFlat_nl4n6")
+PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxFlat_qrtsc")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_htwcp")
+PopupMenu/styles/separator = SubResource("StyleBoxFlat_7xn2t")
