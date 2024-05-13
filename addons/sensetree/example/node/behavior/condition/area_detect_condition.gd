@@ -11,9 +11,11 @@ enum DetectionShape { CIRCLE, RECTANGLE }
 @export var detection_range: int = 50
 ## Groups that should trigger the detection area
 @export var groups_to_detect: Array[String] = []
+## Key to store detected entity node
 @export var detected_target_key: String
 
 var _detection_area: Area2D
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings: PackedStringArray = []
@@ -22,6 +24,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if groups_to_detect.is_empty():
 		configuration_warnings.push_back("Groups to be detected should be set.")
 	return configuration_warnings
+
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if not _detection_area:
