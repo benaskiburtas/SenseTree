@@ -142,17 +142,22 @@ func _resolve_move_node(destination_node: TreeVisualizerGraphNode) -> void:
 
 	if _selected_node.sensetree_node.is_ancestor_of(destination_node.sensetree_node):
 		push_warning("Cannot move a parent to be under one of its children nodes.")
+		_reset_edit_mode()
 		return
 
 	if destination_node.sensetree_node is SenseTree:
 		push_warning("SenseTree instances should only have one child.")
+		_reset_edit_mode()
 		return
 
 	if destination_node.sensetree_node is SenseTreeLeafNode:
 		push_warning("SenseTreeLeafNode instances cannot have children nodes.")
+		_reset_edit_mode()
 		return
 
+	_selected_node.sensetree_node.owner = null
 	_selected_node.sensetree_node.reparent(destination_node.sensetree_node)
+	_selected_node.sensetree_node.owner = _selected_tree
 	_reset_edit_mode()
 	_file_manager.resave_tree()
 
