@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://addons/sensetree/demo/features/scripts/main.gd" id="1_aear0"]
 [ext_resource type="PackedScene" uid="uid://cbwu26wlojob7" path="res://addons/sensetree/demo/features/prefabs/player.tscn" id="2_djoes"]
-[ext_resource type="Texture2D" uid="uid://8n07c0c3ngoo" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/TX Tileset Stone Ground.png" id="2_mppdy"]
-[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/TX Tileset Wall.png" id="3_3wogf"]
+[ext_resource type="Texture2D" uid="uid://8n07c0c3ngoo" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Stone Ground.png" id="2_mppdy"]
+[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Wall.png" id="3_3wogf"]
 [ext_resource type="Texture2D" uid="uid://6tigq1fcw0je" path="res://addons/sensetree/demo/features/assets/TX/TX Struct.png" id="4_b4e3f"]
 [ext_resource type="Texture2D" uid="uid://cxyj6lmi65io3" path="res://addons/sensetree/demo/features/assets/TX/TX Props.png" id="5_401xy"]
 [ext_resource type="Texture2D" uid="uid://pp56jqiocugt" path="res://addons/sensetree/demo/features/assets/FD_Dungeon_Free.png" id="5_polbf"]

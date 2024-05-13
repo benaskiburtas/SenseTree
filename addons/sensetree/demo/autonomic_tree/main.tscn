@@ -6806,9 +6806,6 @@ actor = NodePath("..")
 navigation_agent = NodePath("../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../Waypoints/Raw Food Storage Waypoint")
 
-[node name="Take Resource Action" parent="Actors/Cook/SenseTree/Perform Tasks Sequence Composiite Node" index="3" node_paths=PackedStringArray("storage_targets")]
-storage_targets = [null]
-
 [node name="Go to Waypoint to Transform Resource Action" parent="Actors/Cook/SenseTree/Perform Tasks Sequence Composiite Node" index="4" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../Waypoints/Cook House")
@@ -6816,9 +6813,6 @@ waypoint = NodePath("../../../../../Waypoints/Cook House")
 [node name="Go to Waypoint to Place Resource Action" parent="Actors/Cook/SenseTree/Perform Tasks Sequence Composiite Node" index="6" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../Waypoints/Food Storage Waypoint 1")
-
-[node name="Place Resource Action" parent="Actors/Cook/SenseTree/Perform Tasks Sequence Composiite Node" index="7" node_paths=PackedStringArray("storage_locations")]
-storage_locations = [NodePath("../../../../../Locations/Meal Storage Node 1"), NodePath("../../../../../Locations/Meal Storage Node 2")]
 
 [node name="Wolf" parent="Actors" instance=ExtResource("24_4m661")]
 position = Vector2(2119, -78)
