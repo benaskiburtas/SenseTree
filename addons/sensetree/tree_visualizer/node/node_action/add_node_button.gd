@@ -208,7 +208,6 @@ func _form_submenu(
 				submenu.add_icon_item(node_icon, node_class_name)
 		else:
 			submenu.add_item(node_class_name)
-
 		submenu_links.push_back(full_node_class_name)
 
 	submenu.connect("index_pressed", submenu_item_click_handler)
