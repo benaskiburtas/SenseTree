@@ -7,6 +7,7 @@ enum NodeSourceType { UNKNOWN, NATIVE, EXAMPLE, CUSTOM }
 
 ## String Constants
 const PLUGIN_NODE_CLASS_PREFIX: String = "SenseTree"
+const THREAT_TARGET_KEY: String = "threat_target"
 
 # Path Regex Constants
 const NATIIVE_NODE_PATH_PATTERN: String = "sensetree/behavior_tree/node"

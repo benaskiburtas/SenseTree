@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Condition.svg")
+@icon("res://addons/sensetree/example/icon/Has_Resource.svg")
 class_name SenseTreeHasResourceCondition
 extends SenseTreeBlackboardCompareValueCondition
 

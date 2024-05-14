@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Investigate_Area.svg")
 class_name SenseTreeRoamAreaAction
 extends SenseTreeActionLeaf
 
@@ -14,7 +14,7 @@ extends SenseTreeActionLeaf
 @export var max_speed: float = 45
 ## Radius of a circular area to roam in.
 @export_range(0, 1000) var roaming_radius: float = 100
-## Distance between agent position and investigation point within which investigation area is considered 'reached'.
+## Distance between agent position and roaming point within which roaming area is considered 'reached'.
 @export_range(10, 500) var desired_distance: float = 30
 ## Allowed distance from travel points while navigating
 @export_range(0, 10000) var max_path_deviance: float = 100

@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Transform_Resource.svg")
 class_name SenseTreeTransformResourceAction
 extends SenseTreeActionLeaf
 

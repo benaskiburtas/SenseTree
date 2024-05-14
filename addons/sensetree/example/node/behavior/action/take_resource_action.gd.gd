@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Collect_Resource.svg")
 class_name SenseTreeTakeResourceAction
 extends SenseTreeBlackboardModifyValueAction
 
@@ -24,7 +24,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var is_any_take_success: bool = false
 	for storage in storage_targets:
-		if storage.is_ready_for_harvest():
+		if storage.is_empty():
 			continue
 		else:
 			var is_take_sucess = storage.take_resource()

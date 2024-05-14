@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Go_To_Waypoint.svg")
 class_name SenseTreeGoToWaypointAction
 extends SenseTreeActionLeaf
 
@@ -27,11 +27,12 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
-	if _has_destination and navigation_agent.is_navigation_finished():
+	if is_waypoint_assigned() and navigation_agent.is_navigation_finished():
 		return Status.SUCCESS
-	if navigation_agent.target_position != waypoint.global_position:
+		
+	if not is_waypoint_assigned():
 		navigation_agent.target_position = waypoint.global_position
-		_has_destination = true
+
 	if not navigation_agent.is_target_reachable():
 		return Status.FAILURE
 	else:
@@ -59,3 +60,6 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 		max_speed_property,
 		desired_distance_property,
 	]
+	
+func is_waypoint_assigned() -> bool:
+	return navigation_agent.target_position == waypoint.global_position

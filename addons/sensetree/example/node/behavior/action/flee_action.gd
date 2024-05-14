@@ -1,15 +1,13 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Flee.svg")
 class_name SenseTreeFleeAction
 extends SenseTreeActionLeaf
-
-#Entity goes to a specific waypoint
 
 ## Navigation agent to update and modify.
 @export var navigation_agent: NavigationAgent2D
 ## Agent navigation speed.
 @export var max_speed: float = 50
-## Distance between agent position and investigation point within which investigation area is considered 'reached'.
+## Distance between actor position and fleeing point within which the target flee area is considered 'reached'.
 @export_range(10, 500) var desired_distance: float = 30
 @export var flee_distance: float = 50
 ## Path color when navigation agent is set to 'debug' mode.
@@ -20,8 +18,6 @@ extends SenseTreeActionLeaf
 @export var debug_path_custom_point_size: float = 4
 
 var _has_destination: bool = false
-
-const threat_target_key: String = "THREAT_TARGET_KEY"
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -35,7 +31,10 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if not navigation_agent:
 		return Status.FAILURE
 
-	var target = blackboard.get_value(threat_target_key)
+	# If there is no threat, no fleeing is needed
+	if not blackboard.has_key(SenseTreeConstants.THREAT_TARGET_KEY):
+		return Status.SUCCESS
+	var target = blackboard.get_value(SenseTreeConstants.THREAT_TARGET_KEY)
 	if not target:
 		return Status.SUCCESS
 
@@ -60,7 +59,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 func _calculate_fleeing_point(actor: Node, target: Node) -> Vector2:
 	var actor_position = actor.get_global_position()
 	var target_position = target.get_global_position()
-	var flee_direction = (self.global_position.direction_to(target_position) * -1).normalized()
+	var flee_direction = (actor.global_position.direction_to(target_position) * -1).normalized()
 	return actor_position + flee_direction * flee_distance
 
 

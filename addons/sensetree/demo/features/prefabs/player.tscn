@@ -151,21 +151,19 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Player" type="Node2D"]
-
-[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 visibility_layer = 2
 motion_mode = 1
 platform_floor_layers = 0
 script = ExtResource("1_k47i4")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_gr0xv")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("SpriteFrames_ioww2")
 animation = &"Right"
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.4, 1.4)

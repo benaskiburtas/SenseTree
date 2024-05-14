@@ -11,6 +11,8 @@ enum ComparisonOperator {
 @export_placeholder("Comparison value") var comparison_value: Variant
 @export var comparison_operator: ComparisonOperator
 
+var _is_number_comparison: bool = false
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings: PackedStringArray = super._get_configuration_warnings()
@@ -35,19 +37,29 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if _validate_and_parse_expression(blackboard_value) != OK:
 		return Status.FAILURE
 
+	# Match comparison accordingly based on types
+	var left_value: Variant
+	var right_value: Variant
+	if _is_number_comparison:
+		left_value = float(blackboard_value)
+		right_value = float(comparison_value)
+	else:
+		left_value = blackboard_value
+		right_value = comparison_value
+
 	match comparison_operator:
 		ComparisonOperator.LESS_THAN:
-			return Status.SUCCESS if blackboard_value < comparison_value else Status.FAILURE
+			return Status.SUCCESS if left_value < right_value else Status.FAILURE
 		ComparisonOperator.LESS_THAN_OR_EQUALS:
-			return Status.SUCCESS if blackboard_value <= comparison_value else Status.FAILURE
+			return Status.SUCCESS if left_value <= right_value else Status.FAILURE
 		ComparisonOperator.EQUALS:
-			return Status.SUCCESS if blackboard_value == comparison_value else Status.FAILURE
+			return Status.SUCCESS if left_value == right_value else Status.FAILURE
 		ComparisonOperator.NOT_EQUALS:
-			return Status.SUCCESS if blackboard_value != comparison_value else Status.FAILURE
+			return Status.SUCCESS if left_value != right_value else Status.FAILURE
 		ComparisonOperator.GREATER_THAN_OR_EQUALS:
-			return Status.SUCCESS if blackboard_value >= comparison_value else Status.FAILURE
+			return Status.SUCCESS if left_value >= right_value else Status.FAILURE
 		ComparisonOperator.GREATER_THAN:
-			return Status.SUCCESS if blackboard_value > comparison_value else Status.FAILURE
+			return Status.SUCCESS if left_value > right_value else Status.FAILURE
 		_:
 			return Status.FAILURE
 
@@ -71,16 +83,28 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 
 func _validate_and_parse_expression(blackboard_value: Variant) -> Error:
 	if _is_number(blackboard_value) and _is_number(comparison_value):
+		_is_number_comparison = true
 		return OK
 	if _is_string(blackboard_value) and _is_string(comparison_value):
+		_is_number_comparison = false
 		return OK
 	else:
 		push_warning("Incompatible types for blackboard value comparison.")
+		_is_number_comparison = false
 		return ERR_INVALID_PARAMETER
 
 
 func _is_number(input: Variant) -> bool:
-	return true if typeof(input) == TYPE_INT or typeof(input) == TYPE_FLOAT else false
+	if typeof(input) == TYPE_INT:
+		return true
+	if typeof(input) == TYPE_FLOAT:
+		return true
+
+	var input_as_string: String = str(input)
+	if input_as_string.is_valid_int() or input_as_string.is_valid_float():
+		return true
+
+	return false
 
 
 func _is_string(input: Variant) -> bool:

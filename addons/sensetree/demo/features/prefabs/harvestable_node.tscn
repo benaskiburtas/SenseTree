@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc7vodsim6hx3"]
+
+[ext_resource type="Script" path="res://addons/sensetree/example/node/scene/harvestable_node.gd" id="1_sk2x4"]
+
+[node name="HarvestableNode" type="Node2D"]
+script = ExtResource("1_sk2x4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

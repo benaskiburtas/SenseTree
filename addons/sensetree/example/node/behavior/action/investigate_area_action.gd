@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Investigate_Area.svg")
 class_name SenseTreeInvestigateAreaAction2D
 extends SenseTreeActionLeaf
 

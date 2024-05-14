@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Patrol_Area.svg")
 class_name SenseTreePatrolAction
 extends SenseTreeActionLeaf
 
@@ -32,9 +32,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if (
 		_has_destination == true
-		and navigation_agent.target_position == waypoint_b.global_position
 		and navigation_agent.is_navigation_finished()
 	):
+		_check_current_waypoint()
 		return Status.SUCCESS
 	_check_current_waypoint()
 	if not navigation_agent.is_target_reachable():
@@ -79,3 +79,9 @@ func _check_current_waypoint() -> void:
 		and navigation_agent.is_navigation_finished()
 	):
 		navigation_agent.target_position = waypoint_b.global_position
+		
+	if (
+		navigation_agent.target_position == waypoint_b.global_position
+		and navigation_agent.is_navigation_finished()
+	):
+		navigation_agent.target_position = waypoint_a.global_position

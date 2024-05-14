@@ -10,7 +10,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	for child_index in range(_last_success_index, get_children().size()):
 		var child = get_child(child_index)
 		var result: Status = child.tick(actor, blackboard)
-
+		
 		if result == Status.SUCCESS:
 			_last_success_index = child_index
 			continue

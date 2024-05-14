@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://n1djc8bw3k7i"]
+
+[ext_resource type="Script" path="res://addons/sensetree/example/node/scene/storage_node.gd" id="1_73122"]
+
+[node name="StorageNode" type="Node2D"]
+script = ExtResource("1_73122")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

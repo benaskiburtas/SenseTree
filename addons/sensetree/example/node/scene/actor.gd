@@ -11,14 +11,12 @@ const ANIM_MOVE_RIGHT = "move_right"
 const ANIM_MOVE_UP = "move_up"
 const ANIM_MOVE_DOWN = "move_down"
 
-@export var movement_speed: float = 300
-@export var movement_acceleration: float = 5
 @export var wander_radius: float = 100
 @export var min_direction_change_time: float = 0.5
 @export var max_direction_change_time: float = 3.0
 
-var _animated_sprite: AnimatedSprite2D = $CollisionShape2D/AnimatedSprite2D
-var _navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var _animated_sprite: AnimatedSprite2D = $CollisionShape2D/AnimatedSprite2D
+@onready var _navigation_agent: NavigationAgent2D = $NavigationAgent2D
 var _current_direction = Vector2.ZERO
 
 
@@ -72,4 +70,5 @@ func _play_sprite_by_direction() -> void:
 
 func _on_velocity_computed(safe_velocity: Vector2):
 	velocity = safe_velocity
+	_play_sprite_by_direction()
 	move_and_slide()

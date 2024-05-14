@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Condition.svg")
+@icon("res://addons/sensetree/example/icon/Detect_Entity_2D.svg")
 class_name SenseTreeAreaDetectCondition
 extends SenseTreeConditionLeaf
 
@@ -11,8 +11,6 @@ enum DetectionShape { CIRCLE, RECTANGLE }
 @export var detection_range: int = 50
 ## Groups that should trigger the detection area
 @export var groups_to_detect: Array[String] = []
-## Key to store detected entity node
-@export var detected_target_key: String
 
 var _detection_area: Area2D
 
@@ -34,8 +32,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	for body in colliding_bodies:
 		for group in groups_to_detect:
 			if body.is_in_group(group):
-				if detected_target_key:
-					blackboard.set_value(detected_target_key, body.get_parent())
+				blackboard.set_value(SenseTreeConstants.THREAT_TARGET_KEY, body)
 				return Status.SUCCESS
 
 	return Status.FAILURE

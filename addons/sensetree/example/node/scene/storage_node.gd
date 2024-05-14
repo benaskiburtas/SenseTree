@@ -4,9 +4,11 @@ enum StorageState { EMPTY, PARTIAL, FULL }
 
 @export_range(0, 100) var storage_capacity: int = 5
 
-@export var sprite_empty: Sprite2D
-@export var sprite_partial: Sprite2D
-@export var sprite_full: Sprite2D
+@export var texture_empty: Texture2D = null
+@export var texture_partial: Texture2D = null
+@export var texture_full: Texture2D = null
+
+@onready var _current_sprite: Sprite2D = $"Sprite2D"
 
 var _resources_stored: int = 0
 
@@ -15,11 +17,19 @@ var _storage_state: StorageState = StorageState.EMPTY:
 		_storage_state = new_storage_state
 		_assign_sprite_by_state()
 
-var _current_sprite: Sprite2D
 
+func _ready():
+	_assign_sprite_by_state()
+
+
+func is_empty() ->  bool:
+	return _storage_state == StorageState.EMPTY
 
 func has_free_space() -> bool:
 	return _storage_state == StorageState.EMPTY or _storage_state == StorageState.PARTIAL
+
+func has_stored_resources() -> bool:
+	return _storage_state == StorageState.FULL or _storage_state == StorageState.PARTIAL
 
 
 func store_resource() -> bool:
@@ -47,8 +57,11 @@ func take_resource() -> bool:
 func _assign_sprite_by_state() -> void:
 	match _storage_state:
 		StorageState.EMPTY:
-			_current_sprite = sprite_empty
+			if texture_empty != null:
+				_current_sprite.texture = texture_empty
 		StorageState.PARTIAL:
-			_current_sprite = sprite_partial
+			if texture_partial != null:
+				_current_sprite.texture = texture_partial
 		StorageState.FULL:
-			_current_sprite = sprite_full
+			if texture_full != null:
+				_current_sprite.texture = texture_full

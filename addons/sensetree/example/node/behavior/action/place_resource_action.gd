@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
+@icon("res://addons/sensetree/example/icon/Place_Resource.svg")
 class_name SenseTreePlaceResourceAction
 extends SenseTreeBlackboardModifyValueAction
 
@@ -20,6 +20,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	for storage in storage_locations:
+		if not storage:
+			continue
 		if not storage.has_free_space():
 			continue
 		else:

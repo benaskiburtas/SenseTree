@@ -48,7 +48,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 
 
 func get_sensenode_class() -> String:
-	return "SenseTreeBlackboardCompareKeysAction"
+	return "SenseTreeBlackboardCompareKeysCondition"
 
 
 func get_exported_properties() -> Array[SenseTreeExportedProperty]:

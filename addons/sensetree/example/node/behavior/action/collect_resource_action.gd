@@ -1,6 +1,6 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Action.svg")
-class_name SenseTreeHarvestResourceAction
+@icon("res://addons/sensetree/example/icon/Harvest_Node.svg")
+class_name SenseTreeCollectResourceAction
 extends SenseTreeBlackboardModifyValueAction
 
 @export var harvest_targets: Array[HarvestableNode] = []
@@ -23,7 +23,10 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var is_any_harvest_success: bool = false
+	print(harvest_targets)
 	for resource in harvest_targets:
+		if not resource:
+			continue
 		if resource.is_ready_for_harvest():
 			continue
 		else:

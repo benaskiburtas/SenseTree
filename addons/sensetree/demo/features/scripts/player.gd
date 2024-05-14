@@ -10,7 +10,7 @@ func _physics_process(_delta):
 	get_input()
 	move_and_slide()
 
-@onready var _animated_sprite = $AnimatedSprite2D
+@onready var _animated_sprite = $CollisionShape2D/AnimatedSprite2D
 
 func _process(_delta):
 	if Input.is_action_pressed("Left"):
