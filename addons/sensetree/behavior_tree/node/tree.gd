@@ -23,6 +23,18 @@ var _child: SenseTreeNode
 var _frames_since_last_tick: int
 
 
+func _enter_tree():
+	if not blackboard:
+		_initialize_default_blackboard()
+
+
+func _ready() -> void:
+	set_physics_process(false)
+
+	_frames_since_last_tick = frames_per_tick - randi_range(0, frames_per_tick)
+	call_deferred("_setup_process_modes")
+
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var configuration_warnings: PackedStringArray = super._get_configuration_warnings()
 	var child_count = get_child_count()
@@ -36,14 +48,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 		configuration_warnings.push_back("Behavior tree should have an assigned actor.")
 
 	return configuration_warnings
-
-
-func _ready() -> void:
-	set_physics_process(false)
-	if not blackboard:
-		_initialize_default_blackboard()
-	_frames_since_last_tick = frames_per_tick - randi_range(0, frames_per_tick)
-	call_deferred("_setup_process_modes")
 
 
 func _process(delta: float) -> void:

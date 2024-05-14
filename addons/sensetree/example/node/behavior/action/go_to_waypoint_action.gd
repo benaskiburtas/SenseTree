@@ -10,7 +10,7 @@ extends SenseTreeActionLeaf
 ## Marker2D to set destination
 @export var waypoint: Marker2D
 ## Agent navigation speed.
-@export var max_speed: float = 50
+@export var max_speed: float = 120
 ## Distance between agent position and investigation point within which investigation area is considered 'reached'.
 @export_range(10, 500) var desired_distance: float = 30
 
@@ -27,11 +27,15 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
-	if is_waypoint_assigned() and navigation_agent.is_navigation_finished():
-		return Status.SUCCESS
+	if not navigation_agent:
+		_try_acquire_navigation_agent(actor)
 		
-	if not is_waypoint_assigned():
+	if _is_waypoint_assigned() and navigation_agent.is_navigation_finished():
+		return Status.SUCCESS
+
+	if not _is_waypoint_assigned():
 		navigation_agent.target_position = waypoint.global_position
+		navigation_agent.max_speed = max_speed
 
 	if not navigation_agent.is_target_reachable():
 		return Status.FAILURE
@@ -60,6 +64,15 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 		max_speed_property,
 		desired_distance_property,
 	]
-	
-func is_waypoint_assigned() -> bool:
+
+
+func _try_acquire_navigation_agent(actor: Node) -> void:
+	var found_agent = actor.find_child("NavigationAgent2D")
+	if not found_agent or not found_agent is NavigationAgent2D:
+		return
+	else:
+		navigation_agent = found_agent
+
+
+func _is_waypoint_assigned() -> bool:
 	return navigation_agent.target_position == waypoint.global_position

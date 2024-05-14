@@ -6,7 +6,7 @@ extends SenseTreeActionLeaf
 ## Navigation agent to update and modify.
 @export var navigation_agent: NavigationAgent2D
 ## Agent navigation speed.
-@export var max_speed: float = 50
+@export var max_speed: float = 120
 ## Distance between actor position and fleeing point within which the target flee area is considered 'reached'.
 @export_range(10, 500) var desired_distance: float = 30
 @export var flee_distance: float = 50
@@ -29,6 +29,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if not navigation_agent:
+		_try_acquire_navigation_agent(actor)
+
+	if not navigation_agent:
 		return Status.FAILURE
 
 	# If there is no threat, no fleeing is needed
@@ -43,6 +46,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 
 	if not _has_destination or not navigation_agent.is_target_reachable():
 		navigation_agent.target_position = _calculate_fleeing_point(actor, target)
+		navigation_agent.max_speed = max_speed
 		_has_destination = true
 
 	if not navigation_agent.is_navigation_finished:
@@ -54,6 +58,14 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 		return Status.SUCCESS
 
 	return Status.RUNNING
+
+
+func _try_acquire_navigation_agent(actor: Node) -> void:
+	var found_agent = actor.find_child("NavigationAgent2D")
+	if not found_agent or not found_agent is NavigationAgent2D:
+		return
+	else:
+		navigation_agent = found_agent
 
 
 func _calculate_fleeing_point(actor: Node, target: Node) -> Vector2:

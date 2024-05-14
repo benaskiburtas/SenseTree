@@ -11,10 +11,6 @@ const ANIM_MOVE_RIGHT = "move_right"
 const ANIM_MOVE_UP = "move_up"
 const ANIM_MOVE_DOWN = "move_down"
 
-@export var wander_radius: float = 100
-@export var min_direction_change_time: float = 0.5
-@export var max_direction_change_time: float = 3.0
-
 @onready var _animated_sprite: AnimatedSprite2D = $CollisionShape2D/AnimatedSprite2D
 @onready var _navigation_agent: NavigationAgent2D = $NavigationAgent2D
 var _current_direction = Vector2.ZERO
@@ -34,7 +30,7 @@ func _physics_process(_delta):
 
 	var next_path_position: Vector2 = _navigation_agent.get_next_path_position()
 	var new_velocity: Vector2 = (
-		global_position.direction_to(next_path_position).normalized() * _navigation_agent.max_speed
+		global_position.direction_to(next_path_position).normalized() * (_navigation_agent.max_speed * 1.4)
 	)
 	if _navigation_agent.avoidance_enabled:
 		_navigation_agent.set_velocity(new_velocity)

@@ -10,7 +10,7 @@ const MAX_FLOAT = 1.79769e308
 ## Group whose closest member will be navigated to and chased.
 @export var chase_group: String
 ## Agent chase navigation speed.
-@export var max_speed: float = 65
+@export var max_speed: float = 80
 ## Distance between target position and chase target within which target is considered 'reached'.
 @export_range(10, 500) var desired_distance: float = 30
 ## Allowed distance from travel points while navigating
@@ -36,6 +36,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
+	if not navigation_agent:
+		_try_acquire_navigation_agent(actor)
+
 	if not chase_group:
 		return Status.SUCCESS
 	if not navigation_agent:
@@ -101,6 +104,14 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 	]
 
 
+func _try_acquire_navigation_agent(actor: Node) -> void:
+	var found_agent = actor.find_child("NavigationAgent2D")
+	if not found_agent or not found_agent is NavigationAgent2D:
+		return
+	else:
+		navigation_agent = found_agent
+
+
 func _set_debug_properties() -> void:
 	navigation_agent.debug_use_custom = true
 	navigation_agent.debug_path_custom_color = self.debug_path_custom_color
@@ -134,3 +145,4 @@ func _adjust_navigation_goal(actor: Node2D, chase_group_members: Array[Node]) ->
 	var destination_discrepancy = final_position.distance_to(chase_target_position)
 	if destination_discrepancy > desired_distance:
 		navigation_agent.target_position = chase_target_position
+		navigation_agent.max_speed = max_speed

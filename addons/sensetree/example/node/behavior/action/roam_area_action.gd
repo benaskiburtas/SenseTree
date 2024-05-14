@@ -11,7 +11,7 @@ extends SenseTreeActionLeaf
 ## Marker2D to set roaming point
 @export var roaming_point: Marker2D
 ## Agent investigation navigation speed.
-@export var max_speed: float = 45
+@export var max_speed: float = 50
 ## Radius of a circular area to roam in.
 @export_range(0, 1000) var roaming_radius: float = 100
 ## Distance between agent position and roaming point within which roaming area is considered 'reached'.
@@ -46,6 +46,12 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if not navigation_agent:
+		_try_acquire_navigation_agent(actor)
+		
+	if not navigation_agent:
+		return Status.FAILURE
+	
+	if not roaming_point:
 		return Status.FAILURE
 
 	if navigation_agent.debug_enabled:
@@ -54,6 +60,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 
 	if not _has_roaming_target or not navigation_agent.is_target_reachable():
 		navigation_agent.target_position = _generate_roaming_point(actor)
+		navigation_agent.max_speed = max_speed
 		_has_roaming_target = true
 
 	if not navigation_agent.is_navigation_finished:
@@ -111,6 +118,13 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 		debug_path_custom_point_size_property
 	]
 
+func _try_acquire_navigation_agent(actor: Node) -> void:
+	var found_agent = actor.find_child("NavigationAgent2D")
+	if not found_agent or not found_agent is NavigationAgent2D:
+		return
+	else:
+		navigation_agent = found_agent
+		
 
 func _set_debug_properties() -> void:
 	navigation_agent.debug_path_custom_color = self.debug_path_custom_color

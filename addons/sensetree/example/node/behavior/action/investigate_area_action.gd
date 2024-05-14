@@ -6,7 +6,7 @@ extends SenseTreeActionLeaf
 ## Navigation agent to update and modify.
 @export var navigation_agent: NavigationAgent2D
 ## Agent investigation navigation speed.
-@export var max_speed: float = 45
+@export var max_speed: float = 70
 ## Radius of a circular area to search in.
 @export_range(0, 1000) var investigation_radius: float = 100
 ## Distance between agent position and investigation point within which investigation area is considered 'reached'.
@@ -39,6 +39,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	if not navigation_agent:
+		_try_acquire_navigation_agent(actor)
+		
+	if not navigation_agent:
 		return Status.FAILURE
 
 	if navigation_agent.debug_enabled:
@@ -47,6 +50,7 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 
 	if not _has_investigation_target or not navigation_agent.is_target_reachable():
 		navigation_agent.target_position = _generate_investigation_point(actor)
+		navigation_agent.max_speed = max_speed
 		_has_investigation_target = true
 
 	if not navigation_agent.is_navigation_finished:
@@ -97,6 +101,14 @@ func get_exported_properties() -> Array[SenseTreeExportedProperty]:
 		debug_path_custom_line_width_property,
 		debug_path_custom_point_size_property
 	]
+
+
+func _try_acquire_navigation_agent(actor: Node) -> void:
+	var found_agent = actor.find_child("NavigationAgent2D")
+	if not found_agent or not found_agent is NavigationAgent2D:
+		return
+	else:
+		navigation_agent = found_agent
 
 
 func _set_debug_properties() -> void:
