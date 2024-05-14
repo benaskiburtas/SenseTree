@@ -3,12 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Grass.png" id="1_u6l10"]
 [ext_resource type="Texture2D" uid="uid://rivn6jvi2eas" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/dirtpath_tiles.png" id="2_bctuc"]
 [ext_resource type="Texture2D" uid="uid://cqqe85e8al0xl" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/fence_tiles.png" id="3_qqtus"]
-[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/TX Tileset Wall.png" id="4_2ttq0"]
+[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Wall.png" id="4_2ttq0"]
 [ext_resource type="Texture2D" uid="uid://dgc1fbuwrtpya" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/collection_1.png" id="5_6ak0b"]
 [ext_resource type="Texture2D" uid="uid://cbhyjiv2b31w2" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/collection_2.png" id="6_pjt21"]
 [ext_resource type="Texture2D" uid="uid://pbbcsqq3hhna" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/collection_3.png" id="7_kjq3u"]
 [ext_resource type="Texture2D" uid="uid://ccmovj5y1gkbp" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/emotes.png" id="8_2b8nd"]
-[ext_resource type="Texture2D" uid="uid://8n07c0c3ngoo" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/TX Tileset Stone Ground.png" id="9_tmyiu"]
+[ext_resource type="Texture2D" uid="uid://8n07c0c3ngoo" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Stone Ground.png" id="9_tmyiu"]
 [ext_resource type="Texture2D" uid="uid://cgdigj48bo7w6" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/other.png" id="11_s5fm5"]
 [ext_resource type="Texture2D" uid="uid://ddaflpk08wonk" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/L shape houses.png" id="12_fcrck"]
 [ext_resource type="Texture2D" uid="uid://5qpn6x557p6g" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/long houses.png" id="13_l5ceh"]
@@ -6835,14 +6835,14 @@ position = Vector2(175, 783)
 [node name="Markers" type="Node2D" parent="."]
 
 [node name="Wolf Forest Roam Marker" type="Marker2D" parent="Markers"]
-position = Vector2(2625, 540)
+position = Vector2(2779, 57)
 gizmo_extents = 9.6
 
 [node name="Rabbit Forest Roam Marker" type="Marker2D" parent="Markers"]
-position = Vector2(2521, -508)
+position = Vector2(2191, -71)
 
 [node name="Moose Forest Roam Marker" type="Marker2D" parent="Markers"]
-position = Vector2(2961, 370)
+position = Vector2(2889, 550)
 
 [node name="Well" type="Marker2D" parent="Markers"]
 position = Vector2(-14, 362)
@@ -6855,14 +6855,14 @@ position = Vector2(369, 131)
 [node name="Animals" type="Node2D" parent="Actors"]
 
 [node name="Wolf1" parent="Actors/Animals" groups=["Carnivore"] instance=ExtResource("24_4m661")]
-position = Vector2(2610, 354)
+position = Vector2(2762, -145)
 scale = Vector2(1.33, 1.33)
 script = ExtResource("26_oq8pg")
 
 [node name="SenseTree" type="Node" parent="Actors/Animals/Wolf1" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17920")
+blackboard = NodePath("@Node@17897")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Wolf1/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -6904,14 +6904,14 @@ roaming_radius = 500.0
 max_path_deviance = 200.0
 
 [node name="Wolf2" parent="Actors/Animals" groups=["Carnivore"] instance=ExtResource("24_4m661")]
-position = Vector2(2732, 689)
+position = Vector2(2994, 162)
 scale = Vector2(1.33, 1.33)
 script = ExtResource("26_oq8pg")
 
 [node name="SenseTree" type="Node" parent="Actors/Animals/Wolf2" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17921")
+blackboard = NodePath("@Node@17898")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Wolf2/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -6953,14 +6953,14 @@ roaming_radius = 500.0
 max_path_deviance = 200.0
 
 [node name="Wolf3" parent="Actors/Animals" groups=["Carnivore"] instance=ExtResource("24_4m661")]
-position = Vector2(2396, 591)
+position = Vector2(2531, 140)
 scale = Vector2(1.33, 1.33)
 script = ExtResource("26_oq8pg")
 
 [node name="SenseTree" type="Node" parent="Actors/Animals/Wolf3" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17922")
+blackboard = NodePath("@Node@17899")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Wolf3/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -7002,7 +7002,7 @@ roaming_radius = 500.0
 max_path_deviance = 200.0
 
 [node name="Rabbit1" parent="Actors/Animals" instance=ExtResource("29_gqst6")]
-position = Vector2(2144, -507)
+position = Vector2(1987, -196)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("26_oq8pg")
@@ -7010,7 +7010,7 @@ script = ExtResource("26_oq8pg")
 [node name="SenseTree" type="Node" parent="Actors/Animals/Rabbit1" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17923")
+blackboard = NodePath("@Node@17900")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Rabbit1/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -7037,7 +7037,7 @@ roaming_radius = 500.0
 max_path_deviance = 200.0
 
 [node name="Rabbit2" parent="Actors/Animals" instance=ExtResource("29_gqst6")]
-position = Vector2(2714, -519)
+position = Vector2(2431, -266)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("26_oq8pg")
@@ -7045,7 +7045,7 @@ script = ExtResource("26_oq8pg")
 [node name="SenseTree" type="Node" parent="Actors/Animals/Rabbit2" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17924")
+blackboard = NodePath("@Node@17901")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Rabbit2/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -7072,7 +7072,7 @@ roaming_radius = 500.0
 max_path_deviance = 200.0
 
 [node name="Rabbit3" parent="Actors/Animals" instance=ExtResource("29_gqst6")]
-position = Vector2(2399, -655)
+position = Vector2(2186, -310)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("26_oq8pg")
@@ -7080,7 +7080,7 @@ script = ExtResource("26_oq8pg")
 [node name="SenseTree" type="Node" parent="Actors/Animals/Rabbit3" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17925")
+blackboard = NodePath("@Node@17902")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Rabbit3/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -7107,7 +7107,7 @@ roaming_radius = 500.0
 max_path_deviance = 200.0
 
 [node name="Rabbit4" parent="Actors/Animals" instance=ExtResource("29_gqst6")]
-position = Vector2(2406, -370)
+position = Vector2(2102, 36)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("26_oq8pg")
@@ -7115,7 +7115,7 @@ script = ExtResource("26_oq8pg")
 [node name="SenseTree" type="Node" parent="Actors/Animals/Rabbit4" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17926")
+blackboard = NodePath("@Node@17903")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Rabbit4/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -7141,14 +7141,14 @@ roaming_radius = 500.0
 max_path_deviance = 200.0
 
 [node name="Moose1" parent="Actors/Animals" groups=["Herbivore"] instance=ExtResource("31_d4nu4")]
-position = Vector2(3140, 374)
+position = Vector2(3150, 642)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("26_oq8pg")
 
 [node name="SenseTree" type="Node" parent="Actors/Animals/Moose1" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17927")
+blackboard = NodePath("@Node@17904")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Moose1/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -7175,14 +7175,14 @@ roaming_radius = 500.0
 max_path_deviance = 200.0
 
 [node name="Moose2" parent="Actors/Animals" groups=["Herbivore"] instance=ExtResource("31_d4nu4")]
-position = Vector2(2901, 217)
+position = Vector2(2705, 588)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("26_oq8pg")
 
 [node name="SenseTree" type="Node" parent="Actors/Animals/Moose2" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17928")
+blackboard = NodePath("@Node@17905")
 
 [node name="SenseTreeSelectorComposite" type="Node" parent="Actors/Animals/Moose2/SenseTree"]
 script = ExtResource("29_w5jmg")
@@ -7224,7 +7224,8 @@ path_postprocessing = 1
 [node name="SenseTree" type="Node" parent="Actors/People/Farmer" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17929")
+blackboard = NodePath("@Node@17906")
+frames_per_tick = 5
 
 [node name="SenseTreeSequenceComposite" type="Node" parent="Actors/People/Farmer/SenseTree"]
 script = ExtResource("30_30ecn")
@@ -7280,7 +7281,7 @@ script = ExtResource("46_iq5ik")
 [node name="Increase Hunger" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs/Postpone Hunger Increase"]
 script = ExtResource("46_a4eif")
 blackboard_key = "hunger_level"
-modification_value = "7"
+modification_value = "3"
 
 [node name="Postpone Thirst Increase" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs"]
 script = ExtResource("46_iq5ik")
@@ -7288,7 +7289,7 @@ script = ExtResource("46_iq5ik")
 [node name="Increase Thirst" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs/Postpone Thirst Increase"]
 script = ExtResource("46_a4eif")
 blackboard_key = "thirst_level"
-modification_value = "10"
+modification_value = "5"
 
 [node name="Postpone Drowsiness Increase" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs"]
 script = ExtResource("46_iq5ik")
@@ -7296,7 +7297,7 @@ script = ExtResource("46_iq5ik")
 [node name="Increase Drowsiness" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs/Postpone Drowsiness Increase"]
 script = ExtResource("46_a4eif")
 blackboard_key = "drowsiness_level"
-modification_value = "6"
+modification_value = "3"
 
 [node name="Fulfill Needs" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs"]
 script = ExtResource("30_30ecn")
@@ -7327,7 +7328,7 @@ change_visibility = 1
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite"]
 script = ExtResource("37_3lyw1")
-timer_duration = 18.0
+timer_duration = 7.0
 
 [node name="Reduce Drowsy" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite/SenseTreeTimedDecorator"]
 script = ExtResource("46_a4eif")
@@ -7355,7 +7356,7 @@ script = ExtResource("30_30ecn")
 
 [node name="SenseTreeGoToWaypointAction" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Thirst/SenseTreeSequenceComposite" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 script = ExtResource("36_pfrk0")
-navigation_agent = NodePath("../../../../../../../../Cook/NavigationAgent2D")
+navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../../../../../../Markers/Well")
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Thirst/SenseTreeSequenceComposite"]
@@ -7384,12 +7385,16 @@ script = ExtResource("30_30ecn")
 
 [node name="SenseTreeGoToWaypointAction" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 script = ExtResource("36_pfrk0")
-navigation_agent = NodePath("../../../../../../../../Cook/NavigationAgent2D")
+navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../../../../../../Waypoints/Meal Storage Waypoint")
 
-[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite" node_paths=PackedStringArray("storage_targets")]
+[node name="SenseTreePostponeDecorator" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite"]
+script = ExtResource("46_iq5ik")
+timer_duration = 2.0
+
+[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite/SenseTreePostponeDecorator" node_paths=PackedStringArray("storage_targets")]
 script = ExtResource("42_2xib7")
-storage_targets = [NodePath("../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../Locations/Meal Storage 3")]
+storage_targets = [NodePath("../../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../../Locations/Meal Storage 3")]
 blackboard_key = "meal"
 modification_value = "1"
 
@@ -7443,6 +7448,7 @@ desired_distance = 10.0
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Harvest and Deliver/Collect Resource/Gather Resource"]
 script = ExtResource("37_3lyw1")
+timer_duration = 3.0
 
 [node name="Harvest Food" type="Node" parent="Actors/People/Farmer/SenseTree/SenseTreeSequenceComposite/Harvest and Deliver/Collect Resource/Gather Resource/SenseTreeTimedDecorator" node_paths=PackedStringArray("harvest_targets")]
 script = ExtResource("38_8b161")
@@ -7479,7 +7485,8 @@ path_postprocessing = 1
 [node name="SenseTree" type="Node" parent="Actors/People/Cook" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17930")
+blackboard = NodePath("@Node@17907")
+frames_per_tick = 5
 
 [node name="SenseTreeSequenceComposite" type="Node" parent="Actors/People/Cook/SenseTree"]
 script = ExtResource("30_30ecn")
@@ -7535,7 +7542,7 @@ script = ExtResource("46_iq5ik")
 [node name="Increase Hunger" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs/Postpone Hunger Increase"]
 script = ExtResource("46_a4eif")
 blackboard_key = "hunger_level"
-modification_value = "4"
+modification_value = "2"
 
 [node name="Postpone Thirst Increase" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs"]
 script = ExtResource("46_iq5ik")
@@ -7543,7 +7550,7 @@ script = ExtResource("46_iq5ik")
 [node name="Increase Thirst" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs/Postpone Thirst Increase"]
 script = ExtResource("46_a4eif")
 blackboard_key = "thirst_level"
-modification_value = "6"
+modification_value = "3"
 
 [node name="Postpone Drowsiness Increase" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Increase Needs"]
 script = ExtResource("46_iq5ik")
@@ -7582,7 +7589,7 @@ change_visibility = 1
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite"]
 script = ExtResource("37_3lyw1")
-timer_duration = 18.0
+timer_duration = 7.0
 
 [node name="Reduce Drowsy" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite/SenseTreeTimedDecorator"]
 script = ExtResource("46_a4eif")
@@ -7642,9 +7649,13 @@ script = ExtResource("36_pfrk0")
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../../../../../../Waypoints/Meal Storage Waypoint")
 
-[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite" node_paths=PackedStringArray("storage_targets")]
+[node name="SenseTreePostponeDecorator" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite"]
+script = ExtResource("46_iq5ik")
+timer_duration = 2.0
+
+[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite/SenseTreePostponeDecorator" node_paths=PackedStringArray("storage_targets")]
 script = ExtResource("42_2xib7")
-storage_targets = [NodePath("../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../Locations/Meal Storage 3")]
+storage_targets = [NodePath("../../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../../Locations/Meal Storage 3")]
 blackboard_key = "meal"
 modification_value = "1"
 
@@ -7716,7 +7727,7 @@ desired_distance = 92.353
 
 [node name="Wait Deliver Meals" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Take, Transform, Deliver/Deliver Meals/Sequence"]
 script = ExtResource("37_3lyw1")
-timer_duration = 0.5
+timer_duration = 0.2
 
 [node name="Deliver Meals" type="Node" parent="Actors/People/Cook/SenseTree/SenseTreeSequenceComposite/Take, Transform, Deliver/Deliver Meals/Sequence/Wait Deliver Meals" node_paths=PackedStringArray("storage_locations")]
 script = ExtResource("39_1s170")
@@ -7791,7 +7802,8 @@ avoidance_enabled = false
 [node name="SenseTree" type="Node" parent="Actors/People/Villager 1" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17931")
+blackboard = NodePath("@Node@17908")
+frames_per_tick = 5
 
 [node name="SenseTreeSequenceComposite" type="Node" parent="Actors/People/Villager 1/SenseTree"]
 script = ExtResource("30_30ecn")
@@ -7894,7 +7906,7 @@ change_visibility = 1
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Villager 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite"]
 script = ExtResource("37_3lyw1")
-timer_duration = 18.0
+timer_duration = 7.0
 
 [node name="Reduce Drowsy" type="Node" parent="Actors/People/Villager 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite/SenseTreeTimedDecorator"]
 script = ExtResource("46_a4eif")
@@ -7954,9 +7966,13 @@ script = ExtResource("36_pfrk0")
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../../../../../../Waypoints/Meal Storage Waypoint")
 
-[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Villager 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite" node_paths=PackedStringArray("storage_targets")]
+[node name="SenseTreePostponeDecorator" type="Node" parent="Actors/People/Villager 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite"]
+script = ExtResource("46_iq5ik")
+timer_duration = 2.0
+
+[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Villager 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite/SenseTreePostponeDecorator" node_paths=PackedStringArray("storage_targets")]
 script = ExtResource("42_2xib7")
-storage_targets = [NodePath("../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../Locations/Meal Storage 1")]
+storage_targets = [NodePath("../../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../../Locations/Meal Storage 3")]
 blackboard_key = "meal"
 modification_value = "1"
 
@@ -7995,7 +8011,8 @@ avoidance_enabled = false
 [node name="SenseTree" type="Node" parent="Actors/People/Villager 2" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17932")
+blackboard = NodePath("@Node@17909")
+frames_per_tick = 5
 
 [node name="SenseTreeSequenceComposite" type="Node" parent="Actors/People/Villager 2/SenseTree"]
 script = ExtResource("30_30ecn")
@@ -8098,7 +8115,7 @@ change_visibility = 1
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Villager 2/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite"]
 script = ExtResource("37_3lyw1")
-timer_duration = 18.0
+timer_duration = 7.0
 
 [node name="Reduce Drowsy" type="Node" parent="Actors/People/Villager 2/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite/SenseTreeTimedDecorator"]
 script = ExtResource("46_a4eif")
@@ -8158,9 +8175,13 @@ script = ExtResource("36_pfrk0")
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../../../../../../Waypoints/Meal Storage Waypoint")
 
-[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Villager 2/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite" node_paths=PackedStringArray("storage_targets")]
+[node name="SenseTreePostponeDecorator" type="Node" parent="Actors/People/Villager 2/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite"]
+script = ExtResource("46_iq5ik")
+timer_duration = 2.0
+
+[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Villager 2/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite/SenseTreePostponeDecorator" node_paths=PackedStringArray("storage_targets")]
 script = ExtResource("42_2xib7")
-storage_targets = [NodePath("../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../Locations/Meal Storage 3")]
+storage_targets = [NodePath("../../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../../Locations/Meal Storage 3")]
 blackboard_key = "meal"
 modification_value = "1"
 
@@ -8199,7 +8220,8 @@ avoidance_enabled = false
 [node name="SenseTree" type="Node" parent="Actors/People/Villager 3" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17933")
+blackboard = NodePath("@Node@17910")
+frames_per_tick = 5
 
 [node name="SenseTreeSequenceComposite" type="Node" parent="Actors/People/Villager 3/SenseTree"]
 script = ExtResource("30_30ecn")
@@ -8302,7 +8324,7 @@ change_visibility = 1
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Villager 3/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite"]
 script = ExtResource("37_3lyw1")
-timer_duration = 18.0
+timer_duration = 7.0
 
 [node name="Reduce Drowsy" type="Node" parent="Actors/People/Villager 3/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite/SenseTreeTimedDecorator"]
 script = ExtResource("46_a4eif")
@@ -8362,9 +8384,13 @@ script = ExtResource("36_pfrk0")
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../../../../../../Waypoints/Meal Storage Waypoint")
 
-[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Villager 3/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite" node_paths=PackedStringArray("storage_targets")]
+[node name="SenseTreePostponeDecorator" type="Node" parent="Actors/People/Villager 3/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite"]
+script = ExtResource("46_iq5ik")
+timer_duration = 2.0
+
+[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Villager 3/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite/SenseTreePostponeDecorator" node_paths=PackedStringArray("storage_targets")]
 script = ExtResource("42_2xib7")
-storage_targets = [NodePath("../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../Locations/Meal Storage 3")]
+storage_targets = [NodePath("../../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../../Locations/Meal Storage 3")]
 blackboard_key = "meal"
 modification_value = "1"
 
@@ -8403,7 +8429,8 @@ path_postprocessing = 1
 [node name="SenseTree" type="Node" parent="Actors/People/Guard 1" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17934")
+blackboard = NodePath("@Node@17911")
+frames_per_tick = 5
 
 [node name="SenseTreeSequenceComposite" type="Node" parent="Actors/People/Guard 1/SenseTree"]
 script = ExtResource("30_30ecn")
@@ -8506,7 +8533,7 @@ change_visibility = 1
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Guard 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite"]
 script = ExtResource("37_3lyw1")
-timer_duration = 18.0
+timer_duration = 7.0
 
 [node name="Reduce Drowsy" type="Node" parent="Actors/People/Guard 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite/SenseTreeTimedDecorator"]
 script = ExtResource("46_a4eif")
@@ -8566,9 +8593,13 @@ script = ExtResource("36_pfrk0")
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
 waypoint = NodePath("../../../../../../../../../../Waypoints/Meal Storage Waypoint")
 
-[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Guard 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite" node_paths=PackedStringArray("storage_targets")]
+[node name="SenseTreePostponeDecorator" type="Node" parent="Actors/People/Guard 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite"]
+script = ExtResource("46_iq5ik")
+timer_duration = 2.0
+
+[node name="SenseTreeTakeResourceAction" type="Node" parent="Actors/People/Guard 1/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Hunger/SenseTreeSequenceComposite/SenseTreePostponeDecorator" node_paths=PackedStringArray("storage_targets")]
 script = ExtResource("42_2xib7")
-storage_targets = [NodePath("../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../Locations/Meal Storage 3")]
+storage_targets = [NodePath("../../../../../../../../../../../Locations/Meal Storage 1"), NodePath("../../../../../../../../../../../Locations/Meal Storage 2"), NodePath("../../../../../../../../../../../Locations/Meal Storage 3")]
 blackboard_key = "meal"
 modification_value = "1"
 
@@ -8607,7 +8638,8 @@ path_postprocessing = 1
 [node name="SenseTree" type="Node" parent="Actors/People/Guard 2" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17935")
+blackboard = NodePath("@Node@17912")
+frames_per_tick = 5
 
 [node name="SenseTreeSequenceComposite" type="Node" parent="Actors/People/Guard 2/SenseTree"]
 script = ExtResource("30_30ecn")
@@ -8710,7 +8742,7 @@ change_visibility = 1
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Guard 2/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite"]
 script = ExtResource("37_3lyw1")
-timer_duration = 18.0
+timer_duration = 7.0
 
 [node name="Reduce Drowsy" type="Node" parent="Actors/People/Guard 2/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite/SenseTreeTimedDecorator"]
 script = ExtResource("46_a4eif")
@@ -8799,7 +8831,7 @@ waypoint_b = NodePath("../../../../../../Waypoints/Patrol Marker 4")
 max_speed = 65.0
 
 [node name="Wanderer" parent="Actors/People" groups=["Human"] instance=ExtResource("52_6pixj")]
-position = Vector2(2453, -522)
+position = Vector2(2423, -42)
 collision_layer = 8
 collision_mask = 255
 script = ExtResource("26_oq8pg")
@@ -8811,7 +8843,8 @@ avoidance_enabled = false
 [node name="SenseTree" type="Node" parent="Actors/People/Wanderer" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("29_rcr75")
 actor = NodePath("..")
-blackboard = NodePath("@Node@17936")
+blackboard = NodePath("@Node@17913")
+frames_per_tick = 5
 
 [node name="SenseTreeSequenceComposite" type="Node" parent="Actors/People/Wanderer/SenseTree"]
 script = ExtResource("30_30ecn")
@@ -8959,7 +8992,7 @@ change_visibility = 1
 
 [node name="SenseTreeTimedDecorator" type="Node" parent="Actors/People/Wanderer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite"]
 script = ExtResource("37_3lyw1")
-timer_duration = 18.0
+timer_duration = 7.0
 
 [node name="Reduce Drowsy" type="Node" parent="Actors/People/Wanderer/SenseTree/SenseTreeSequenceComposite/Needs/Fulfill Needs/Fulfill Drowsiness/SenseTreeSequenceComposite/SenseTreeTimedDecorator"]
 script = ExtResource("46_a4eif")

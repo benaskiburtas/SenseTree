@@ -23,7 +23,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var is_any_harvest_success: bool = false
-	print(harvest_targets)
 	for resource in harvest_targets:
 		if not resource:
 			continue
