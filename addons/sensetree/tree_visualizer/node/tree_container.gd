@@ -222,7 +222,7 @@ func _on_create_node_requested(node_class: String) -> void:
 
 
 func _on_move_node_requested() -> void:
-	_is_edit_mode = true
+	_is_edit_mode = !_is_edit_mode
 
 
 func _on_delete_node_requested(node_to_delete: TreeVisualizerGraphNode) -> void:
