@@ -39,10 +39,11 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _ready() -> void:
+	set_physics_process(false)
 	if not blackboard:
 		_initialize_default_blackboard()
-	_setup_process_modes()
 	_frames_since_last_tick = frames_per_tick - randi_range(0, frames_per_tick)
+	call_deferred("_setup_process_modes")
 
 
 func _process(delta: float) -> void:
@@ -105,7 +106,6 @@ func _resolve_process() -> void:
 
 
 func _setup_process_modes() -> void:
-	pass
 	if is_enabled:
 		set_process(tick_process_mode == SenseTreeConstants.ProcessMode.IDLE)
 		set_physics_process(tick_process_mode == SenseTreeConstants.ProcessMode.PHYSICS)
