@@ -22,12 +22,10 @@ func _enter_tree() -> void:
 	)
 	add_autoload_singleton("SenseTreeHelpers", "res://addons/sensetree/common/singleton/helpers.gd")
 	_load_tree_editor()
-	#_connect_editor_signals()
 	_make_visible(false)
 
 
 func _exit_tree() -> void:
-	#_disconnect_editor_signals()
 	_remove_tree_editor()
 	remove_autoload_singleton("SenseTreeHelpers")
 	remove_autoload_singleton("SenseTreeConstants")
