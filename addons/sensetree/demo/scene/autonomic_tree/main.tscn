@@ -16,28 +16,28 @@
 [ext_resource type="Texture2D" uid="uid://htanq5lo5r02" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/special houses.png" id="15_o02rx"]
 [ext_resource type="Texture2D" uid="uid://c3d335jlb44mi" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/wooden fence.png" id="16_g2xgn"]
 [ext_resource type="Texture2D" uid="uid://bnm5vavtk667u" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/barrels.png" id="17_1cegf"]
-[ext_resource type="Script" path="res://addons/sensetree/demo/scene/autonomic_tree/node/camera.gd" id="17_iwloc"]
+[ext_resource type="Script" path="res://addons/sensetree/demo/script/camera.gd" id="17_iwloc"]
 [ext_resource type="Texture2D" uid="uid://gagg71bc8amn" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/flower pots.png" id="18_h0x8h"]
 [ext_resource type="Texture2D" uid="uid://pdqybrqfmae1" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/tileset-grassland-grass.png" id="18_k67ab"]
 [ext_resource type="Texture2D" uid="uid://cm0eub00rxiom" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/tileset-grassland-water.png" id="20_4l6ro"]
-[ext_resource type="PackedScene" uid="uid://ccop88f5h73p8" path="res://addons/sensetree/demo/resource/wolf.res" id="23_iv3qr"]
+[ext_resource type="PackedScene" uid="uid://ccop88f5h73p8" path="res://addons/sensetree/demo/resource/actor/wolf.res" id="23_iv3qr"]
 [ext_resource type="PackedScene" uid="uid://bxdvvoa53a177" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/wolf.tscn" id="24_4m661"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/actor.gd" id="26_oq8pg"]
-[ext_resource type="PackedScene" uid="uid://6mp65ndx41qs" path="res://addons/sensetree/demo/resource/moose.res" id="27_jbmhm"]
+[ext_resource type="PackedScene" uid="uid://6mp65ndx41qs" path="res://addons/sensetree/demo/resource/actor/moose.res" id="27_jbmhm"]
 [ext_resource type="PackedScene" uid="uid://b24bna70orgd5" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/rabbit.tscn" id="29_gqst6"]
-[ext_resource type="PackedScene" uid="uid://cdbuv1k22dfib" path="res://addons/sensetree/demo/resource/farmer.res" id="29_t4qt1"]
-[ext_resource type="PackedScene" uid="uid://cn2rshkx1pa7s" path="res://addons/sensetree/demo/resource/rabbit.res" id="30_t4ebp"]
-[ext_resource type="PackedScene" uid="uid://6ijugk7k1fqm" path="res://addons/sensetree/demo/resource/cook.res" id="31_6oi35"]
+[ext_resource type="PackedScene" uid="uid://cdbuv1k22dfib" path="res://addons/sensetree/demo/resource/actor/farmer.res" id="29_t4qt1"]
+[ext_resource type="PackedScene" uid="uid://cn2rshkx1pa7s" path="res://addons/sensetree/demo/resource/actor/rabbit.res" id="30_t4ebp"]
+[ext_resource type="PackedScene" uid="uid://6ijugk7k1fqm" path="res://addons/sensetree/demo/resource/actor/cook.res" id="31_6oi35"]
 [ext_resource type="PackedScene" uid="uid://g8r6qmra5h20" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/moose.tscn" id="31_d4nu4"]
 [ext_resource type="PackedScene" uid="uid://b2gtk8gfg1tfq" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/farmer.tscn" id="32_h1o3v"]
 [ext_resource type="PackedScene" uid="uid://cc7vodsim6hx3" path="res://addons/sensetree/demo/scene/features/prefabs/harvestable_node.tscn" id="32_nutub"]
 [ext_resource type="Texture2D" uid="uid://c5osjbwtfuy2q" path="res://addons/sensetree/demo/scene/features/assets/Props/Available.png" id="33_sslgd"]
 [ext_resource type="Texture2D" uid="uid://3sw63ibpf0s8" path="res://addons/sensetree/demo/scene/features/assets/Props/Regenerating.png" id="34_qvyvr"]
-[ext_resource type="PackedScene" uid="uid://babtqypvjwv8o" path="res://addons/sensetree/demo/resource/guard.res" id="35_qlyor"]
+[ext_resource type="PackedScene" uid="uid://babtqypvjwv8o" path="res://addons/sensetree/demo/resource/actor/guard.res" id="35_qlyor"]
 [ext_resource type="Texture2D" uid="uid://c0a8y6bfchvlq" path="res://addons/sensetree/demo/scene/features/assets/Props/Harvested.png" id="35_qptsc"]
 [ext_resource type="PackedScene" uid="uid://bxjyibfab3uif" path="res://addons/sensetree/demo/scene/features/prefabs/storage_node.tscn" id="36_wbs71"]
-[ext_resource type="PackedScene" uid="uid://il156m8iv1t0" path="res://addons/sensetree/demo/resource/wanderer.res" id="37_80q6a"]
-[ext_resource type="Script" path="res://addons/sensetree/demo/scene/autonomic_tree/scripts/infinite_resource.gd" id="37_gaj64"]
+[ext_resource type="PackedScene" uid="uid://il156m8iv1t0" path="res://addons/sensetree/demo/resource/actor/wanderer.res" id="37_80q6a"]
+[ext_resource type="Script" path="res://addons/sensetree/demo/script/infinite_resource.gd" id="37_gaj64"]
 [ext_resource type="PackedScene" uid="uid://n1djc8bw3k7i" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/storage_node.tscn" id="38_j3ukm"]
 [ext_resource type="Texture2D" uid="uid://d38jgdv2wd1sm" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/Table-1.png" id="39_vihkj"]
 [ext_resource type="PackedScene" uid="uid://sf34vveoj2sx" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/cook.tscn" id="40_3otp8"]
@@ -46,7 +46,7 @@
 [ext_resource type="Texture2D" uid="uid://cghlrb83yre4j" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/Table Partial Meal.png" id="42_kvvxp"]
 [ext_resource type="Texture2D" uid="uid://dyh55dmtreiio" path="res://addons/sensetree/demo/scene/autonomic_tree/asset/environment/Table Full Meal.png" id="43_jiqer"]
 [ext_resource type="PackedScene" uid="uid://ci8vutooqf7ic" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/villager.tscn" id="50_er8uo"]
-[ext_resource type="PackedScene" uid="uid://csvw5v6jr7fia" path="res://addons/sensetree/demo/resource/villager.res" id="51_5clch"]
+[ext_resource type="PackedScene" uid="uid://csvw5v6jr7fia" path="res://addons/sensetree/demo/resource/actor/villager.res" id="51_5clch"]
 [ext_resource type="PackedScene" uid="uid://dp13wffy60733" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/guard.tscn" id="51_d2dqb"]
 [ext_resource type="PackedScene" uid="uid://b0kylqaj53fab" path="res://addons/sensetree/demo/scene/autonomic_tree/prefab/wanderer.tscn" id="52_6pixj"]
 
@@ -6844,7 +6844,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Wolf SenseTree" parent="Actors/Animals/Wolf1" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("23_iv3qr")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232321")
+blackboard = NodePath("@Node@25493")
 
 [node name="Chase" parent="Actors/Animals/Wolf1/Wolf SenseTree/Wolf/Detect and Chase Herbivore" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -6863,7 +6863,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Wolf SenseTree" parent="Actors/Animals/Wolf2" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("23_iv3qr")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232322")
+blackboard = NodePath("@Node@25494")
 
 [node name="Chase" parent="Actors/Animals/Wolf2/Wolf SenseTree/Wolf/Detect and Chase Herbivore" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -6882,7 +6882,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Wolf SenseTree" parent="Actors/Animals/Wolf3" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("23_iv3qr")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232323")
+blackboard = NodePath("@Node@25495")
 
 [node name="Chase" parent="Actors/Animals/Wolf3/Wolf SenseTree/Wolf/Detect and Chase Herbivore" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -6902,7 +6902,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Rabbit SenseTree" parent="Actors/Animals/Rabbit1" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("30_t4ebp")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232324")
+blackboard = NodePath("@Node@25496")
 
 [node name="Flee" parent="Actors/Animals/Rabbit1/Rabbit SenseTree/Rabbit/Detect and Flee" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -6919,7 +6919,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Rabbit SenseTree" parent="Actors/Animals/Rabbit2" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("30_t4ebp")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232325")
+blackboard = NodePath("@Node@25497")
 
 [node name="Flee" parent="Actors/Animals/Rabbit2/Rabbit SenseTree/Rabbit/Detect and Flee" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -6936,7 +6936,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Rabbit SenseTree" parent="Actors/Animals/Rabbit3" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("30_t4ebp")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232326")
+blackboard = NodePath("@Node@25498")
 
 [node name="Flee" parent="Actors/Animals/Rabbit3/Rabbit SenseTree/Rabbit/Detect and Flee" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -6953,7 +6953,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Rabbit SenseTree" parent="Actors/Animals/Rabbit4" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("30_t4ebp")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232327")
+blackboard = NodePath("@Node@25499")
 
 [node name="Flee" parent="Actors/Animals/Rabbit4/Rabbit SenseTree/Rabbit/Detect and Flee" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -6969,7 +6969,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Moose SenseTree" parent="Actors/Animals/Moose1" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("27_jbmhm")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232328")
+blackboard = NodePath("@Node@25500")
 
 [node name="Flee" parent="Actors/Animals/Moose1/Moose SenseTree/Moose/Detect and Flee" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -6985,7 +6985,7 @@ script = ExtResource("26_oq8pg")
 
 [node name="Moose SenseTree" parent="Actors/Animals/Moose2" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("27_jbmhm")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232329")
+blackboard = NodePath("@Node@25501")
 
 [node name="Flee" parent="Actors/Animals/Moose2/Moose SenseTree/Moose/Detect and Flee" index="1" node_paths=PackedStringArray("navigation_agent")]
 navigation_agent = NodePath("../../../../NavigationAgent2D")
@@ -7010,7 +7010,7 @@ debug_path_custom_color = Color(0.443004, 0.631834, 1.92523e-07, 1)
 
 [node name="Farmer SenseTree" parent="Actors/People/Farmer" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("29_t4qt1")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232330")
+blackboard = NodePath("@Node@25502")
 
 [node name="Go To Farm" parent="Actors/People/Farmer/Farmer SenseTree/Farmer/Harvest and Deliver/Collect Resource/Gather Resource" index="0" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../../../../NavigationAgent2D")
@@ -7040,7 +7040,7 @@ debug_path_custom_color = Color(0.888047, 0.759058, 0.175603, 1)
 
 [node name="Cook SenseTree" parent="Actors/People/Cook" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("31_6oi35")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232331")
+blackboard = NodePath("@Node@25503")
 
 [node name="Go to Meal Storage" parent="Actors/People/Cook/Cook SenseTree/Cook/Take, Transform, Deliver Food/Deliver Meals/Sequence" index="0" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../../../../NavigationAgent2D")
@@ -7072,7 +7072,7 @@ avoidance_enabled = false
 
 [node name="Villager SenseTree" parent="Actors/People/Villager1" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("51_5clch")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232332")
+blackboard = NodePath("@Node@25504")
 
 [node name="Go Home" parent="Actors/People/Villager1/Villager SenseTree/Villager/Needs/Fulfill Needs/Fulfill Drowsiness/Go Sleep" index="0" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
@@ -7105,7 +7105,7 @@ avoidance_enabled = false
 
 [node name="Villager SenseTree" parent="Actors/People/Villager2" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("51_5clch")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232333")
+blackboard = NodePath("@Node@25505")
 
 [node name="Go Home" parent="Actors/People/Villager2/Villager SenseTree/Villager/Needs/Fulfill Needs/Fulfill Drowsiness/Go Sleep" index="0" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
@@ -7138,7 +7138,7 @@ avoidance_enabled = false
 
 [node name="Villager SenseTree" parent="Actors/People/Villager3" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("51_5clch")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232334")
+blackboard = NodePath("@Node@25506")
 
 [node name="Go Home" parent="Actors/People/Villager3/Villager SenseTree/Villager/Needs/Fulfill Needs/Fulfill Drowsiness/Go Sleep" index="0" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
@@ -7174,7 +7174,7 @@ debug_path_custom_color = Color(0.403922, 0.396078, 1, 1)
 
 [node name="Guard SenseTree" parent="Actors/People/Guard1" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("35_qlyor")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232335")
+blackboard = NodePath("@Node@25507")
 
 [node name="Go Home" parent="Actors/People/Guard1/Guard SenseTree/Guard/Needs/Fulfill Needs/Fulfill Drowsiness/Go Sleep" index="0" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
@@ -7211,7 +7211,7 @@ debug_path_custom_color = Color(0.403922, 0.396078, 1, 1)
 
 [node name="Guard SenseTree" parent="Actors/People/Guard2" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("35_qlyor")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232336")
+blackboard = NodePath("@Node@25508")
 
 [node name="Go Home" parent="Actors/People/Guard2/Guard SenseTree/Guard/Needs/Fulfill Needs/Fulfill Drowsiness/Go Sleep" index="0" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")
@@ -7245,7 +7245,7 @@ avoidance_enabled = false
 
 [node name="Wanderer SenseTree" parent="Actors/People/Wanderer" node_paths=PackedStringArray("actor", "blackboard") instance=ExtResource("37_80q6a")]
 actor = NodePath("..")
-blackboard = NodePath("@Node@232337")
+blackboard = NodePath("@Node@25509")
 
 [node name="Go Home" parent="Actors/People/Wanderer/Wanderer SenseTree/Wanderer/Needs/Fulfill Needs/Fulfill Drowsiness/Go Sleep" index="0" node_paths=PackedStringArray("navigation_agent", "waypoint")]
 navigation_agent = NodePath("../../../../../../../NavigationAgent2D")

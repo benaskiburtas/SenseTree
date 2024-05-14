@@ -33,7 +33,6 @@ func tick(actor: Node, blackboard: SenseTreeBlackboard) -> Status:
 	var blackboard_value: Variant = blackboard.get_value(blackboard_key)
 
 	if blackboard_value == null:
-		print("!!!!!! actor: %s" % actor.name)
 		return Status.FAILURE
 
 	if _validate_and_parse_expression(blackboard_value) != OK:

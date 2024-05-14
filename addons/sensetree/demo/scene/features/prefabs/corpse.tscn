@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://p778g3v3s4kp"]
 
-[ext_resource type="Texture2D" uid="uid://vtewnunqiwde" path="res://addons/sensetree/demo/scene/features/assets/Untitled.png" id="1_wlv5c"]
+[ext_resource type="Texture2D" uid="uid://vtewnunqiwde" path="res://addons/sensetree/demo/features/assets/Untitled.png" id="1_wlv5c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3x5e"]
 size = Vector2(40, 20)
