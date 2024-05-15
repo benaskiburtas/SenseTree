@@ -113,10 +113,11 @@ func _select_node_in_editor(selected_node: TreeVisualizerGraphNode) -> void:
 		if inspector_root_node.name == node_name:
 			matching_editor_node = inspector_root_node
 		else:
-			inspector_root_node.find_child(node_name, true)
+			matching_editor_node = inspector_root_node.find_child(node_name, true)
 
 	if not matching_editor_node:
 		return
+	
 
 	var scene_selector: EditorSelection = EditorInterface.get_selection()
 	scene_selector.clear()
