@@ -1,6 +1,4 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://dxoe4c5iqtvjn"]
-
-[ext_resource type="FontFile" uid="uid://dfwfllr50ofto" path="res://addons/sensetree/tree_visualizer/font/Code New Roman.woff" id="1_tr10m"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dxoe4c5iqtvjn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3frd1"]
 
@@ -200,7 +198,6 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [resource]
-default_font = ExtResource("1_tr10m")
 default_font_size = 14
 Button/colors/font_color = Color(0.509804, 0.929412, 0.278431, 0.6)
 Button/colors/font_focus_color = Color(0.509804, 0.929412, 0.278431, 0.6)
@@ -218,7 +215,7 @@ Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 16
-Button/fonts/font = ExtResource("1_tr10m")
+Button/fonts/font = null
 Button/styles/active = SubResource("StyleBoxFlat_3frd1")
 Button/styles/active_edit_mode_move_node_button = SubResource("StyleBoxFlat_mtau0")
 Button/styles/disabled = SubResource("StyleBoxFlat_hdyj4")
@@ -238,7 +235,7 @@ MenuButton/colors/font_hover_color = Color(0.741176, 0.6, 0.423529, 1)
 MenuButton/colors/font_outline_color = Color(1, 1, 1, 1)
 MenuButton/colors/font_pressed_color = Color(0.741176, 0.6, 0.423529, 1)
 MenuButton/font_sizes/font_size = 16
-PopupMenu/fonts/font = ExtResource("1_tr10m")
+PopupMenu/fonts/font = null
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_1qakh")
 PopupMenu/styles/labeled_separator_left = SubResource("StyleBoxFlat_nl4n6")
 PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxFlat_qrtsc")

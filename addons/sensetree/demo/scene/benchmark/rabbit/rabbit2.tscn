@@ -1,20 +1,18 @@
-[gd_scene load_steps=63 format=3 uid="uid://qnqcqj3vawl3"]
+[gd_scene load_steps=61 format=3 uid="uid://qnqcqj3vawl3"]
 
 [ext_resource type="Texture2D" uid="uid://ddaflpk08wonk" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/L shape houses.png" id="1_u5phd"]
 [ext_resource type="Texture2D" uid="uid://5qpn6x557p6g" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/long houses.png" id="2_gxxa4"]
 [ext_resource type="Texture2D" uid="uid://b1f8w1ybwwrw7" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/small houses.png" id="3_uq3uf"]
 [ext_resource type="Texture2D" uid="uid://htanq5lo5r02" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/special houses.png" id="4_jlkqn"]
-[ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Grass.png" id="5_uvdk7"]
-[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Wall.png" id="6_8w0qw"]
+[ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/scene/features/assets/TX/TX Tileset Grass.png" id="5_uvdk7"]
+[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/scene/features/assets/TX/TX Tileset Wall.png" id="6_8w0qw"]
 [ext_resource type="Texture2D" uid="uid://cgdigj48bo7w6" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/other.png" id="7_4e0su"]
-[ext_resource type="Script" path="res://addons/sensetree/demo/autonomic_tree/scripts/infinite_resource.gd" id="8_vcebs"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/attackable_actor.gd" id="9_0clak"]
 [ext_resource type="Texture2D" uid="uid://c3o7g1g27r4j6" path="res://addons/sensetree/demo/autonomic_tree/asset/sprites/animals/rabbit_idle.png" id="10_8hl7f"]
 [ext_resource type="Texture2D" uid="uid://cwsviwelshy7i" path="res://addons/sensetree/demo/autonomic_tree/asset/sprites/animals/rabbit.png" id="11_7mlcg"]
 [ext_resource type="Script" path="res://addons/sensetree/behavior_tree/node/tree.gd" id="12_mj7vv"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/behavior/action/roam_area_action.gd" id="13_tr858"]
-[ext_resource type="Script" path="res://addons/sensetree/demo/autonomic_tree/node/camera.gd" id="14_dh5yc"]
-[ext_resource type="Texture2D" uid="uid://b8ab0qpddludp" path="res://addons/sensetree/demo/features/assets/Props/Table-3.png" id="15_d2k4g"]
+[ext_resource type="Texture2D" uid="uid://b8ab0qpddludp" path="res://addons/sensetree/demo/scene/features/assets/Props/Table-3.png" id="15_d2k4g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6g2qu"]
 texture = ExtResource("1_u5phd")
@@ -4512,12 +4510,9 @@ navigation_polygon = SubResource("NavigationPolygon_68hx2")
 
 [node name="Well" type="Node2D" parent="Storage Nodes"]
 position = Vector2(-192, 16)
-script = ExtResource("8_vcebs")
 
 [node name="Food" type="Node2D" parent="Storage Nodes"]
 position = Vector2(240, 8)
-script = ExtResource("8_vcebs")
-storage_capacity = 8
 
 [node name="Markers" type="Node2D" parent="."]
 
@@ -4570,7 +4565,7 @@ debug_path_custom_color = Color(0.72549, 0.47451, 0.356863, 1)
 [node name="SenseTree" type="Node" parent="Entities/Rabbit1" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("12_mj7vv")
 actor = NodePath("..")
-blackboard = NodePath("@Node@74779")
+blackboard = NodePath("@Node@17930")
 
 [node name="SenseTreeRoamAreaAction" type="Node" parent="Entities/Rabbit1/SenseTree" node_paths=PackedStringArray("navigation_agent", "roaming_point")]
 script = ExtResource("13_tr858")
@@ -4600,9 +4595,10 @@ debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.72549, 0.47451, 0.356863, 1)
 
-[node name="SenseTree" type="Node" parent="Entities/Rabbit2" node_paths=PackedStringArray("actor")]
+[node name="SenseTree" type="Node" parent="Entities/Rabbit2" node_paths=PackedStringArray("actor", "blackboard")]
 script = ExtResource("12_mj7vv")
 actor = NodePath("..")
+blackboard = NodePath("@Node@17931")
 
 [node name="SenseTreeRoamAreaAction" type="Node" parent="Entities/Rabbit2/SenseTree" node_paths=PackedStringArray("navigation_agent", "roaming_point")]
 script = ExtResource("13_tr858")
@@ -4613,7 +4609,6 @@ roaming_point = NodePath("../../../../Markers/Roam Marker")
 position = Vector2(8, -48)
 collision_layer = 128
 collision_mask = 128
-script = ExtResource("14_dh5yc")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera"]

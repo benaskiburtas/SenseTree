@@ -6,7 +6,7 @@ extends SenseTreeActionLeaf
 ## Navigation agent to update and modify.
 @export var navigation_agent: NavigationAgent2D
 ## Agent navigation speed.
-@export var max_speed: float = 120
+@export var max_speed: float = 200
 ## Distance between actor position and fleeing point within which the target flee area is considered 'reached'.
 @export_range(10, 500) var desired_distance: float = 30
 @export var flee_distance: float = 50

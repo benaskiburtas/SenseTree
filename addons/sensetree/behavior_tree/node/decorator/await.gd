@@ -1,7 +1,7 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Retry.svg")
+@icon("res://addons/sensetree/behavior_tree/icon/Await.svg")
 class_name SenseTreeAwaitDecorator
-extends SenseTreeNode
+extends SenseTreeDecorator
 
 enum TimerStatus { STOPPED, RUNNING, FINISHED }
 
@@ -9,7 +9,6 @@ enum TimerStatus { STOPPED, RUNNING, FINISHED }
 @export var timer_duration: float = 5.0
 
 var _timer: Timer
-
 var _tick_result: Status
 var _timer_status: TimerStatus = TimerStatus.STOPPED
 var _actor: Node

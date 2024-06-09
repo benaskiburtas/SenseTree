@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://5qpn6x557p6g" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/long houses.png" id="2_ea5vj"]
 [ext_resource type="Texture2D" uid="uid://b1f8w1ybwwrw7" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/small houses.png" id="3_s2bko"]
 [ext_resource type="Texture2D" uid="uid://htanq5lo5r02" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/special houses.png" id="4_fcjac"]
-[ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Grass.png" id="5_7hkm2"]
-[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/features/assets/TX/TX Tileset Wall.png" id="6_4a8dq"]
+[ext_resource type="Texture2D" uid="uid://dk2bh5jek3d57" path="res://addons/sensetree/demo/autonomic_tree/asset/TX Tileset Grass.png" id="5_7hkm2"]
+[ext_resource type="Texture2D" uid="uid://b80mg2he8al0h" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/TX Tileset Wall.png" id="6_4a8dq"]
 [ext_resource type="Texture2D" uid="uid://cgdigj48bo7w6" path="res://addons/sensetree/demo/autonomic_tree/asset/environment/other.png" id="7_3umao"]
 [ext_resource type="Script" path="res://addons/sensetree/demo/autonomic_tree/scripts/infinite_resource.gd" id="8_j6iuj"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/scene/attackable_actor.gd" id="9_wmo0l"]
@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://addons/sensetree/behavior_tree/node/tree.gd" id="12_suvp5"]
 [ext_resource type="Script" path="res://addons/sensetree/example/node/behavior/action/roam_area_action.gd" id="13_6yt8k"]
 [ext_resource type="Script" path="res://addons/sensetree/demo/autonomic_tree/node/camera.gd" id="14_kj7ha"]
-[ext_resource type="Texture2D" uid="uid://b8ab0qpddludp" path="res://addons/sensetree/demo/features/assets/Props/Table-3.png" id="15_mly2c"]
+[ext_resource type="Texture2D" uid="uid://b8ab0qpddludp" path="res://addons/sensetree/demo/scene/features/assets/Props/Table-3.png" id="15_mly2c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6g2qu"]
 texture = ExtResource("1_i8b2t")

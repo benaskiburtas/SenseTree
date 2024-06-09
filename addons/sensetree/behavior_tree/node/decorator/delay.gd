@@ -1,7 +1,7 @@
 @tool
-@icon("res://addons/sensetree/behavior_tree/icon/Retry.svg")
+@icon("res://addons/sensetree/behavior_tree/icon/Delay.svg")
 class_name SenseTreePostponeDecorator
-extends SenseTreeNode
+extends SenseTreeDecorator
 
 enum TimerStatus { STOPPED, RUNNING, FINISHED }
 
